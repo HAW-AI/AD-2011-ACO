@@ -1,5 +1,6 @@
 package adp2.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import adp2.interfaces.*;
@@ -33,6 +34,20 @@ public final class TSPs {
      */
     public static Matrix NaM() {
         return NaM.valueOf();
+    }
+    
+    /**
+     * Create a Path
+     * 
+     * @param waypoints the waypoints in order of traversal
+     * @param distance  the total distance of the path
+     * @return a valid Path object or Path(EmptyList, -1) if waypoints is or
+     *         contains null or if distance is negative
+     */
+    public static Path path(List<Integer> waypoints, int distance) {
+        if (waypoints == null || waypoints.contains(null) || distance < 0)
+            return PathImpl.valueOf(new ArrayList<Integer>(), -1);
+        return PathImpl.valueOf(waypoints, distance);
     }
     
 }
