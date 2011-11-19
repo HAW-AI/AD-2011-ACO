@@ -10,6 +10,15 @@ import adp2.interfaces.*;
  *
  */
 public final class TSPs {
+    
+    /**
+     * Create a brute force TSP
+     * 
+     * @return brute force TSP
+     */
+    public static TSP bruteForceTSP() {
+        return BruteForceTSP.valueOf();
+    }
 
     /**
      * Create a Matrix with given dimensions and values.
