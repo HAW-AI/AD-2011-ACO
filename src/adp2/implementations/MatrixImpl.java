@@ -70,4 +70,12 @@ public final class MatrixImpl implements Matrix {
         return result.toString();
     }
 
+	@Override
+	public void set(int x, int y, int value) {
+        if (x < 0 || x >= this.width() || y < 0 || y >= this.height()) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        values.add(x + (y * width()), value);
+	}
+
 }

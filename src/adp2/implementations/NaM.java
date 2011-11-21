@@ -43,4 +43,11 @@ public final class NaM implements Matrix {
         return "NaM";
     }
 
+	@Override
+	public void set(int x, int y, int value) {
+		
+	}
+    
+    
+
 }
