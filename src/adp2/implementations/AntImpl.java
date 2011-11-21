@@ -14,7 +14,6 @@ import java.util.Set;
 public class AntImpl implements Ant {
 	private List<Integer> path; // der aktuelle Weg
 	private int weglaenge;	// die aktuelle Weglaenge
-	private int startNode;	//startknoten
 	private Set<Integer> unvisitedNodes;	//alle Knoten des Graphen, bei dem Ameise noch nicht war
 	private double alpha; 
 	private Graph g;
@@ -24,7 +23,7 @@ public class AntImpl implements Ant {
 	private AntImpl(int startNode, double alpha, Graph g){
 		path = new ArrayList<Integer>();
 		weglaenge = 0;
-		this.startNode = startNode;
+		path.add(startNode);
 		this.g = g;
 		unvisitedNodes = g.allNodes();
 		this.alpha = alpha;
@@ -47,7 +46,6 @@ public class AntImpl implements Ant {
 
 	@Override
 	public int position() {
-		if(path.size() == 0) return -1;
 		return this.path.get(path.size()-1);
 	}
 	
@@ -68,7 +66,9 @@ public class AntImpl implements Ant {
 		Map<Integer,Double> probability = new HashMap<Integer,Double>();
 		
 		for(Integer elem : unvisitedNodes){
-				probability.put(elem,balance(g.intensity(position(), elem), g.minDist(position(), elem)));
+			if(unvisitedNodes.contains(elem)){
+				probability.put(elem,balance(g.intensity(position(), elem), g.distance(position(), elem)));
+			}
 		}
 		
 		
@@ -126,7 +126,7 @@ public class AntImpl implements Ant {
 		path.add(minNode);
 		unvisitedNodes.remove(minNode);
 		
-		if(unvisitedNodes.isEmpty() && path.get(path.size() - 1) == startNode){
+		if(unvisitedNodes.isEmpty() && path.get(path.size() - 1) == path.get(0)){
 			finished = true;;
 		}
 		
