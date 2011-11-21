@@ -1,7 +1,7 @@
 package adp2.implementations;
 
-import adp2.interfaces.Graph;
 import adp2.interfaces.Ant;
+import adp2.interfaces.Graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +51,8 @@ public class AntImpl implements Ant {
 		return this.path.get(path.size()-1);
 	}
 	
+	
+	// bessere Funktion ueberlegen !!!!!!!!!!!!!!!!!!!
 	private double balance(double pher, double dist){
 		double result = (alpha * pher) + ((1-alpha) * (10.0/dist));
 		return result;
@@ -65,8 +67,8 @@ public class AntImpl implements Ant {
 		  */
 		Map<Integer,Double> probability = new HashMap<Integer,Double>();
 		
-		for(Integer elem : g.neighbors(position())){
-				probability.put(elem,balance(g.intensity(position(), elem), g.distance(position(), elem)));
+		for(Integer elem : unvisitedNodes){
+				probability.put(elem,balance(g.intensity(position(), elem), g.minDist(position(), elem)));
 		}
 		
 		
@@ -98,7 +100,6 @@ public class AntImpl implements Ant {
 			probability.put(entry.getKey(), wahrscheinlichkeit);
 			vorgaenger = wahrscheinlichkeit;
 		}
-		System.out.println("Prob: " + probability);
 		
 		
 		/*
@@ -117,7 +118,11 @@ public class AntImpl implements Ant {
 		}
 		
 		
-		weglaenge += g.distance(position(), minNode);
+		weglaenge += g.minDist(position(), minNode);
+		for(Integer elem : g.pointsBetween(position(),minNode)){
+			path.add(elem);
+			unvisitedNodes.remove(elem);
+		}
 		path.add(minNode);
 		unvisitedNodes.remove(minNode);
 		
@@ -132,8 +137,7 @@ public class AntImpl implements Ant {
 		return this.weglaenge;
 	}
 
-	
-	
+		
 	public double alpha(){
 		return this.alpha;
 	}
