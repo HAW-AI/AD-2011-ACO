@@ -6,21 +6,21 @@ import java.util.List;
 
 import adp2.interfaces.Matrix;
 
-public final class MatrixImpl implements Matrix {
+public final class MatrixImpl<E> implements Matrix<E> {
 
     final private int width;
     final private int height;
-    final private List<Integer> values;
+    final private List<E> values;
     
-    public static Matrix valueOf(int width, int height, List<Integer> values) {
+    public static <E> Matrix<E> valueOf(int width, int height, List<E> values) {
         // pre-condition check in factory!
-        return new MatrixImpl(width, height, values);
+        return new MatrixImpl<E>(width, height, values);
     }
 
-    private MatrixImpl(int width, int height, List<Integer> values) {
+    private MatrixImpl(int width, int height, List<E> values) {
         this.width = width;
         this.height = height;
-        this.values = new ArrayList<Integer>(values);
+        this.values = new ArrayList<E>(values);
     }
 
     @Override
@@ -34,12 +34,12 @@ public final class MatrixImpl implements Matrix {
     }
 
     @Override
-    public Iterator<Integer> iterator() {
-        return new ArrayList<Integer>(values).iterator();
+    public Iterator<E> iterator() {
+        return new ArrayList<E>(values).iterator();
     }
 
     @Override
-    public int get(int x, int y) {
+    public E get(int x, int y) {
         if (x < 0 || x >= this.width() || y < 0 || y >= this.height()) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -48,8 +48,8 @@ public final class MatrixImpl implements Matrix {
     
     @Override
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof MatrixImpl)) return false;
-        return ((MatrixImpl)o).values.equals(values);
+        if (o == null || !(o instanceof MatrixImpl<?>)) return false;
+        return ((MatrixImpl<?>)o).values.equals(values);
     }
     
     @Override
@@ -71,7 +71,7 @@ public final class MatrixImpl implements Matrix {
     }
 
 	@Override
-	public void set(int x, int y, int value) {
+	public void set(int x, int y, E value) {
         if (x < 0 || x >= this.width() || y < 0 || y >= this.height()) {
             throw new ArrayIndexOutOfBoundsException();
         }

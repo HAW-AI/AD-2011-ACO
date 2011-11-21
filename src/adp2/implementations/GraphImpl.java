@@ -10,12 +10,12 @@ import adp2.interfaces.Matrix;
 
 public class GraphImpl implements Graph {
 
-	private final Matrix distance;
-	private Matrix pheromones;
+	private final Matrix<Integer> distance;
+	private Matrix<Double> pheromones;
 	private Double[][] dm;
 	private Double[][] tm;
 
-	private GraphImpl(Matrix distance, Matrix pheromones) {
+	private GraphImpl(Matrix<Integer> distance, Matrix<Double> pheromones) {
 		this.distance = distance;
 		this.pheromones = pheromones;
 		dm = new Double[distance.width()][distance.height()];
@@ -74,7 +74,7 @@ public class GraphImpl implements Graph {
 		for (int i = 0; i < pheromones.width(); i++) {
 			for (int j = 0; j < pheromones.height(); j++) {
 				if (pheromones.get(i, j) - value < 0) {
-					pheromones.set(i, j, 0);
+					pheromones.set(i, j, 0.);
 				} else {
 					pheromones.set(i, j, pheromones.get(i, j) - value);
 				}

@@ -21,7 +21,7 @@ public final class BruteForceTSP implements TSP {
     private BruteForceTSP() {}
 
     @Override
-    public Path minPath(Matrix distances) {
+    public Path minPath(Matrix<Integer> distances) {
         Path invalidPath = path(new ArrayList<Integer>(), -1);
         
         if (distances.width() != distances.height())

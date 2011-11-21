@@ -1,6 +1,6 @@
 package adp2.interfaces;
 
-public interface Matrix extends Iterable<Integer> {
+public interface Matrix<E> extends Iterable<E> {
 
     /**
      * The width of the Matrix.
@@ -23,7 +23,7 @@ public interface Matrix extends Iterable<Integer> {
      * @param y y-position
      * @return the value at (x, y)
      */
-    int get(int x, int y);
+    E get(int x, int y);
     
     /**
      * Set a value at the positin (x,y) in the Matrix.
@@ -32,6 +32,6 @@ public interface Matrix extends Iterable<Integer> {
      * @param y y-position
      * @param value the value which should be set at (x,y)
      */
-    void set(int x, int y, int value);
+    void set(int x, int y, E value);
     
 }

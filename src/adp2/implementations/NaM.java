@@ -5,11 +5,11 @@ import java.util.Iterator;
 
 import adp2.interfaces.Matrix;
 
-public final class NaM implements Matrix {
+public final class NaM implements Matrix<Object> {
     
-    private static Matrix instance;
+    private static Matrix<Object> instance;
     
-    public static Matrix valueOf() {
+    public static Matrix<Object> valueOf() {
         if (instance == null) {
             instance = new NaM();
         }
@@ -19,8 +19,8 @@ public final class NaM implements Matrix {
     private NaM() {}
 
     @Override
-    public Iterator<Integer> iterator() {
-        return new ArrayList<Integer>().iterator();
+    public Iterator<Object> iterator() {
+        return new ArrayList<Object>().iterator();
     }
 
     @Override
@@ -34,7 +34,7 @@ public final class NaM implements Matrix {
     }
 
     @Override
-    public int get(int x, int y) {
+    public Integer get(int x, int y) {
         throw new IndexOutOfBoundsException();
     }
     
@@ -44,7 +44,7 @@ public final class NaM implements Matrix {
     }
 
 	@Override
-	public void set(int x, int y, int value) {
+	public void set(int x, int y, Object value) {
 		
 	}
     
