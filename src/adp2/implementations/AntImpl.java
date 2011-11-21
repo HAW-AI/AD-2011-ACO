@@ -52,6 +52,12 @@ public class AntImpl implements Ant {
 	
 	// bessere Funktion ueberlegen !!!!!!!!!!!!!!!!!!!
 	private double balance(double pher, double dist){
+		/*
+		 * result = (alpha *  (Pheromon/100)) + ((1 - alpha) * (1 - (aktuelleEntfernung / maximaleEntfernung)))
+		 * 
+		 * maximaleEntfernung = Groesste Entfernung zu einem aktuellen Nachbarn
+		 * aktuelleEntfernung = Entfernung zu dem aktuell Betrachteten Nachbarn
+		 */
 		double result = (alpha * pher) + ((1-alpha) * (10.0/dist));
 		return result;
 	}
