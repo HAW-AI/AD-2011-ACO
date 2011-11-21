@@ -18,6 +18,7 @@ public class AntImpl implements Ant {
 	private double alpha; 
 	private Graph g;
 	boolean finished;
+	private int waitingTime=0;
 	
 	
 	private AntImpl(int startNode, double alpha, Graph g){
@@ -58,76 +59,81 @@ public class AntImpl implements Ant {
 
 	@Override
 	public void step() {
-		
-		 /*bildet die Nachbarn einen Wert ab, der sich aus Pheromongehalt und Weglaenge ergibt
-		  *  ==> balance aus den beiden Werten
-		  *  die Entfernung geht mit 1/Enfernung ein, da kleinere Entfernungen besser als größere
-		  */
-		Map<Integer,Double> probability = new HashMap<Integer,Double>();
-		
-		for(Integer elem : unvisitedNodes){
-			if(unvisitedNodes.contains(elem)){
-				probability.put(elem,balance(g.intensity(position(), elem), g.distance(position(), elem)));
+		if(waitingTime>0) waitingTime--;
+		else {
+			
+			 /*bildet die Nachbarn einen Wert ab, der sich aus Pheromongehalt und Weglaenge ergibt
+			  *  ==> balance aus den beiden Werten
+			  *  die Entfernung geht mit 1/Enfernung ein, da kleinere Entfernungen besser als grï¿½ï¿½ere
+			  */
+			Map<Integer,Double> probability = new HashMap<Integer,Double>();
+			
+			for(Integer elem : unvisitedNodes){
+				if(unvisitedNodes.contains(elem)){
+					probability.put(elem,balance(g.intensity(position(), elem), g.distance(position(), elem)));
+				}
 			}
-		}
-		
-		
-		/*
-		 * bildet die Summe aus allen Balancewerten ==> aus den einzelnen Werten und der Summe wird im 
-		 * naechsten Schritt die Wahrscheinlichkeit gebildet
-		 */
-		double summe = 0;
-		for(Double elem : probability.values()){
-			summe += elem;
-		}
-		
-		
-		/*bildet die Nachbarn auf einen Wert zwischen 0 und 1 ab
-		 * Wert = eigene Wahrscheinlichkeit + vorher berechneter Wert
-		 * Bsp:
-		 * 
-		 * Node			Wahrscheinlichkeit		Wert
-		 * 1			0.3						0.3
-		 * 2			0.1						0.4
-		 * 3			0.5						0.9
-		 * 4			0.1						1.0
-		 */
-		double vorgaenger = 0;
-		
-		for(Map.Entry<Integer,Double> entry : probability.entrySet()){
-			double wahrscheinlichkeit = entry.getValue()/summe + vorgaenger;
-			if(wahrscheinlichkeit > 1.0) wahrscheinlichkeit = 1;
-			probability.put(entry.getKey(), wahrscheinlichkeit);
-			vorgaenger = wahrscheinlichkeit;
-		}
-		
-		
-		/*
-		 * Integriert die zufaellig Auswahl des Weges der Ameise durch verrechnen eines
-		 * Random Wertes (0.0 - 1.0) mit der vorher errechneten Wahrscheinlichkeit
-		 * ==> Wahl des naechsten Punktes auf dem Weg 
-		 */
-		double wert = Math.random();
-		int minNode = 1;
-		double minValue = 1;
-		for(Map.Entry<Integer, Double> e : probability.entrySet()){
-			if(e.getValue() >= wert && e.getValue() <= minValue){
-				minNode = e.getKey();
-				minValue = e.getValue();
+			
+			
+			/*
+			 * bildet die Summe aus allen Balancewerten ==> aus den einzelnen Werten und der Summe wird im 
+			 * naechsten Schritt die Wahrscheinlichkeit gebildet
+			 */
+			double summe = 0;
+			for(Double elem : probability.values()){
+				summe += elem;
 			}
-		}
-		
-		
-		weglaenge += g.minDist(position(), minNode);
-		for(Integer elem : g.pointsBetween(position(),minNode)){
-			path.add(elem);
-			unvisitedNodes.remove(elem);
-		}
-		path.add(minNode);
-		unvisitedNodes.remove(minNode);
-		
-		if(unvisitedNodes.isEmpty() && path.get(path.size() - 1) == path.get(0)){
-			finished = true;;
+			
+			
+			/*bildet die Nachbarn auf einen Wert zwischen 0 und 1 ab
+			 * Wert = eigene Wahrscheinlichkeit + vorher berechneter Wert
+			 * Bsp:
+			 * 
+			 * Node			Wahrscheinlichkeit		Wert
+			 * 1			0.3						0.3
+			 * 2			0.1						0.4
+			 * 3			0.5						0.9
+			 * 4			0.1						1.0
+			 */
+			double vorgaenger = 0;
+			
+			for(Map.Entry<Integer,Double> entry : probability.entrySet()){
+				double wahrscheinlichkeit = entry.getValue()/summe + vorgaenger;
+				if(wahrscheinlichkeit > 1.0) wahrscheinlichkeit = 1;
+				probability.put(entry.getKey(), wahrscheinlichkeit);
+				vorgaenger = wahrscheinlichkeit;
+			}
+			
+			
+			/*
+			 * Integriert die zufaellig Auswahl des Weges der Ameise durch verrechnen eines
+			 * Random Wertes (0.0 - 1.0) mit der vorher errechneten Wahrscheinlichkeit
+			 * ==> Wahl des naechsten Punktes auf dem Weg 
+			 */
+			double wert = Math.random();
+			int minNode = 1;
+			double minValue = 1;
+			for(Map.Entry<Integer, Double> e : probability.entrySet()){
+				if(e.getValue() >= wert && e.getValue() <= minValue){
+					minNode = e.getKey();
+					minValue = e.getValue();
+				}
+			}
+			
+			
+			weglaenge += g.minDist(position(), minNode);
+			for(Integer elem : g.pointsBetween(position(),minNode)){
+				path.add(elem);
+				unvisitedNodes.remove(elem);
+			}
+			path.add(minNode);
+			unvisitedNodes.remove(minNode);
+			
+			if(unvisitedNodes.isEmpty() && path.get(path.size() - 1) == path.get(0)){
+				finished = true;;
+			}
+			
+			waitingTime=g.distance(path.get(path.size()-2), path.get(path.size()-1));
 		}
 		
 	}
