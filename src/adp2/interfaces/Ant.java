@@ -9,6 +9,7 @@ public interface Ant {
 	boolean hasFinished();
 	int weglaenge();
 	double alpha();
+	int getWaitingTime();
 	
 }
 
