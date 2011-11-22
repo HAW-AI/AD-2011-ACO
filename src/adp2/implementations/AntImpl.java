@@ -93,8 +93,13 @@ public class AntImpl implements Ant {
 
 	@Override
 	public void step() {
+		if(finished) System.out.println("Tote Ameise, kann nicht laufen");
 		if(waitingTime>0) waitingTime--;
-		else {
+		else if (!finished){
+			if(unvisitedNodes.isEmpty()){
+				unvisitedNodes.add(path.get(0));
+			}
+			
 			
 			 
 			// berechnung der balances
@@ -156,11 +161,12 @@ public class AntImpl implements Ant {
 			unvisitedNodes.remove(minNode);
 			
 			if(unvisitedNodes.isEmpty() && path.get(path.size() - 1) == path.get(0)){
-				finished = true;;
+				finished = true;
 			}
 			
 			waitingTime=g.distance(path.get(path.size()-2), path.get(path.size()-1));
 		}
+
 		
 	}
 
