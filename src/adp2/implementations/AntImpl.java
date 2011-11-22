@@ -180,6 +180,10 @@ public class AntImpl implements Ant {
 		return this.alpha;
 	}
 	
+	public int getWaitingTime(){
+		return this.waitingTime;
+	}
+	
 	
 	
 
