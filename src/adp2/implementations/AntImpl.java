@@ -5,6 +5,7 @@ import adp2.interfaces.Graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,16 +52,43 @@ public class AntImpl implements Ant {
 	}
 	
 	
+	private Set<Integer> unvisitedNeighbors(){
+		Set<Integer> neighbors = g.neighbors(position());
+		neighbors.retainAll(unvisitedNodes);
+		return neighbors;
+	}
 	
-	private double balance(double pher, double dist){
-		/*
-		 * result = (alpha *  (Pheromon/100)) + ((1 - alpha) * (1 - (aktuelleEntfernung / maximaleEntfernung)))
-		 * 
-		 * maximaleEntfernung = Groesste Entfernung zu einem aktuellen Nachbarn
-		 * aktuelleEntfernung = Entfernung zu dem aktuell Betrachteten Nachbarn
-		 */
-		double result = (alpha * pher) + ((1-alpha) * (10.0/dist));
+	
+	/*bildet zur aktuellen Position alle unbesuchten Nachbarn dieses Knotens auf einen Balance-Wert ab
+	 * 
+	 * Formel zur Berechnung der Balance: [alpha * (Pheromon/maxPheromon) + [(1- alpha) * (Distanz/maxDistanz)]
+	 * 			dabei geben Pheromon und Distanz die jeweiligen Werte der aktuellen Kante zurueck
+	 * 			die MaxWerte die maximalen Werte aller inzidenten Kanten des aktuellen Knotens
+	 */
+	private Map<Integer, Double> balances(){
+		Map<Integer,Double> result = new HashMap<Integer,Double>();
+		//suche maximale Entfernung zu allen Nachbarn + 
+		//suche maximalen Pheromongehalt auf den Kanten zu allen Nachbarn
+		double maxDist = -1.0;
+		double maxPher = -1.0;
+		for(Integer elem : this.unvisitedNeighbors()){
+			if(g.distance(position(), elem) > maxDist){
+				maxDist = g.distance(position(), elem);
+			}
+			if(g.intensity(position(), elem) > maxPher){
+				maxPher = g.intensity(position(), elem);
+			}
+		}
+		
+		// berechne die balances und speichere sie in der Map
+		for(Integer elem : this.unvisitedNeighbors()){
+			double balance = alpha * (g.intensity(position(), elem) / maxPher);
+			balance += (1- alpha) * (g.distance(position(), elem) / maxDist);
+			result.put(elem,balance);
+		}
 		return result;
+		
+		
 	}
 
 	@Override
@@ -68,17 +96,9 @@ public class AntImpl implements Ant {
 		if(waitingTime>0) waitingTime--;
 		else {
 			
-			 /*bildet die Nachbarn einen Wert ab, der sich aus Pheromongehalt und Weglaenge ergibt
-			  *  ==> balance aus den beiden Werten
-			  *  die Entfernung geht mit 1/Enfernung ein, da kleinere Entfernungen besser als gr��ere
-			  */
-			Map<Integer,Double> probability = new HashMap<Integer,Double>();
-			
-			for(Integer elem : unvisitedNodes){
-				if(unvisitedNodes.contains(elem)){
-					probability.put(elem,balance(g.intensity(position(), elem), g.distance(position(), elem)));
-				}
-			}
+			 
+			// berechnung der balances
+			Map<Integer,Double> probability = balances();		
 			
 			
 			/*
