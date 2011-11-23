@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import adp2.interfaces.*;
-import static adp2.implementations.TSPs.*;
+import static adp2.implementations.Values.*;
 
 public final class BruteForceTSP implements TSP {
     

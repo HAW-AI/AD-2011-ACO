@@ -25,7 +25,7 @@ public class GraphImpl implements Graph {
 
 	public static Graph valueOf(Matrix<Integer> distance, Matrix<Double> pheromones) {
 		if (distance == null ||  pheromones == null) {
-			return TSPs.NaG();
+			return Values.NaG();
 		}
 		return new GraphImpl(distance, pheromones);
 	}

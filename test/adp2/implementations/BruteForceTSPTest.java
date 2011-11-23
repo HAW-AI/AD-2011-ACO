@@ -9,7 +9,7 @@ import org.junit.Test;
 import adp2.interfaces.Matrix;
 import adp2.interfaces.Path;
 import adp2.interfaces.TSP;
-import static adp2.implementations.TSPs.*;
+import static adp2.implementations.Values.*;
 
 import static java.util.Arrays.asList;
 
