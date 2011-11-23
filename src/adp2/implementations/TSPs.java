@@ -68,7 +68,7 @@ public final class TSPs {
      *
      * @return Not an Ant
      */
-    public static Ant NaP() {
+    public static Path NaP() {
     	return NaP.valueOf();
     }
 
