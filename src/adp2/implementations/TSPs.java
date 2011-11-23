@@ -30,7 +30,7 @@ public final class TSPs {
      * @return a valid Matrix object or NaM if any argument is or contains null
      *         or values.size() != width*height
      */
-    public static Matrix matrix(int width, int height, List<Integer> values) {
+    public static <T> Matrix<T> matrix(int width, int height, List<T> values) {
         if (values == null || values.size() != width*height || values.contains(null))
             return NaM();
         return MatrixImpl.valueOf(width, height, values);
@@ -41,7 +41,7 @@ public final class TSPs {
      * 
      * @return Not a Matrix
      */
-    public static Matrix NaM() {
+    public static <T> Matrix<T> NaM() {
         return NaM.valueOf();
     }
 
