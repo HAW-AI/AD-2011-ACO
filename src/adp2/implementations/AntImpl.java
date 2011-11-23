@@ -27,7 +27,7 @@ public class AntImpl implements Ant {
 		weglaenge = 0;
 		path.add(startNode);
 		this.g = g;
-		unvisitedNodes = g.allNodes();
+		unvisitedNodes = g.neighbors(startNode);
 		this.alpha = alpha;
 		finished = false;
 	}
