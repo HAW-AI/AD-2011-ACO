@@ -139,8 +139,8 @@ public class GraphImpl extends mxGraph implements Graph {
 	}
 
 	private void floydWarshall() {
-		for (int i = 0; i <= distance.width(); i++) {
-			for (int j = 0; j <= distance.height(); j++) {
+		for (int i = 0; i < distance.width(); i++) {
+			for (int j = 0; j < distance.height(); j++) {
 				tm[i][j] = 0.0;
 				if (!(i == j)) {
 					if (distance.get(i, j) == -1) {
@@ -154,10 +154,10 @@ public class GraphImpl extends mxGraph implements Graph {
 			}
 		}
 
-		for (int i = 0; i <= distance.width(); i++) {
-			for (int j = 0; j <= distance.height(); j++) {
+		for (int i = 0; i < distance.width(); i++) {
+			for (int j = 0; j < distance.height(); j++) {
 				if (!(i == j)) {
-					for (int k = 0; k <= distance.width(); k++) {
+					for (int k = 0; k < distance.width(); k++) {
 						if (!(j == k)) {
 							if (dm[i][k] != Math.min(dm[i][k],
 									(dm[i][j] + dm[j][k]))) {
