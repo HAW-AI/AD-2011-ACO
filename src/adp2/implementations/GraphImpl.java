@@ -23,6 +23,13 @@ public class GraphImpl implements Graph {
 		floydWarshall();
 	}
 
+	public static Graph valueOf(Matrix<Integer> distance, Matrix<Double> pheromones) {
+		if (distance == null ||  pheromones == null) {
+			return new NaG();
+		}
+		return new GraphImpl(distance, pheromones);
+	}
+
 	@Override
 	public int distance(int von, int nach) {
 		int d;
