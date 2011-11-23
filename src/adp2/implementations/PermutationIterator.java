@@ -31,7 +31,7 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
      */
     @Override
     public boolean hasNext() {
-        return !permutation.equals(lastPermutation);
+        return (isFirstPermutation && !permutation.isEmpty()) || !permutation.equals(lastPermutation);
     }
 
     /**
