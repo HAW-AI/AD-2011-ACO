@@ -50,4 +50,9 @@ public class NaA implements Ant {
 	public int getWaitingTime() {
 		return 0;
 	}
+
+	@Override
+	public int prePosition() {
+		return -1;
+	}
 }

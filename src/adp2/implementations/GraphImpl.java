@@ -34,7 +34,7 @@ public class GraphImpl extends mxGraph implements Graph {
 		double schritt = 360/NoOfVertexs;
 		
 		
-		//Böse Rundungsfehler, kann sich vielleicht nochmal jemand angucken
+		//Bï¿½se Rundungsfehler, kann sich vielleicht nochmal jemand angucken
 		
 		for (Double temp = 0.0; temp<NoOfVertexs;temp++) {
 			
@@ -135,6 +135,14 @@ public class GraphImpl extends mxGraph implements Graph {
 					pheromones.set(i, j, pheromones.get(i, j) - value);
 				}
 			}
+		}
+	}
+	
+	@Override
+	public void incrementPheromone(List<List<Integer>> pheromoneUpdateList){
+		for(List<Integer> update : pheromoneUpdateList){
+			pheromones.set(update.get(0), update.get(1),pheromones.get(update.get(0), update.get(1))+update.get(2));
+			pheromones.set(update.get(1), update.get(0),pheromones.get(update.get(1), update.get(0))+update.get(2));
 		}
 	}
 

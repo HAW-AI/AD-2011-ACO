@@ -49,21 +49,21 @@ public class SimulationImpl implements Simulation{
 	    	long startzeit = System.currentTimeMillis();
 	    	while(System.currentTimeMillis()-startzeit < 2000){ //Abbruch nach 10Sec
 	    		int i = 0;
-	    		// Ants hinzufügen
+	    		// Ants hinzufï¿½gen
 	    		while (i < antList.size()){
 	    			System.out.println(antList.get(i).position()+" -> "+antList.get(i).weglaenge());
 	    			if (antList.get(i).hasFinished()) {
 	    				if (antList.get(i).weglaenge() < bestDistance) {
 	    					bestDistance = antList.get(i).weglaenge();
-	    					bestPath = antList.get(i).traveledPath();
+	    					bestPath = antList.get(i).traveledPath().waypoints();
 	    				}
 	    				antList.remove(i);
 	    			} else {
 	    				System.out.println("Und nochn Schritt!");
 		    			if(antList.get(i).getWaitingTime() == 0){ //Befindlich auf Knoten
 		    				antList.get(i).step(); //Entscheidungsalgorithmus
-		    				System.out.println("Hüpf");
-		    				addPheromoneUpdate(antList.get(i).prePosition()-1,antList.get(i).position()-1,pheromoneIntensity); //Füge neu betretene kante dem vaporise set hinzu
+		    				System.out.println("Hï¿½pf");
+		    				addPheromoneUpdate(antList.get(i).prePosition()-1,antList.get(i).position()-1,pheromoneIntensity); //Fï¿½ge neu betretene kante dem vaporise set hinzu
 		    			}else{
 		    				antList.get(i).step();
 
@@ -78,7 +78,7 @@ public class SimulationImpl implements Simulation{
 //	    			
 //	    			if(ant.getWaitingTime() == 0){ //Befindlich auf Knoten
 //	    				ant.step(); //Entscheidungsalgorithmus
-//	    				addPheromoneUpdate(ant.prePosition(),ant.position(),pheromoneIntensity); //Füge neu betretene kante dem vaporise set hinzu
+//	    				addPheromoneUpdate(ant.prePosition(),ant.position(),pheromoneIntensity); //Fï¿½ge neu betretene kante dem vaporise set hinzu
 //	    			}else{
 //	    				ant.step();
 //	    			}

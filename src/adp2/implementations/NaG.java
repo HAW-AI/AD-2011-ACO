@@ -56,4 +56,9 @@ public class NaG implements Graph {
 	@Override
 	public void highlightPath(Path p) {
 	}
+
+	@Override
+	public void incrementPheromone(List<List<Integer>> pheromoneUpdateList) {
+		
+	}
 }
