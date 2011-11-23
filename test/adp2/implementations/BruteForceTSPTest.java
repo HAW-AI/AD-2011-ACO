@@ -18,6 +18,23 @@ import static adp2.implementations.TSPs.*;
 import static java.util.Arrays.asList;
 
 
+// Tests run against the Scala implementation from Esser:
+//    
+//    def minPath(cities: List[Int], distance: (Int, Int) => Int) =
+//    cities.permutations.foldLeft(cities, Int.MaxValue) {
+//      (cPathMin, cPath) => {
+//        val sum = cPath.zip(cPath.tail).foldLeft(0)((d, cc) => d + distance(cc._1, cc._2)) + distance(cPath.last, cPath.first)
+//        if (cPathMin._2 > sum) (cPath, sum) else cPathMin
+//      }
+//    }
+//  
+//    def distance(c1: Int, c2: Int) = 100/(if (c1>c2) (c1 - c2) else (c2 - c1))
+//            
+//            
+// "+ distance(cPath.last, cPath.first)" was added to add the distance back to
+// the start point.
+
+
 public class BruteForceTSPTest {
     private TSP tsp;
     
