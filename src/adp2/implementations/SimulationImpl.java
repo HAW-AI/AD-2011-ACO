@@ -44,7 +44,7 @@ public class SimulationImpl implements Simulation{
 	    	addAnts(AntsByStep);
 	    }
 	    
-	    
+	    @Override
 	    public void start(){
 	    	long startzeit = System.currentTimeMillis();
 	    	while(System.currentTimeMillis()-startzeit < 2000){ //Abbruch nach 10Sec
