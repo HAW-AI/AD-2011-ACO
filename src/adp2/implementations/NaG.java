@@ -8,6 +8,16 @@ import java.util.Set;
 import adp2.interfaces.Graph;
 
 public class NaG implements Graph {
+	public static Graph instance;
+
+	public static Graph valueOf() {
+		if (instance == null) {
+            instance = new NaG();
+        }
+        return instance;
+	}
+
+	private NaG() {}
 
 	@Override
 	public int distance(int von, int nach) {
@@ -41,5 +51,4 @@ public class NaG implements Graph {
 	public int minDist(int von, int bis) {
 		return -1;
 	}
-
 }

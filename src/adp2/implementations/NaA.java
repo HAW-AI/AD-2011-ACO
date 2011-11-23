@@ -6,6 +6,14 @@ import java.util.List;
 import adp2.interfaces.Ant;
 
 public class NaA implements Ant {
+	public static NaA instance;
+
+	public static Ant valueOf() {
+		if (instance == null) {
+            instance = new NaA();
+        }
+        return instance;
+	}
 
 	@Override
 	public List<Integer> traveledPath() {
@@ -39,5 +47,4 @@ public class NaA implements Ant {
 	public int getWaitingTime() {
 		return 0;
 	}
-
 }
