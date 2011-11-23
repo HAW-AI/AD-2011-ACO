@@ -53,6 +53,9 @@ public final class BruteForceTSP implements TSP {
                 distance += distances.get(perm.get(i)-1, perm.get(i+1)-1);
             }
             
+            // add way back to start point
+            distance += distances.get(perm.get(perm.size()-1)-1, perm.get(0)-1);
+            
             if (minDistance > distance) {
                 minWaypoints = new ArrayList<Integer>(perm);
                 minDistance = distance;
