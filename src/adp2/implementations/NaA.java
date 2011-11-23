@@ -15,6 +15,8 @@ public class NaA implements Ant {
         return instance;
 	}
 
+	private NaA() {}
+
 	@Override
 	public List<Integer> traveledPath() {
 		return new ArrayList<Integer>();
