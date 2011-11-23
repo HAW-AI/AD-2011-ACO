@@ -183,7 +183,7 @@ public class AntImpl implements Ant {
 			}
 			
 			
-			weglaenge += g.minDist(position(), minNode);
+			weglaenge += g.distance(position(), minNode);
 			for(Integer elem : g.pointsBetween(position(),minNode)){
 				path.add(elem);
 				unvisitedNodes.remove(elem);
