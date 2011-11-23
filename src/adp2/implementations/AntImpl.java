@@ -184,13 +184,15 @@ public class AntImpl implements Ant {
 			
 			
 			weglaenge += g.distance(position(), minNode);
-			
+
 			path.add(minNode);
 			unvisitedNodes.remove(minNode);
 			
 			if(unvisitedNodes.isEmpty() && path.get(path.size() - 1) == path.get(0)){
 				finished = true;
 			}
+			
+			
 			
 			waitingTime=g.distance(path.get(path.size()-2), path.get(path.size()-1));
 		}

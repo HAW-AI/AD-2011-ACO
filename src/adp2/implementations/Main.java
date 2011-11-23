@@ -17,7 +17,7 @@ public class Main {
 				3, 20, 20, 20, 20, 20, 20, 20, 3, 0, 10,
 				2, 3, 20, 20, 20, 20, 20, 10, 0, 4, 20,
 				20, 20, 20, 20, 20, 2, 4, 0);
-		List<Integer> graphy = Arrays.asList(
+		List<Integer> graphy = Arrays.asList(  // 5 x 5 matrix
 				0, 1, 2, 4, 5,
 				1, 0, 6, 2, 3,
 				2, 6, 0, 9, 1,
@@ -53,8 +53,8 @@ public class Main {
 		for (int i = 0; i < 225; i++) {
 			pher.add(0.0);
 		}
-		Matrix<Integer> distM = MatrixImpl.valueOf(2, 2, easy);
-		Matrix<Double> pherM = MatrixImpl.valueOf(2, 2, pher);
+		Matrix<Integer> distM = MatrixImpl.valueOf(5, 5, graphy);
+		Matrix<Double> pherM = MatrixImpl.valueOf(5, 5, pher);
 		Graph g = GraphImpl.valueOf(distM, pherM);
 		Simulation s1 = SimulationImpl.valueOf(g, 1);
 		s1.start();
