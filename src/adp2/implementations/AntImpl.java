@@ -85,13 +85,32 @@ public class AntImpl implements Ant {
 		
 		// berechne die balances und speichere sie in der Map
 		for(Integer elem : this.unvisitedNeighbors()){
-			double balance = alpha * (g.intensity(position(), elem) / maxPher);
-			balance += (1- alpha) * (g.distance(position(), elem) / maxDist);
-			result.put(elem,balance);
+			result.put(elem,balance1(maxDist, maxPher, g.intensity(position(), elem), g.distance(position(), elem)));
 		}
 		return result;
 		
 		
+	}
+	
+	// bildet eine balance zwischen 0 und 1
+	private double balance1(double maxDist, double maxPher, double pher, double dist){
+		double distanz;
+		if(!(maxDist == 0)){
+			distanz = dist/maxDist;
+		}
+		else{
+			distanz = 0;
+		}
+		
+		double pheromon;
+		if(!(maxPher == 0)){
+			pheromon = pher/maxPher;
+		}else{
+			pheromon = 0;
+		}
+		
+		double balance = alpha * pheromon + (1-alpha) * distanz;
+		return balance * 1000 + 1;
 	}
 	
 	private double sumOfValues(Map<?,Double> m){
