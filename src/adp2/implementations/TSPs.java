@@ -44,7 +44,25 @@ public final class TSPs {
     public static Matrix NaM() {
         return NaM.valueOf();
     }
-    
+
+    /**
+     * Not a Graph
+     *
+     * @return Not a Graph
+     */
+    public static Graph NaG() {
+		return NaG.valueOf();
+	}
+
+    /**
+     * Not an Ant
+     *
+     * @return Not an Ant
+     */
+    public static Ant NaA() {
+    	return NaA.valueOf();
+    }
+
     /**
      * Create a Path
      * 

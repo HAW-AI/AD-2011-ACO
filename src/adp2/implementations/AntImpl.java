@@ -5,7 +5,6 @@ import adp2.interfaces.Graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +32,9 @@ public class AntImpl implements Ant {
 	}
 	
 	public static Ant valueOf(int startNode, double alpha, Graph g){
+		if (g == null || g instanceof NaG) {
+			return new NaA();
+		}
 		return new AntImpl(startNode, alpha, g);
 	}
 	
