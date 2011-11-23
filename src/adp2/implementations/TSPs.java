@@ -64,6 +64,15 @@ public final class TSPs {
     }
 
     /**
+     * Not an Path
+     *
+     * @return Not an Ant
+     */
+    public static Path NaP() {
+    	return NaP.valueOf();
+    }
+
+    /**
      * Create a Path
      * 
      * @param waypoints the waypoints in order of traversal
@@ -73,7 +82,7 @@ public final class TSPs {
      */
     public static Path path(List<Integer> waypoints, int distance) {
         if (waypoints == null || waypoints.contains(null) || distance < 0)
-            return PathImpl.valueOf(new ArrayList<Integer>(), -1);
+            return NaP();
         return PathImpl.valueOf(waypoints, distance);
     }
     

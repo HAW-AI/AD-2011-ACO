@@ -33,7 +33,7 @@ public class AntImpl implements Ant {
 	
 	public static Ant valueOf(int startNode, double alpha, Graph g){
 		if (g == null || g instanceof NaG) {
-			return new NaA();
+			return TSPs.NaA();
 		}
 		return new AntImpl(startNode, alpha, g);
 	}
