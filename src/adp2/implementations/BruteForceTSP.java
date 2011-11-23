@@ -22,16 +22,14 @@ public final class BruteForceTSP implements TSP {
 
     @Override
     public Path minPath(Matrix<Integer> distances) {
-        Path invalidPath = path(new ArrayList<Integer>(), -1);
-        
         if (distances.width() != distances.height())
-            return invalidPath;
+            return NaP();
         
         // check symmetry
         for (int i = 0, half = distances.width()/2; i <= half; ++i) {
             for (int j = 0; j <= half; ++j) {
                 if (distances.get(i,j) != distances.get(j,i)) {
-                    return invalidPath;
+                    return NaP();
                 }
             }
         }
