@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import adp2.interfaces.Graph;
+import adp2.interfaces.Path;
 
 public class NaG implements Graph {
 	public static Graph instance;
@@ -50,5 +51,9 @@ public class NaG implements Graph {
 	@Override
 	public int minDist(int von, int bis) {
 		return -1;
+	}
+
+	@Override
+	public void highlightPath(Path p) {
 	}
 }

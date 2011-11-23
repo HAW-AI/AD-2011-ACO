@@ -14,6 +14,8 @@ public interface Graph {
 	double intensity(int von, int nach);
 
 	void decrementPheromone(int value);
+	
+	public void highlightPath(Path p);
 
     /**
      * Points between two nodes
