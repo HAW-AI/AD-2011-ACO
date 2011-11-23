@@ -10,7 +10,7 @@ public interface Ant {
 	int weglaenge();
 	double alpha();
 	int getWaitingTime();
-	
+	int prePosition();
 }
 
 
