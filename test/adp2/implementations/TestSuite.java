@@ -6,6 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     PermutationIteratorTest.class,
+    MatrixImplTest.class,
     BruteForceTSPTest.class
 })
 public final class TestSuite {}
