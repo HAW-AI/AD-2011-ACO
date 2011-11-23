@@ -23,7 +23,6 @@ public class PermutationIteratorTest {
     @SuppressWarnings("unchecked")
     @Before
     public void setup() {
-        // must be sorted for tesTPermutations
         initialInts = asList(3, 0, 4, 1, 2);
         initialStrs = asList("hans", "peter", "egon", "emma", "erna");
         
