@@ -7,22 +7,37 @@ import java.util.Iterator;
 import java.util.List;
 
 
+/**
+ * Iterator for permutations in lexicographic order.
+ */
 public class PermutationIterator<E extends Comparable<? super E>> implements Iterator<List<E>> {
     List<E> permutation;
     List<E> lastPermutation;
     boolean isFirstPermutation;
     
+    /**
+     * Create a permutation iterator from a list of values to permute.
+     * 
+     * @param l List of values to permute
+     */
     public PermutationIterator(List<E> l) {
         permutation = first_permutation(l);
         lastPermutation = last_permutation(l);
         isFirstPermutation = true;
     }
 
+    /**
+     * Check if there is another permutation.
+     */
     @Override
     public boolean hasNext() {
         return !permutation.equals(lastPermutation);
     }
 
+    /**
+     * Return the next permutation in lexicographic order. Returns the same
+     * permutation as before if the last permutation was already reached.
+     */
     @Override
     public List<E> next() {
         if (isFirstPermutation) {
@@ -33,12 +48,22 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
         return new ArrayList<E>(permutation);
     }
 
+    /**
+     * You cannot remove permutations as there is no underlying mutable
+     * collection.
+     */
     @Override
     public void remove() {
         throw new UnsupportedOperationException();
     }
     
     
+    /**
+     * The fist permutation (non-destructive).
+     * 
+     * @param l initial permutation
+     * @return next permutation
+     */
     private static <E extends Comparable<? super E>> List<E> first_permutation(List<E> l) {
         if (l == null) return new ArrayList<E>();
         List<E> res = new ArrayList<E>(l);
@@ -46,6 +71,12 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
         return res;
     }
     
+    /**
+     * The last permutation.
+     * 
+     * @param l any permutation
+     * @return the last permutation
+     */
     private static <E extends Comparable<? super E>> List<E> last_permutation(List<E> l) {
         if (l == null) return new ArrayList<E>();
         List<E> res = new ArrayList<E>(l);
@@ -53,19 +84,36 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
         return res;
     }
     
+    /**
+     * The next permutation (non-destructive).
+     * 
+     * @param l initial permutation
+     */
     private static <E extends Comparable<? super E>> List<E> next_permutation(List<E> l) {
         if (l == null) return new ArrayList<E>();
         List<E> res = new ArrayList<E>(l);
         next_permutation_(res);
         return res;
     }
-        
+    
+    /**
+     * The fist permutation (destructive).
+     * 
+     * @param l initial permutation
+     * @return next permutation
+     */
     private static <E extends Comparable<? super E>> void first_permutation_(List<E> l) {
         sort(l);
     }
     
-    
-    // http://en.wikipedia.org/wiki/Permutation#Generation_in_lexicographic_order
+    /**
+     * The next permutation (destructive).
+     * 
+     * Algorithm taken from
+     * http://en.wikipedia.org/wiki/Permutation#Generation_in_lexicographic_order
+     * 
+     * @param l initial permutation
+     */
     private static <E extends Comparable<? super E>> void next_permutation_(List<E> list) {
         if (list == null) {
             return;
@@ -98,6 +146,13 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
             swap(i, j, list);
     }
     
+    /**
+     * Swap two elements in a list.
+     * 
+     * @param i index of first element
+     * @param j index of second element
+     * @param l the list with the elements
+     */
     private static <E> void swap(int i, int j, List<E> l) {
         if (l != null) {
             E tmp = l.get(i);
