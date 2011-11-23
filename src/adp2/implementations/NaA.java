@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adp2.interfaces.Ant;
+import adp2.interfaces.Path;
 
 public class NaA implements Ant {
 	public static NaA instance;
@@ -18,8 +19,8 @@ public class NaA implements Ant {
 	private NaA() {}
 
 	@Override
-	public List<Integer> traveledPath() {
-		return new ArrayList<Integer>();
+	public Path traveledPath() {
+		return Values.NaP();
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package adp2.implementations;
 
 import adp2.interfaces.Ant;
 import adp2.interfaces.Graph;
+import adp2.interfaces.Path;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,8 +41,8 @@ public class AntImpl implements Ant {
 	
 	
 	@Override
-	public List<Integer> traveledPath() {
-		return this.path;
+	public Path traveledPath() {
+		return Values.path(this.path, this.weglaenge);
 	}
 	
 	public boolean hasFinished(){

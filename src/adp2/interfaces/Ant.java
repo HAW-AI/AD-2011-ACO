@@ -3,7 +3,7 @@ package adp2.interfaces;
 import java.util.List;
 
 public interface Ant {
-	List<Integer> traveledPath();
+	Path traveledPath();
 	int position();
 	void step();
 	boolean hasFinished();
