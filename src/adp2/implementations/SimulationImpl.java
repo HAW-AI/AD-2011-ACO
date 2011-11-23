@@ -12,7 +12,7 @@ public class SimulationImpl implements Simulation{
 		List<Ant> antList;
 		List<List<Integer>> pheromoneUpdateList;		
 
-		int antsByStep = 1;
+		int antsByStep = 1; // Anzahl der Ameisen die pro Step hinzufgeügt werden
 		double antAlpha = 0.5;
 		int startPoint = 1;
 		int pheromoneDecrease = 1;
