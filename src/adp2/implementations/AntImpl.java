@@ -92,7 +92,7 @@ public class AntImpl implements Ant {
 		
 	}
 	
-	// bildet eine balance zwischen 0 und 1
+	// bildet eine balance zwischen 1 und 1001
 	private double balance1(double maxDist, double maxPher, double pher, double dist){
 		double distanz;
 		if(!(maxDist == 0)){
@@ -110,7 +110,7 @@ public class AntImpl implements Ant {
 		}
 		
 		double balance = alpha * pheromon + (1-alpha) * distanz;
-		return balance * 1000 + 1;
+		return balance * 1000 + 1; // balance * 1000, damit die +1 nicht stark ins Gewicht faellt
 	}
 	
 	private double sumOfValues(Map<?,Double> m){
@@ -183,11 +183,8 @@ public class AntImpl implements Ant {
 			}
 			
 			
-			weglaenge += g.minDist(position(), minNode);
-			for(Integer elem : g.pointsBetween(position(),minNode)){
-				path.add(elem);
-				unvisitedNodes.remove(elem);
-			}
+			weglaenge += g.distance(position(), minNode);
+			
 			path.add(minNode);
 			unvisitedNodes.remove(minNode);
 			
