@@ -10,6 +10,7 @@ public interface Simulation {
 	 */
 	Map<Path, Integer>frequencyMap();
 	
+	void start();
 	
 	/**
 	 * Returns the shortest path found for the simulation
