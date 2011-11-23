@@ -90,6 +90,14 @@ public class AntImpl implements Ant {
 		
 		
 	}
+	
+	private double sumOfValues(Map<?,Double> m){
+		double summe = 0;
+		for(Double elem : m.values()){
+			summe += elem;
+		}
+		return summe;
+	}
 
 	@Override
 	public void step() {
@@ -110,10 +118,8 @@ public class AntImpl implements Ant {
 			 * bildet die Summe aus allen Balancewerten ==> aus den einzelnen Werten und der Summe wird im 
 			 * naechsten Schritt die Wahrscheinlichkeit gebildet
 			 */
-			double summe = 0;
-			for(Double elem : probability.values()){
-				summe += elem;
-			}
+			double summe = sumOfValues(probability);
+			
 			
 			
 			/*bildet die Nachbarn auf einen Wert zwischen 0 und 1 ab
@@ -140,6 +146,9 @@ public class AntImpl implements Ant {
 			 * Integriert die zufaellig Auswahl des Weges der Ameise durch verrechnen eines
 			 * Random Wertes (0.0 - 1.0) mit der vorher errechneten Wahrscheinlichkeit
 			 * ==> Wahl des naechsten Punktes auf dem Weg 
+			 * 
+			 * 
+			 * minNode evtl auf -1 setzen ==> fehlerbehandlung danach moeglich
 			 */
 			double wert = Math.random();
 			int minNode = 1;
