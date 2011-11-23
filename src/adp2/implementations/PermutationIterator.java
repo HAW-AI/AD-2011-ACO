@@ -89,6 +89,7 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
      * 
      * @param l initial permutation
      */
+    @SuppressWarnings("unused")
     private static <E extends Comparable<? super E>> List<E> next_permutation(List<E> l) {
         if (l == null) return new ArrayList<E>();
         List<E> res = new ArrayList<E>(l);
