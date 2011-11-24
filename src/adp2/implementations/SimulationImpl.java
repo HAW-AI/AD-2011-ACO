@@ -12,7 +12,8 @@ public class SimulationImpl implements Simulation{
 		List<Ant> antList;
 		List<List<Integer>> pheromoneUpdateList;		
 
-		int antsByStep = 1; //Anzahl der Ameisen die pro Step hinzugefuegt werden
+		int antQuantity;
+		int antsByStep = 0; //Anzahl der Ameisen die pro Step hinzugefuegt werden
 		double antAlpha = 0.5;
 		int startPoint = 1;
 		int pheromoneDecrease = 1;
@@ -21,41 +22,44 @@ public class SimulationImpl implements Simulation{
 		int bestDistance = Integer.MAX_VALUE;
 		List<Integer> bestPath = new ArrayList<Integer>();
 
-		
-	    public static Simulation valueOf(Graph graph, int AntsQuantity) {
-			return new SimulationImpl(graph, AntsQuantity);
-		}
-	
-	    public static Simulation valueOf(Graph graph, int AntsQuantity, int AntsByStep) {
-			return new SimulationImpl(graph, AntsQuantity, AntsByStep);
+		//Ameisen werden alle direkt rein geworfen
+	    public static Simulation valueOf(Graph graph, int antsQuantity) {
+			return new SimulationImpl(graph, antsQuantity);
 		}
 	    
-	    private SimulationImpl(Graph graph, int AntsQuantity) {
+	    //Ameisen werden in Wellen rein geworfen
+	    public static Simulation valueOf(Graph graph, int antsQuantity, int antsByStep) {
+			return new SimulationImpl(graph, antsQuantity, antsByStep);
+		}
+	    
+	    private SimulationImpl(Graph graph, int antsQuantity) {
 	    	antList = new ArrayList<Ant>();
 	    	pheromoneUpdateList = new ArrayList<List<Integer>>();
 	    	setGraph(graph);
-	    	graph.toString();
-	    	addAnts(AntsQuantity);
+	    	setAntQuantity(antsQuantity);
+	    	addAnts(antsQuantity);
 	    }
 	
-	    private SimulationImpl(Graph graph, int AntsQuantity, int AntsByStep) {
+	    private SimulationImpl(Graph graph, int antsQuantity, int antsByStep) {
 	    	setGraph(graph);
-	    	addAnts(AntsQuantity);
-	    	addAnts(AntsByStep);
+	    	setAntQuantity(antsQuantity);
+	    	setAntsByStep(antsByStep);
 	    }
 	    
 	    @Override
 	    public void start(){
 	    	long startzeit = System.currentTimeMillis();
 	    	while(System.currentTimeMillis()-startzeit < 10000){ //Abbruch nach 10Sec
+	    		if(antsByStep() != 0){
+	    			addAnts(antsByStep());
+	    		}
 	    		int i = 0;
-	    		// Ants hinzufuegen
 	    		while (i < antList.size()){
 	    			//System.out.println(antList.get(i).position()+" -> "+antList.get(i).weglaenge());
 	    			if (antList.get(i).hasFinished()) {
-	    				if (antList.get(i).weglaenge() < bestDistance) {
-	    					bestDistance = antList.get(i).weglaenge();
-	    					bestPath = antList.get(i).traveledPath().waypoints();
+	    				if (antList.get(i).weglaenge() < bestDistance()) {
+	    					setBestDistance(antList.get(i).weglaenge());
+	    					setBestPath(antList.get(i).traveledPath().waypoints());
 	    				}
 	    				antList.remove(i);
 	    			} else {
@@ -74,15 +78,14 @@ public class SimulationImpl implements Simulation{
 	    			}
 	    		}
 	    		
-	    		graph.decrementPheromone(pheromonDecrease());
-	    		pheromoneUpdate();
-//		    	graph.incrementPheromone(pheromoneUpdateList());
+	    		pheromoneDecreament();
+	    		pheromoneIncrement();
 	    	}
 	    	//Anzeige des Ergebnisses
-	    	if(bestPath.size() > 0){
-	    		System.out.println("Distance: " + bestDistance);
+	    	if(bestPath().size() > 0){
+	    		System.out.println("Distance: " + bestDistance());
 		    	
-		    	for (Integer i : bestPath) {
+		    	for (Integer i : bestPath()) {
 		    		System.out.print(i.toString() + " --> ");
 		    	}
 		    	System.out.println();
@@ -98,12 +101,45 @@ public class SimulationImpl implements Simulation{
 	    private void setGraph(Graph graph){
 	    	this.graph = graph;
 	    }
-//	    private List<List<Integer>> pheromoneUpdateList(){
-//	    	return pheromoneUpdateList;
-//	    }
 	    
-	    private void pheromoneUpdate(){
-	    	for(List<Integer> list: pheromoneUpdateList){
+	    private void setAntQuantity(int quantity){
+	    	antQuantity = quantity;
+	    }
+	    
+	    private int antQuantity(){
+	    	return antQuantity;
+	    }
+	    
+	    private void setAntsByStep(int quantity){
+	    	antsByStep = quantity;
+	    }
+	    
+	    private int antsByStep(){
+	    	return antsByStep;
+	    }
+	    
+	    public int bestDistance(){
+	    	return bestDistance;
+	    }
+	    
+	    private void setBestDistance(int distance){
+	    	bestDistance = distance;
+	    }
+	    
+	    public List<Integer> bestPath(){
+	    	return bestPath;
+	    }
+	    
+	    private void setBestPath(List<Integer> path){
+	    	bestPath = path;
+	    }
+	    
+	    private int pheromoneDecrease(){
+	    	return pheromoneDecrease;
+	    }
+	    
+	    private void pheromoneIncrement(){
+	    	for(List<Integer> list: pheromoneUpdateList()){
 	    		graph.incrementPheromone(list.get(0), list.get(1),list.get(2));
 	    		graph.incrementPheromone(list.get(1), list.get(0),list.get(2));
 	    	}
@@ -118,9 +154,13 @@ public class SimulationImpl implements Simulation{
 	    		pheromoneUpdateList.add(pheromoneElement);
 	    	}
 	    }
+	    
+	    private List<List<Integer>> pheromoneUpdateList(){
+	    	return pheromoneUpdateList;
+	    }
 	         
-	    private int pheromonDecrease(){
-	    	return pheromoneDecrease;
+	    private void pheromoneDecreament(){
+	    	graph.decrementPheromone(pheromoneDecrease());
 	    }
 	    
 	    private List<Ant> antList(){
