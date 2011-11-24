@@ -1,5 +1,6 @@
 package adp2.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -40,6 +41,9 @@ public class BruteForceTSPTest {
     private Path path2;
     private Matrix<Integer> distances2;
     
+    private Path path3;
+    private Matrix<Integer> distances3;
+    
     @Before
     public void setup() {
         tsp = bruteForceTSP();
@@ -64,6 +68,9 @@ public class BruteForceTSPTest {
              50, 100,  -1
         );
         distances2 = matrix(3, 3, distList2);
+        
+        path3 = NaP();
+        distances3 = NaM();
     }
     
     @Test
@@ -74,5 +81,10 @@ public class BruteForceTSPTest {
     @Test
     public void testMinPath2() {
         assertEquals(path2, tsp.minPath(distances2));
+    }
+    
+    @Test
+    public void testMinPath3() {
+        assertEquals(path3, tsp.minPath(distances3));
     }
 }
