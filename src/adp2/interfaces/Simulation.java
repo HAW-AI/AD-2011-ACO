@@ -10,6 +10,11 @@ public interface Simulation {
 	 */
 	Map<Path, Integer>frequencyMap();
 	
+	
+	/**
+	 * Starts the simulation process
+	 * 
+	 */
 	void start();
 	
 	/**
