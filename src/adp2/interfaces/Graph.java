@@ -15,7 +15,7 @@ public interface Graph {
 
 	void decrementPheromone(int value);
 	
-	public void incrementPheromone(List<List<Integer>> pheromoneUpdateList);
+	public void incrementPheromone(int start, int end, double pheromone);
 	
 	public void highlightPath(Path p);
 

@@ -48,7 +48,7 @@ public class NaG implements Graph {
 	}
 
 	@Override
-	public void incrementPheromone(List<List<Integer>> pheromoneUpdateList) {
+	public void incrementPheromone(int start, int end, double pheromone) {
 		
 	}
 }

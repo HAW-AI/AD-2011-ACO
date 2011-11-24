@@ -75,7 +75,8 @@ public class SimulationImpl implements Simulation{
 	    		}
 	    		
 	    		graph.decrementPheromone(pheromonDecrease());
-		    	graph.incrementPheromone(pheromoneUpdateList());
+	    		pheromoneUpdate();
+//		    	graph.incrementPheromone(pheromoneUpdateList());
 	    	}
 	    	//Anzeige des Ergebnisses
 	    	if(bestPath.size() > 0){
@@ -97,9 +98,17 @@ public class SimulationImpl implements Simulation{
 	    private void setGraph(Graph graph){
 	    	this.graph = graph;
 	    }
-	    private List<List<Integer>> pheromoneUpdateList(){
-	    	return pheromoneUpdateList;
+//	    private List<List<Integer>> pheromoneUpdateList(){
+//	    	return pheromoneUpdateList;
+//	    }
+	    
+	    private void pheromoneUpdate(){
+	    	for(List<Integer> list: pheromoneUpdateList){
+	    		graph.incrementPheromone(list.get(0), list.get(1),list.get(2));
+	    		graph.incrementPheromone(list.get(1), list.get(0),list.get(2));
+	    	}
 	    }
+	    
 	    private void addPheromoneUpdate(int from,int to, int intensity){
 	    	List<Integer> pheromoneElement = new ArrayList<Integer>();
 	    	pheromoneElement.add(from);

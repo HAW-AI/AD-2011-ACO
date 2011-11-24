@@ -144,14 +144,21 @@ public class GraphImpl extends mxGraph implements Graph {
 	}
 	
 	@Override
-	public void incrementPheromone(List<List<Integer>> pheromoneUpdateList){
-		for(List<Integer> update : pheromoneUpdateList){
+	public void incrementPheromone(int start, int end, double pheromone){
 			//0 und 1 -> Matrix Pos, 2 -> Pheromon Update
 			//Auf 0 und 1 wird -1 um von der externen Nummerierung (ab 1) auf die interne (ab 0) f�r die Matrix zu kommen
-			pheromones.set(update.get(0)-1, update.get(1)-1,pheromones.get(update.get(0)-1, update.get(1)-1)+update.get(2));
-			pheromones.set(update.get(1)-1, update.get(0)-1,pheromones.get(update.get(1)-1, update.get(0)-1)+update.get(2));
-		}
+			pheromones.set(start-1, end-1, pheromones.get(start-1, end-1)+pheromone);
 	}
+	
+//	@Override
+//	public void incrementPheromone(List<List<Integer>> pheromoneUpdateList){
+//		for(List<Integer> update : pheromoneUpdateList){
+//			//0 und 1 -> Matrix Pos, 2 -> Pheromon Update
+//			//Auf 0 und 1 wird -1 um von der externen Nummerierung (ab 1) auf die interne (ab 0) f�r die Matrix zu kommen
+//			pheromones.set(update.get(0)-1, update.get(1)-1,pheromones.get(update.get(0)-1, update.get(1)-1)+update.get(2));
+//			pheromones.set(update.get(1)-1, update.get(0)-1,pheromones.get(update.get(1)-1, update.get(0)-1)+update.get(2));
+//		}
+//	}
 
 
 }
