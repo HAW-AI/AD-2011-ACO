@@ -64,20 +64,4 @@ public class MatrixImplTest {
 	public void testGetFailsOutOfBoundsHeight() {
 	    matrix.get(4, 12);
 	}
-
-	@Test
-	public void testEqualsObject() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSet() {
-		fail("Not yet implemented");
-	}
-
 }
