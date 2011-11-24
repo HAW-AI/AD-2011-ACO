@@ -46,13 +46,17 @@ public class SimulationImpl implements Simulation{
 	    
 	    @Override
 	    public void start(){
+	    	boolean antsLeft = true;
 	    	long startzeit = System.currentTimeMillis();
 	    	while(System.currentTimeMillis()-startzeit < 2000){ //Abbruch nach 2Sec, weitere Bedingungen kommen
-	    		if(antsByStep() != 0){
+	    		
+	    		
+	    		if((antsByStep() != 0) && antsLeft){
 	    			if( (antList().size()+antsByStep()) <= antQuantity()){ //Ameisen um antsByStep erhöhen
 	    				addAnts(antsByStep());
 	    			} else if(antList().size() < antQuantity()){ // Ameisen um Rest < antsByStep erhöhen
 	    				addAnts(antQuantity()-antList().size());
+	    				antsLeft = false;
 	    			}
 	    		}
 	    		//System.out.println(antList().size()+" -> "+antList.size());
