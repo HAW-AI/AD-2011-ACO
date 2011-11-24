@@ -53,6 +53,7 @@ public abstract class AbstractMatrix<E> implements Matrix<E> {
             result.append("[");
             for (int x = 0; x < width(); x++) {
                 result.append(get(x, y));
+                result.append(";");
             }
             result.append("]\n");
         }
