@@ -86,6 +86,28 @@ public class SimulationImpl implements Simulation{
 	    	}
 	    }
 		
+	    @Override
+	    public void runForSteps(int simulationSteps){
+	    	boolean run = true;
+	    	antsLaunched = 0;
+	    	int loops = 0;
+	    	while(run && loops < simulationSteps){
+	    		run = simulate();
+	    		loops++;
+	    	}
+	    }
+	    
+	    @Override
+	    public void runForSeconds(int runtimeInS){
+	    	boolean run = true;
+	    	antsLaunched = 0;
+	    	long timeStart = System.currentTimeMillis();
+	    	long timeStop = runtimeInS * 1000;
+	    	while(run && System.currentTimeMillis() - timeStart < timeStop){
+	    		run = simulate();
+	    	}
+	    }
+	    
 	    private boolean simulate(){
 	    	/*
     		 * antList = Ameisen aktuell im Graphen
@@ -134,12 +156,6 @@ public class SimulationImpl implements Simulation{
     		//Ende wenn alle Ameisen durchgelaufen sind und keine mehr kommen (per antsByStep)
     		return !(antList().isEmpty() && (antsLaunched == antQuantity()));
 	    }	
-	    
-	    @Override
-		public void runForSeconds(int runtimeInS) {}
-	    
-	    @Override
-		public void runForSteps(int simulationSteps) {}
 
 	    /*Getter and Setter*/
 	    
