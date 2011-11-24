@@ -101,7 +101,7 @@ public class GraphImpl extends mxGraph implements Graph {
 		}
 
 		for (int i = 0; i < distance.width(); i++) {
-			if (distance.get(node - 1, i) != -1 && i != node - 1) {
+			if (!distance.get(node - 1, i).isInfinite() && i != node - 1) {
 				result.add(i + 1);
 			}
 		}
@@ -123,7 +123,7 @@ public class GraphImpl extends mxGraph implements Graph {
 		try {
 			p = pheromones.get(von - 1, nach - 1);
 		} catch (ArrayIndexOutOfBoundsException e) {
-			p = -1;
+			p = Double.POSITIVE_INFINITY;
 		}
 		return p;
 	}
