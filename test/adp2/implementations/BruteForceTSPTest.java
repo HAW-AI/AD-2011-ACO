@@ -86,27 +86,11 @@ public class BruteForceTSPTest {
     }
     
     @Test
-    public void testMinPath1() {
+    public void testMinPath() {
         assertEquals(path1, tsp.minPath(distances1));
-    }
-    
-    @Test
-    public void testMinPath2() {
         assertEquals(path2, tsp.minPath(distances2));
-    }
-    
-    @Test
-    public void testMinPath3() {
         assertEquals(path3, tsp.minPath(distances3));
-    }
-    
-    @Test
-    public void testMinPath4() {
         assertEquals(path4, tsp.minPath(distances4));
-    }
-    
-    @Test
-    public void testMinPath5() {
         assertEquals(path5, tsp.minPath(distances5));
     }
 }
