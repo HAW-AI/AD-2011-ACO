@@ -50,10 +50,9 @@ public abstract class AbstractMatrix<E> implements Matrix<E> {
     public String toString() {
         StringBuilder result = new StringBuilder();
         for (int y = 0; y < height(); y++) {
-            result.append("[");
+            result.append("[ ");
             for (int x = 0; x < width(); x++) {
-                result.append(get(x, y));
-                result.append(";");
+            	result.append(get(x, y)+" ");
             }
             result.append("]\n");
         }
