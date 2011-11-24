@@ -145,14 +145,6 @@ public final class Values {
     }
     
     /**
-     * Create a Simulation
-     * 
-     */
-    public static Simulation simulation() {
-    	return SimulationImpl.valueOf(graph, antsQuantity)
-    }
-    
-    /**
      * Create a Path
      * 
      * @param waypoints the waypoints in order of traversal
