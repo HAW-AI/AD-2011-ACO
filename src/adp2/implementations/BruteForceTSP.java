@@ -22,7 +22,7 @@ public final class BruteForceTSP implements TSP {
 
     @Override
     public Path minPath(Matrix<Integer> distances) {
-        if (distances.width() != distances.height())
+        if (distances.width() != distances.height() || distances.width() == 0)
             return NaP();
         
         // check symmetry
