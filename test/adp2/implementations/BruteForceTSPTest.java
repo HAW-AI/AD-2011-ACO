@@ -15,12 +15,12 @@ import static adp2.implementations.Values.*;
 import static java.util.Arrays.asList;
 
 
-// Tests run against the Scala implementation from Esser:
+// Tests run against the slightly modified Scala implementation by Esser:
 //    
 //    def minPath(cities: List[Int], distance: (Int, Int) => Int) =
 //    cities.permutations.foldLeft(cities, Int.MaxValue) {
 //      (cPathMin, cPath) => {
-//        val sum = cPath.zip(cPath.tail).foldLeft(0)((d, cc) => d + distance(cc._1, cc._2)) + distance(cPath.last, cPath.first)
+//        val sum = cPath.zip(cPath.tail).foldLeft(0)((d, cc) => d + distance(cc._1, cc._2))
 //        if (cPathMin._2 > sum) (cPath, sum) else cPathMin
 //      }
 //    }
@@ -28,8 +28,8 @@ import static java.util.Arrays.asList;
 //    def distance(c1: Int, c2: Int) = 100/(if (c1>c2) (c1 - c2) else (c2 - c1))
 //            
 //            
-// "+ distance(cPath.last, cPath.first)" was added to add the distance back to
-// the start point.
+// one line was changed to add the distance back to the start point:
+// val sum = cPath.zip(cPath.tail :+ cPath.head).foldLeft(0)((d, cc) => d + distance(cc._1, cc._2))
 
 
 public class BruteForceTSPTest {
