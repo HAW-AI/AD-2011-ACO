@@ -11,10 +11,10 @@ public class Main {
 	
 	public static void main(String[] args) {
 		TspFile t = null;
-//		t = Tsp.open("samples/gr21.tsp");
-//		t = Tsp.open("samples/ant2.tsp");		
-//		t = Tsp.open("samples/ant5.tsp");
-//		t = Tsp.open("samples/ant9.tsp");
+//		t = TspFile.open("samples/gr21.tsp");
+//		t = TspFile.open("samples/ant2.tsp");		
+//		t = TspFile.open("samples/ant5.tsp");
+//		t = TspFile.open("samples/ant9.tsp");
 		t = TspFile.open("samples/ant15.tsp");
 		Graph g = GraphImpl.valueOf(t.matrix());
 		Simulation sim = SimulationImpl.valueOf(g, 10, 3);
