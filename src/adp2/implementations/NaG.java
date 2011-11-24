@@ -51,4 +51,9 @@ public class NaG implements Graph {
 	public void incrementPheromone(int start, int end, double pheromone) {
 		
 	}
+
+	@Override
+	public Graph deepClone() {
+		return valueOf();
+	}
 }

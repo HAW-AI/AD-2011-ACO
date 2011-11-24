@@ -170,5 +170,10 @@ public class GraphImpl extends mxGraph implements Graph {
 		return result.toString();
 	}
 
+	@Override
+	public Graph deepClone() {
+		return new GraphImpl(distance.deepClone(), pheromones.deepClone());
+	}
+
 
 }

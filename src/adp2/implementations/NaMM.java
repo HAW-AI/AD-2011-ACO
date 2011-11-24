@@ -42,6 +42,11 @@ public class NaMM<T> implements MutableMatrix<T> {
 		
 	}
 
+	@Override
+	public MutableMatrix<T> deepClone() {
+		return valueOf();
+	}
+
 	
 	
 }

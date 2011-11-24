@@ -44,6 +44,11 @@ public final class NaM<T> implements Matrix<T> {
         return "NaM";
     }
 
+	@Override
+	public Matrix<T> deepClone() {
+		return valueOf();
+	}
+
     
     
 

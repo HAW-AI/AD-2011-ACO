@@ -19,6 +19,12 @@ public interface Graph {
 	
 	public void highlightPath(Path p);
 
+	/**
+	 * deepClone()
+	 * @return a copy of the graph where all fields are also copies of their original values.
+	 */
+	public Graph deepClone();
+
 
 
 }

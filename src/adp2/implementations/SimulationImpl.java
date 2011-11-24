@@ -8,7 +8,8 @@ import adp2.interfaces.*;
 
 public class SimulationImpl implements Simulation{
 
-		Graph graph;	
+		Graph currentGraph;
+		List<Graph> graphStates;
 		List<Ant> antList;
 		List<List<Integer>> pheromoneUpdateList;		
 
@@ -38,6 +39,7 @@ public class SimulationImpl implements Simulation{
 	    	setGraph(graph);
 	    	setAntQuantity(antsQuantity);
 	    	addAnts(antsQuantity);
+	    	graphStates = new ArrayList<Graph>();
 	    }
 	
 	    private SimulationImpl(Graph graph, int antsQuantity, int antsByStep) {
@@ -73,6 +75,12 @@ public class SimulationImpl implements Simulation{
 	    		}
 	    		pheromoneDecreament();
 	    		pheromoneIncrement();
+	    		graphStates.add(currentGraph);
+	    		/*
+	    		 * For every Step this adds the current Graph to the list of graphStates
+	    		 * Doing so gives us the ability to replay the Graph transformations. 
+	    		 */
+	    		currentGraph = currentGraph.deepClone();
 	    	}	    	
 	    }
 		
@@ -80,7 +88,7 @@ public class SimulationImpl implements Simulation{
 	    /*Getter and Setter*/
 	    
 	    private void setGraph(Graph graph){
-	    	this.graph = graph;
+	    	this.currentGraph = graph;
 	    }
 	    
 	    private void setAntQuantity(int quantity){
@@ -128,7 +136,7 @@ public class SimulationImpl implements Simulation{
 	    }
 	    
 	    private Graph graph(){
-	    	return graph;
+	    	return currentGraph;
 	    }
 	    
 	    private int pheromoneDecrease(){
@@ -168,13 +176,13 @@ public class SimulationImpl implements Simulation{
 	    
 	    private void pheromoneIncrement(){
 	    	for(List<Integer> list: pheromoneUpdateList()){
-	    		graph.incrementPheromone(list.get(0), list.get(1),list.get(2));
-	    		graph.incrementPheromone(list.get(1), list.get(0),list.get(2));
+	    		currentGraph.incrementPheromone(list.get(0), list.get(1),list.get(2));
+	    		currentGraph.incrementPheromone(list.get(1), list.get(0),list.get(2));
 	    	}
 	    }
 	    
 	    private void pheromoneDecreament(){
-	    	graph.decrementPheromone(pheromoneDecrease());
+	    	currentGraph.decrementPheromone(pheromoneDecrease());
 	    }
 
 		@Override

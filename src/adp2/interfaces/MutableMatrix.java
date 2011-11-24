@@ -10,4 +10,6 @@ public interface MutableMatrix<E> extends Matrix<E> {
      * @param value the value which should be set at (x,y)
      */
     void set(int x, int y, E value);
+    
+    MutableMatrix<E> deepClone();
 }

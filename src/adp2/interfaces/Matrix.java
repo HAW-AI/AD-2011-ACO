@@ -25,5 +25,7 @@ public interface Matrix<E> extends Iterable<E> {
      */
     E get(int x, int y);
     
+    Matrix<E> deepClone();
+    
     
 }
