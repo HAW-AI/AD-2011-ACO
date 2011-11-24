@@ -1,5 +1,6 @@
 package adp2.implementations;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import adp2.interfaces.Path;
@@ -18,24 +19,17 @@ public class NaS implements Simulation {
 	private NaS() {}
 	
 	@Override
-	public void run() {
-
-	}
-	
-	@Override
-	public void runForSeconds(int runtimeInS) {
-
-	}
+	public void run() {}
 
 	@Override
-	public void runForSteps(int simulationSteps) {
+	public void runForSeconds(int runtimeInS) {}
 
-	}
-	
+	@Override
+	public void runForSteps(int simulationSteps) {}
+
 	@Override
 	public Map<Path, Integer> frequencyMap() {
-		// TODO Auto-generated method stub
-		return null;
+		return new HashMap<Path, Integer>();
 	}
 
 	@Override
