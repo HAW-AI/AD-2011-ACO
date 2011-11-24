@@ -47,8 +47,8 @@ public class NaA implements Ant {
 	}
 
 	@Override
-	public int getWaitingTime() {
-		return 0;
+	public Double getWaitingTime() {
+		return 0.0;
 	}
 
 	@Override

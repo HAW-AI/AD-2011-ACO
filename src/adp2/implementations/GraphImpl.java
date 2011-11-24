@@ -13,13 +13,13 @@ import static adp2.implementations.Values.*;
 
 public class GraphImpl extends mxGraph implements Graph {
 
-	private final Matrix<Integer> distance;
+	private final Matrix<Double> distance;
 	private MutableMatrix<Double> pheromones;
 	private final HashMap<Integer,Object> VertexObjectList = new HashMap<Integer,Object>();
 	private final HashMap<Integer,Object> EdgeObjectList = new HashMap<Integer,Object>();
 	private final int NoOfVertexs;
 
-	private GraphImpl(Matrix<Integer> distance, MutableMatrix<Double> pheromones) {
+	private GraphImpl(Matrix<Double> distance, MutableMatrix<Double> pheromones) {
 		this.distance = distance;
 		this.pheromones = pheromones;
 		
@@ -58,7 +58,7 @@ public class GraphImpl extends mxGraph implements Graph {
 		}
 	}
 
-	public static Graph valueOf(Matrix<Integer> distance) {
+	public static Graph valueOf(Matrix<Double> distance) {
 		
 		if (distance == null) {
 			return Values.NaG();
@@ -83,12 +83,12 @@ public class GraphImpl extends mxGraph implements Graph {
 	}
 
 	@Override
-	public int distance(int von, int nach) {
-		int d;
+	public Double distance(int von, int nach) {
+		Double d;
 		try {
 			d = distance.get(von - 1, nach - 1);
 		} catch (ArrayIndexOutOfBoundsException e) {
-			d = -1;
+			d = Double.POSITIVE_INFINITY;
 		}
 		return d;
 	}
@@ -101,7 +101,7 @@ public class GraphImpl extends mxGraph implements Graph {
 		}
 
 		for (int i = 0; i < distance.width(); i++) {
-			if (distance.get(node - 1, i) != -1 && i != node - 1) {
+			if (!distance.get(node - 1, i).isInfinite() && i != node - 1) {
 				result.add(i + 1);
 			}
 		}
@@ -123,7 +123,7 @@ public class GraphImpl extends mxGraph implements Graph {
 		try {
 			p = pheromones.get(von - 1, nach - 1);
 		} catch (ArrayIndexOutOfBoundsException e) {
-			p = -1;
+			p = Double.POSITIVE_INFINITY;
 		}
 		return p;
 	}
