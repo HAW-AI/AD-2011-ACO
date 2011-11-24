@@ -20,8 +20,8 @@ public class NaG implements Graph {
 	private NaG() {}
 
 	@Override
-	public int distance(int von, int nach) {
-		return -1;
+	public Double distance(int von, int nach) {
+		return Double.POSITIVE_INFINITY;
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import java.util.Set;
 
 public interface Graph {
 
-	int distance(int von, int nach);
+	Double distance(int von, int nach);
 
 	Set<Integer> neighbors(int node);
 

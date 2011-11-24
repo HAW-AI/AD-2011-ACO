@@ -118,15 +118,15 @@ public final class Values {
      * @param args the array from which the Graph will be created 
      * @return a valid Graph Object
      */
-    public static Graph grahFromList(int... args){
+    public static Graph grahFromList(double... args){
     	if(!graphPreCheck(args)){
     		return NaG();
     	}
-    	List<Integer> l = new ArrayList<Integer>();
-    	for(Integer elem : args){
+    	List<Double> l = new ArrayList<Double>();
+    	for(Double elem : args){
     		l.add(elem);
     	}
-    	MutableMatrix<Integer> m = mutableMatrix((int)Math.sqrt(args.length), (int)Math.sqrt(args.length), l);
+    	MutableMatrix<Double> m = mutableMatrix((int)Math.sqrt(args.length), (int)Math.sqrt(args.length), l);
     	
     	return GraphImpl.valueOf(m);
     }
@@ -137,8 +137,8 @@ public final class Values {
      * @param args the array from which the Graph will be created 
      * @return a boolean to show if given Array is valid
      */
-    private static boolean graphPreCheck(int[] x){
-    	int i = (int)Math.sqrt(x.length);
+    private static boolean graphPreCheck(double[] x){
+    	double i = (double)Math.sqrt(x.length);
     	if(i == Math.sqrt(x.length)){
     		return true;
     	}
