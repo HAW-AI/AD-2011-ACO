@@ -117,6 +117,9 @@ public final class Values {
      * 
      */
     public static Simulation simulation(Graph graph, int antsQuantity) {
+    	if(antsQuantity < 0){ 
+    		return Values.NaS();
+    	}
     	return SimulationImpl.valueOf(graph, antsQuantity);
     }
     
@@ -125,6 +128,9 @@ public final class Values {
      * 
      */
     public static Simulation simulation(Graph graph, int antsQuantity, boolean logStates) {
+    	if(antsQuantity < 0){ 
+    		return Values.NaS();
+    	}
     	return SimulationImpl.valueOf(graph, antsQuantity, logStates);
     }
     
@@ -133,6 +139,9 @@ public final class Values {
      * 
      */
     public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep) {
+    	if(antsQuantity < 0 || antsByStep < 0){ 
+    		return Values.NaS();
+    	}
     	return SimulationImpl.valueOf(graph, antsQuantity, antsByStep);
     }
     
@@ -141,6 +150,9 @@ public final class Values {
      * 
      */
     public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep, boolean logStates) {
+    	if(antsQuantity < 0 || antsByStep < 0){ 
+    		return Values.NaS();
+    	}
     	return SimulationImpl.valueOf(graph, antsQuantity, antsByStep, logStates);
     }
     
