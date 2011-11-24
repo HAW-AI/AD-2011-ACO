@@ -49,50 +49,31 @@ public class SimulationImpl implements Simulation{
 	    @Override
 	    public void start(){
 	    	long startzeit = System.currentTimeMillis();
-	    	while(System.currentTimeMillis()-startzeit < 10000){ //Abbruch nach 10Sec
+	    	while(System.currentTimeMillis()-startzeit < 10000){ //Abbruch nach 10Sec, weitere Bedingungen kommen
 	    		if(antsByStep() != 0){
 	    			addAnts(antsByStep());
 	    		}
 	    		int i = 0;
 	    		while (i < antList.size()){
-	    			//System.out.println(antList.get(i).position()+" -> "+antList.get(i).weglaenge());
 	    			if (antList.get(i).hasFinished()) {
 	    				if (antList.get(i).weglaenge() < bestDistance()) {
 	    					setBestDistance(antList.get(i).weglaenge());
 	    					setBestPath(antList.get(i).traveledPath().waypoints());
 	    				}
-	    				antList.remove(i);
+	    				removeAnt(i); 
 	    			} else {
-	    				//System.out.println("Und nochn Schritt!");
-		    			if(antList.get(i).getWaitingTime() == 0){ //Befindlich auf Knoten
-		    				antList.get(i).step(); //Entscheidungsalgorithmus
-		    				//System.out.println("Huepf");
-		    				addPheromoneUpdate(antList.get(i).prePosition(),antList.get(i).position(),pheromoneIntensity); //F�ge neu betretene kante dem vaporise set hinzu
+		    			if(antList.get(i).getWaitingTime() == 0){ 	//Befindlich auf Knoten
+		    				antList.get(i).step(); 					//Entscheidungsalgorithmus und einen Schritt gehen
+		    				addPheromoneUpdate(antList.get(i).prePosition(),antList.get(i).position(),pheromoneIntensity); //Pheromonverteilung vorbereiten
 		    			}else{
 		    				antList.get(i).step();
-
-		    				//System.out.println("Hopp!");
 		    			}
-	    				//System.out.println(antList.get(i).traveledPath().toString());
 		    			i++;
 	    			}
 	    		}
-	    		
 	    		pheromoneDecreament();
 	    		pheromoneIncrement();
-	    	}
-	    	//Anzeige des Ergebnisses
-	    	if(bestPath().size() > 0){
-	    		System.out.println("Distance: " + bestDistance());
-		    	
-		    	for (Integer i : bestPath()) {
-		    		System.out.print(i.toString() + " --> ");
-		    	}
-		    	System.out.println();
-	    	} else{
-	    		System.out.println("NO WAY!");
-	    	}
-	    	
+	    	}	    	
 	    }
 		
 
@@ -133,36 +114,7 @@ public class SimulationImpl implements Simulation{
 	    private void setBestPath(List<Integer> path){
 	    	bestPath = path;
 	    }
-	    
-	    private int pheromoneDecrease(){
-	    	return pheromoneDecrease;
-	    }
-	    
-	    private void pheromoneIncrement(){
-	    	for(List<Integer> list: pheromoneUpdateList()){
-	    		graph.incrementPheromone(list.get(0), list.get(1),list.get(2));
-	    		graph.incrementPheromone(list.get(1), list.get(0),list.get(2));
-	    	}
-	    }
-	    
-	    private void addPheromoneUpdate(int from,int to, int intensity){
-	    	List<Integer> pheromoneElement = new ArrayList<Integer>();
-	    	pheromoneElement.add(from);
-	    	pheromoneElement.add(to);
-	    	pheromoneElement.add(intensity);
-	    	if (from != to){
-	    		pheromoneUpdateList.add(pheromoneElement);
-	    	}
-	    }
-	    
-	    private List<List<Integer>> pheromoneUpdateList(){
-	    	return pheromoneUpdateList;
-	    }
-	         
-	    private void pheromoneDecreament(){
-	    	graph.decrementPheromone(pheromoneDecrease());
-	    }
-	    
+	    	    
 	    private List<Ant> antList(){
 	    	return antList;
 	    }
@@ -179,6 +131,14 @@ public class SimulationImpl implements Simulation{
 	    	return graph;
 	    }
 	    
+	    private int pheromoneDecrease(){
+	    	return pheromoneDecrease;
+	    }
+	    
+	    private List<List<Integer>> pheromoneUpdateList(){
+	    	return pheromoneUpdateList;
+	    }
+	    
 	    
 	    /*Functions*/
 	    
@@ -192,10 +152,30 @@ public class SimulationImpl implements Simulation{
 	    	}
 	    }
 	    
-	    private void removeAnt(Ant ant){
-	    	antList().remove(ant);
+	    private void removeAnt(int antIndex){
+	    	antList().remove(antIndex);
 	    }
 	    
+	    private void addPheromoneUpdate(int from,int to, int intensity){
+	    	List<Integer> pheromoneElement = new ArrayList<Integer>();
+	    	pheromoneElement.add(from);
+	    	pheromoneElement.add(to);
+	    	pheromoneElement.add(intensity);
+	    	if (from != to){
+	    		pheromoneUpdateList.add(pheromoneElement);
+	    	}
+	    }
+	    
+	    private void pheromoneIncrement(){
+	    	for(List<Integer> list: pheromoneUpdateList()){
+	    		graph.incrementPheromone(list.get(0), list.get(1),list.get(2));
+	    		graph.incrementPheromone(list.get(1), list.get(0),list.get(2));
+	    	}
+	    }
+	    
+	    private void pheromoneDecreament(){
+	    	graph.decrementPheromone(pheromoneDecrease());
+	    }
 
 		@Override
 		public Map<Path, Integer> frequencyMap() {
@@ -205,6 +185,6 @@ public class SimulationImpl implements Simulation{
 
 		@Override
 		public Path minPath() {
-			return Values.path(bestPath, bestDistance);
+			return Values.path(bestPath(), bestDistance());
 		}
 }

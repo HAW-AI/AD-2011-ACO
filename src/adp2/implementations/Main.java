@@ -56,14 +56,27 @@ public class Main {
 				4,0);
 		Matrix<Integer> distM = ImmutableMatrixImpl.valueOf(5, 5, graphy);
 		Graph g = GraphImpl.valueOf(distM);
-		Simulation s1 = SimulationImpl.valueOf(g, 100);
-		s1.start();
+		Simulation sim = SimulationImpl.valueOf(g, 100);
+		sim.start();
+		
+    	//Anzeige des Ergebnisses
+    	if(sim.minPath().distance() > 0){
+    		System.out.println("Distance: " + sim.minPath().distance());
+	    	
+	    	for (Integer point : sim.minPath().waypoints()) {
+	    		System.out.print(point.toString() + " --> ");
+	    	}
+	    	System.out.println("DEAD END");
+    	} else{
+    		System.out.println("NO WAY!");
+    	}
+		
 		
 		Darstellung frame = new Darstellung(g);
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		frame.graph.highlightPath(s1.minPath());	
+		frame.graph.highlightPath(sim.minPath());	
 		
 	}
 }
