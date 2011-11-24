@@ -51,9 +51,9 @@ public interface Ant {
 	 * Depends on the distance between the current and the next node.
 	 * One call of step  reduces this value by one.
 	 *  
-	 * @return int - waiting time
+	 * @return double - waiting time
 	 */
-	Double getWaitingTime();
+	double getWaitingTime();
 	
 	/**
 	 * The position before the current position. If the ant hasn't traveled so far. 

@@ -199,4 +199,15 @@ public final class Values {
     	return false;
     }
     
+    /**
+     * Create a new ant -> public for testing purposes only -> should be package private
+     * @param startNode
+     * @param alpha
+     * @param g
+     * @return Ant
+     */
+    public static Ant ant(int startNode, double alpha, Graph g){
+    	return AntImpl.valueOf(startNode, alpha, g);
+    }
+    
 }
