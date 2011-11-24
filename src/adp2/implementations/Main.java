@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import adp2.interfaces.Graph;
 import adp2.interfaces.Matrix;
 import adp2.interfaces.Simulation;
+import adp2.parser.Tsp;
 
 public class Main {
 	public static int width = 1280;
@@ -62,8 +63,10 @@ public class Main {
 		sim.start();
 		
     	//Anzeige des Ergebnisses
+		int distance = 0;
     	if(sim.minPath().distance() > 0){
-    		System.out.println("Distance: " + sim.minPath().distance());
+    		distance = sim.minPath().distance();
+    		System.out.println("Distance: " + distance + " (MaxInt? " + (Integer.MAX_VALUE-distance==0 ? "true" : "false") + ")" );
 	    	
 	    	for (Integer point : sim.minPath().waypoints()) {
 	    		System.out.print(point.toString() + " --> ");
