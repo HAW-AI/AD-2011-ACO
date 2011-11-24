@@ -79,26 +79,25 @@ public class SimulationImpl implements Simulation{
 	    
 	    @Override
 	    public void start(){
-	    	boolean antsLeft = true;
+	    	int antsLaunched = 0;
 	    	long startzeit = System.currentTimeMillis();
-	    	while(System.currentTimeMillis()-startzeit < 30000){ //Abbruch nach 2Sec, weitere Bedingungen kommen
+	    	while(System.currentTimeMillis()-startzeit < 2000){ //Abbruch nach 2Sec, weitere Bedingungen kommen
 	    		
 	    		/*
 	    		 * antList = Ameisen aktuell im Graphen
-	    		 * antsByStep = Ameisen die hinzugefuegt werden pro Step wenn noetig
-	    		 * antQuantity = Anzahl der Ameisen, die zu BEGINN in den Graphen gegeben werden
-	    		 */
-	    		
-	    		
-	    		if((antsByStep() != 0) && antsLeft){
-	    			if( (antList().size()+antsByStep()) <= antQuantity()){ //Ameisen um antsByStep erhï¿½hen
+	    		 * antsByStep = Ameisen die hinzugefuegt werden pro Step (wenn angegeben)
+	    		 * antQuantity = Anzahl der Ameisen über maximal in den Graphen laufen
+	    		 * */
+	    
+	    		if((antsByStep() != 0) && (antsLaunched <= antQuantity())){
+	    			if( (antsLaunched+antsByStep()) <= antQuantity()){ //Ameisen um antsByStep erhoehen
+	    				antsLaunched += antsByStep();
 	    				addAnts(antsByStep());
-	    			} else if(antList().size() < antQuantity()){ // Ameisen um Rest < antsByStep erhï¿½hen
+	    			} else if(antsLaunched < antQuantity()){ // Ameisen um Rest < antsByStep erhï¿½hen
+	    				antsLaunched += antQuantity()-antList().size();
 	    				addAnts(antQuantity()-antList().size());
-	    				antsLeft = false;
 	    			}
 	    		}
-	    		//System.out.println(antList().size()+" -> "+antList.size());
 	    		int i = 0;
 	    		while (i < antList().size()){
 	    			if (antList().get(i).hasFinished()) {
