@@ -81,13 +81,19 @@ public class SimulationImpl implements Simulation{
 	    public void start(){
 	    	boolean antsLeft = true;
 	    	long startzeit = System.currentTimeMillis();
-	    	while(System.currentTimeMillis()-startzeit < 2000){ //Abbruch nach 2Sec, weitere Bedingungen kommen
+	    	while(System.currentTimeMillis()-startzeit < 30000){ //Abbruch nach 2Sec, weitere Bedingungen kommen
+	    		
+	    		/*
+	    		 * antList = Ameisen aktuell im Graphen
+	    		 * antsByStep = Ameisen die hinzugefuegt werden pro Step wenn noetig
+	    		 * antQuantity = Anzahl der Ameisen, die zu BEGINN in den Graphen gegeben werden
+	    		 */
 	    		
 	    		
 	    		if((antsByStep() != 0) && antsLeft){
-	    			if( (antList().size()+antsByStep()) <= antQuantity()){ //Ameisen um antsByStep erhöhen
+	    			if( (antList().size()+antsByStep()) <= antQuantity()){ //Ameisen um antsByStep erhï¿½hen
 	    				addAnts(antsByStep());
-	    			} else if(antList().size() < antQuantity()){ // Ameisen um Rest < antsByStep erhöhen
+	    			} else if(antList().size() < antQuantity()){ // Ameisen um Rest < antsByStep erhï¿½hen
 	    				addAnts(antQuantity()-antList().size());
 	    				antsLeft = false;
 	    			}
