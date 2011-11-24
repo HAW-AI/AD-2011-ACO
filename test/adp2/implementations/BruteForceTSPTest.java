@@ -30,6 +30,9 @@ import static java.util.Arrays.asList;
 //            
 // one line was changed to add the distance back to the start point:
 // val sum = cPath.zip(cPath.tail :+ cPath.head).foldLeft(0)((d, cc) => d + distance(cc._1, cc._2))
+//
+// The Java implementation differs from the Scala implementation to allow
+// paths of length 1.
 
 
 public class BruteForceTSPTest {
