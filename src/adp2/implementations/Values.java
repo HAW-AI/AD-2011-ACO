@@ -142,7 +142,7 @@ public final class Values {
      * @return a boolean to show if given Array is valid
      */
     private static boolean graphPreCheck(double[] x){
-    	double i = (double)Math.sqrt(x.length);
+    	double i = Math.floor(Math.sqrt(x.length));
     	if(i == Math.sqrt(x.length)){
     		return true;
     	}
