@@ -10,7 +10,7 @@ public interface Graph {
 	 * @param nach - end node
 	 * @return Double - distance 
 	 */
-	Double distance(int von, int nach);
+	double distance(int von, int nach);
 
 	/**
 	 * Neighbor nodes of one node

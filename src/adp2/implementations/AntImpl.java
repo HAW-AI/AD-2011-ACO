@@ -19,7 +19,7 @@ public class AntImpl implements Ant {
 	private double alpha; 
 	private Graph g;
 	boolean finished;
-	private Double waitingTime=0.0;
+	private double waitingTime=0.0;
 	
 	
 	private AntImpl(int startNode, double alpha, Graph g){
@@ -227,7 +227,7 @@ public class AntImpl implements Ant {
 		return this.alpha;
 	}
 	
-	public Double getWaitingTime(){
+	public double getWaitingTime(){
 		return this.waitingTime;
 	}
 	

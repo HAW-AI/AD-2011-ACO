@@ -43,8 +43,8 @@ public class GraphImpl extends mxGraph implements Graph {
 	}
 
 	@Override
-	public Double distance(int von, int nach) {
-		Double d;
+	public double distance(int von, int nach) {
+		double d;
 		try {
 			d = distance.get(von - 1, nach - 1);
 		} catch (ArrayIndexOutOfBoundsException e) {
