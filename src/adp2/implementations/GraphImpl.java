@@ -30,28 +30,28 @@ public class GraphImpl extends mxGraph implements Graph {
 		
 		//B�se Rundungsfehler, kann sich vielleicht nochmal jemand angucken
 		
-		for (Double temp = 0.0; temp<NoOfVertexs;temp++) {
+		for (Double temp = 1.0; temp<=NoOfVertexs;temp++) {
 			
-			double hyp =  (((Darstellung.height/2)-50) * Math.cos(((90-((schritt*temp)/2))/ 180 * Math.PI)) * 2);
+			double hyp =  (((Main.height/2)-50) * Math.cos(((90-((schritt*temp)/2))/ 180 * Math.PI)) * 2);
 			double gk = ( Math.cos((90-((schritt*temp)/2))/ 180 * Math.PI) * hyp);
 			double x,y;
 			if(temp > (NoOfVertexs/2)){
-			x = ((Darstellung.width/2)-50)+Math.sqrt((hyp*hyp) - (gk*gk));
+			x = ((Main.width/2)-50)+Math.sqrt((hyp*hyp) - (gk*gk));
 			}else {
-			x = (Darstellung.width/2)-50-Math.sqrt((hyp*hyp) - (gk*gk));
+			x = (Main.width/2)-50-Math.sqrt((hyp*hyp) - (gk*gk));
 			}
-			y = (Darstellung.height)-100-gk;
+			y = (Main.height)-100-gk;
 
-			VertexObjectList.put(temp.intValue(),insertVertex(getDefaultParent(), null, ((Integer)temp.intValue()).toString(), x, y, 40,20));
+			VertexObjectList.put(temp.intValue(),insertVertex(getDefaultParent(), null, ((Integer)(temp).intValue()).toString(), x, y, 40,20));
 		}
 
-		Integer edgesTemp = 0;
+		Integer edgesTemp = 1;
 		for(Integer i1=0;i1<NoOfVertexs;i1++){
 			for(Integer i2=0;i2<NoOfVertexs;i2++){
 				if(distance.get(i1,i2) >0){
-				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, distance.get(i1,i2).toString()+"       ", VertexObjectList.get(i1), VertexObjectList.get(i2),"strokeColor=black;fillColor=black"));
+				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, distance.get(i1,i2).toString()+"       ", VertexObjectList.get(i1+1), VertexObjectList.get(i2+1),"strokeColor=black;fillColor=black"));
 				edgesTemp++;
-				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, distance.get(i1,i2).toString()+"       ", VertexObjectList.get(i2), VertexObjectList.get(i1),"strokeColor=black;fillColor=black"));
+				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, distance.get(i1,i2).toString()+"       ", VertexObjectList.get(i2+1), VertexObjectList.get(i1+1),"strokeColor=black;fillColor=black"));
 				edgesTemp++;
 				}
 			}
@@ -157,6 +157,18 @@ public class GraphImpl extends mxGraph implements Graph {
 //			pheromones.set(update.get(1)-1, update.get(0)-1,pheromones.get(update.get(1)-1, update.get(0)-1)+update.get(2));
 //		}
 //	}
+	
+	public String toString(){
+		StringBuffer result = new StringBuffer();
+		result.append("Distance:\n");
+		result.append(distance.toString());
+		result.append("\n");
+		result.append("Pheromones:\n");
+		result.append(pheromones.toString());
+		result.append("\n");
+		
+		return result.toString();
+	}
 
 
 }

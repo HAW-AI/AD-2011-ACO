@@ -1,5 +1,7 @@
 package adp2.implementations;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import adp2.interfaces.*;
@@ -108,6 +110,39 @@ public final class Values {
         if (waypoints == null || waypoints.contains(null) || distance < 0)
             return NaP();
         return PathImpl.valueOf(waypoints, distance);
+    }
+    
+    /**
+     * Create a Graph from Array
+     * 
+     * @param args the array from which the Graph will be created 
+     * @return a valid Graph Object
+     */
+    public static Graph grahFromList(int... args){
+    	if(!graphPreCheck(args)){
+    		return NaG();
+    	}
+    	List<Integer> l = new ArrayList<Integer>();
+    	for(Integer elem : args){
+    		l.add(elem);
+    	}
+    	MutableMatrix<Integer> m = mutableMatrix((int)Math.sqrt(args.length), (int)Math.sqrt(args.length), l);
+    	
+    	return GraphImpl.valueOf(m);
+    }
+    
+    /**
+     * PreConditionCheck for the Method "graphFromList"
+     * 
+     * @param args the array from which the Graph will be created 
+     * @return a boolean to show if given Array is valid
+     */
+    private static boolean graphPreCheck(int[] x){
+    	int i = (int)Math.sqrt(x.length);
+    	if(i == Math.sqrt(x.length)){
+    		return true;
+    	}
+    	return false;
     }
     
 }
