@@ -85,7 +85,7 @@ public class AntImpl implements Ant {
 		
 		// berechne die balances und speichere sie in der Map
 		for(Integer elem : this.unvisitedNeighbors()){
-			result.put(elem,balance2(maxDist, maxPher, g.intensity(position(), elem), g.distance(position(), elem)));
+			result.put(elem,balance1(maxDist, maxPher, g.intensity(position(), elem), g.distance(position(), elem)));
 		}
 		return result;
 		
@@ -96,10 +96,10 @@ public class AntImpl implements Ant {
 	private double balance1(double maxDist, double maxPher, double pher, double dist){
 		double distanz;
 		if(!(maxDist == 0)){
-			distanz = dist/maxDist;
+			distanz = 1 - (dist/maxDist);
 		}
 		else{
-			distanz = 0;
+			distanz = 1;
 		}
 		
 		double pheromon;
@@ -206,6 +206,7 @@ public class AntImpl implements Ant {
 			
 			if(unvisitedNodes.isEmpty() && path.get(path.size() - 1) == path.get(0)){
 				finished = true;
+				System.out.println("Ameise fertig");
 			}
 			
 			
