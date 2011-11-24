@@ -17,7 +17,6 @@ public class GraphImpl extends mxGraph implements Graph {
 	private MutableMatrix<Double> pheromones;
 	private final HashMap<Integer,Object> VertexObjectList = new HashMap<Integer,Object>();
 	private final HashMap<Integer,Object> EdgeObjectList = new HashMap<Integer,Object>();
-	private final int NoOfVertexs;
 
 	private GraphImpl(Matrix<Double> distance, MutableMatrix<Double> pheromones) {
 		this.distance = distance;
