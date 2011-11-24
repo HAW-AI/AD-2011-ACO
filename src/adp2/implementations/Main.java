@@ -56,7 +56,7 @@ public class Main {
 		Matrix<Integer> distM = MatrixImpl.valueOf(5, 5, graphy);
 		Matrix<Double> pherM = MatrixImpl.valueOf(5, 5, pher);
 		Graph g = GraphImpl.valueOf(distM, pherM);
-		Simulation s1 = SimulationImpl.valueOf(g, 1);
+		Simulation s1 = SimulationImpl.valueOf(g, 100);
 		s1.start();
 	}
 }

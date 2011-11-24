@@ -12,7 +12,7 @@ public class SimulationImpl implements Simulation{
 		List<Ant> antList;
 		List<List<Integer>> pheromoneUpdateList;		
 
-		int antsByStep = 1; // Anzahl der Ameisen die pro Step hinzufgeügt werden
+		int antsByStep = 1; //Anzahl der Ameisen die pro Step hinzugefuegt werden
 		double antAlpha = 0.5;
 		int startPoint = 1;
 		int pheromoneDecrease = 1;
@@ -47,11 +47,11 @@ public class SimulationImpl implements Simulation{
 	    @Override
 	    public void start(){
 	    	long startzeit = System.currentTimeMillis();
-	    	while(System.currentTimeMillis()-startzeit < 2000){ //Abbruch nach 10Sec
+	    	while(System.currentTimeMillis()-startzeit < 10000){ //Abbruch nach 10Sec
 	    		int i = 0;
-	    		// Ants hinzufÔøΩgen
+	    		// Ants hinzufuegen
 	    		while (i < antList.size()){
-	    			System.out.println(antList.get(i).position()+" -> "+antList.get(i).weglaenge());
+	    			//System.out.println(antList.get(i).position()+" -> "+antList.get(i).weglaenge());
 	    			if (antList.get(i).hasFinished()) {
 	    				if (antList.get(i).weglaenge() < bestDistance) {
 	    					bestDistance = antList.get(i).weglaenge();
@@ -59,30 +59,21 @@ public class SimulationImpl implements Simulation{
 	    				}
 	    				antList.remove(i);
 	    			} else {
-	    				System.out.println("Und nochn Schritt!");
+	    				//System.out.println("Und nochn Schritt!");
 		    			if(antList.get(i).getWaitingTime() == 0){ //Befindlich auf Knoten
 		    				antList.get(i).step(); //Entscheidungsalgorithmus
-		    				System.out.println("HÔøΩpf");
-		    				addPheromoneUpdate(antList.get(i).prePosition()-1,antList.get(i).position()-1,pheromoneIntensity); //FÔøΩge neu betretene kante dem vaporise set hinzu
+		    				//System.out.println("Huepf");
+		    				addPheromoneUpdate(antList.get(i).prePosition(),antList.get(i).position(),pheromoneIntensity); //FÔøΩge neu betretene kante dem vaporise set hinzu
 		    			}else{
 		    				antList.get(i).step();
 
-		    				System.out.println("Hopp!");
+		    				//System.out.println("Hopp!");
 		    			}
-	    				System.out.println(antList.get(i).traveledPath().toString());
+	    				//System.out.println(antList.get(i).traveledPath().toString());
 		    			i++;
 	    			}
 	    		}
 	    		
-//	    		for(Ant ant : antList()){
-//	    			
-//	    			if(ant.getWaitingTime() == 0){ //Befindlich auf Knoten
-//	    				ant.step(); //Entscheidungsalgorithmus
-//	    				addPheromoneUpdate(ant.prePosition(),ant.position(),pheromoneIntensity); //FÔøΩge neu betretene kante dem vaporise set hinzu
-//	    			}else{
-//	    				ant.step();
-//	    			}
-//	    		}
 	    		graph.decrementPheromone(pheromonDecrease());
 		    	graph.incrementPheromone(pheromoneUpdateList());
 	    	}
@@ -93,7 +84,6 @@ public class SimulationImpl implements Simulation{
 		    	for (Integer i : bestPath) {
 		    		System.out.print(i.toString() + " --> ");
 		    	}
-		    	//System.out.print(bestPath.get(0));
 		    	System.out.println();
 	    	} else{
 	    		System.out.println("NO WAY!");
