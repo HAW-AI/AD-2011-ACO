@@ -1,6 +1,5 @@
 package adp2.interfaces;
 
-import java.util.List;
 
 public interface Ant {
 	Path traveledPath();
