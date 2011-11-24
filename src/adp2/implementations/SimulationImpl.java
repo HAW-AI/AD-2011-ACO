@@ -19,6 +19,8 @@ public class SimulationImpl implements Simulation{
 		int startPoint = 1;
 		int pheromoneDecrease = 1;
 		int pheromoneIntensity = 10;
+		// The Simulation should not log the states of all Graphs by default
+		boolean logStates = false;
 		
 		int bestDistance = Integer.MAX_VALUE;
 		public List<Integer> bestPath = new ArrayList<Integer>();
@@ -33,6 +35,18 @@ public class SimulationImpl implements Simulation{
 			return new SimulationImpl(graph, antsQuantity, antsByStep);
 		}
 	    
+		//Ameisen werden alle direkt rein geworfen
+	    // Log States
+	    public static Simulation valueOf(Graph graph, int antsQuantity, boolean logStates) {
+			return new SimulationImpl(graph, antsQuantity, logStates);
+		}
+	    
+	    //Ameisen werden in Wellen rein geworfen
+	    // Log States
+	    public static Simulation valueOf(Graph graph, int antsQuantity, int antsByStep, boolean logStates) {
+			return new SimulationImpl(graph, antsQuantity, antsByStep, logStates);
+		}
+	    
 	    private SimulationImpl(Graph graph, int antsQuantity) {
 	    	setGraph(graph);
 	    	setAntQuantity(antsQuantity);
@@ -45,6 +59,22 @@ public class SimulationImpl implements Simulation{
 	    	setAntQuantity(antsQuantity);
 	    	setAntsByStep(antsByStep);
 	    	graphStates = new ArrayList<Graph>();
+	    }
+	    
+	    private SimulationImpl(Graph graph, int antsQuantity, boolean logStates) {
+	    	setGraph(graph);
+	    	setAntQuantity(antsQuantity);
+	    	addAnts(antsQuantity);
+	    	graphStates = new ArrayList<Graph>();
+	    	this.logStates = logStates;
+	    }
+	
+	    private SimulationImpl(Graph graph, int antsQuantity, int antsByStep, boolean logStates) {
+	    	setGraph(graph);
+	    	setAntQuantity(antsQuantity);
+	    	setAntsByStep(antsByStep);
+	    	graphStates = new ArrayList<Graph>();
+	    	this.logStates = logStates;
 	    }
 	    
 	    @Override
@@ -83,12 +113,14 @@ public class SimulationImpl implements Simulation{
 	    		}
 	    		pheromoneDecreament();
 	    		pheromoneIncrement();
-	    		graphStates.add(currentGraph);
-	    		/*
-	    		 * For every Step this adds the current Graph to the list of graphStates
-	    		 * Doing so gives us the ability to replay the Graph transformations. 
-	    		 */
-	    		currentGraph = currentGraph.deepClone();	    	
+	    		if (logStates) {
+		    		graphStates.add(currentGraph);
+		    		/*
+		    		 * For every Step this adds the current Graph to the list of graphStates
+		    		 * Doing so gives us the ability to replay the Graph transformations. 
+		    		 */
+		    		currentGraph = currentGraph.deepClone();
+	    		}
 	    	}
 	    }
 		
