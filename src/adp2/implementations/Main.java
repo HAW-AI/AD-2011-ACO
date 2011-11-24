@@ -17,7 +17,7 @@ public class Main {
 //		t = TspFile.open("samples/ant9.tsp");
 		t = TspFile.open("samples/ant15.tsp");
 		Graph g = GraphImpl.valueOf(t.matrix());
-		Simulation sim = SimulationImpl.valueOf(g, 10, 3);
+		Simulation sim = Values.simulation(g, 10, 3);
 		//sim.run();
 		sim.runForSeconds(10);
 		//sim.runForSteps(1000);
