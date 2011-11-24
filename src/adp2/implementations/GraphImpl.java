@@ -17,45 +17,10 @@ public class GraphImpl extends mxGraph implements Graph {
 	private MutableMatrix<Double> pheromones;
 	private final HashMap<Integer,Object> VertexObjectList = new HashMap<Integer,Object>();
 	private final HashMap<Integer,Object> EdgeObjectList = new HashMap<Integer,Object>();
-	private final int NoOfVertexs;
 
 	private GraphImpl(Matrix<Double> distance, MutableMatrix<Double> pheromones) {
 		this.distance = distance;
 		this.pheromones = pheromones;
-		
-
-		NoOfVertexs = this.distance.height();
-		double schritt = 360/NoOfVertexs;
-		
-		
-		//B�se Rundungsfehler, kann sich vielleicht nochmal jemand angucken
-		
-		for (Double temp = 1.0; temp<=NoOfVertexs;temp++) {
-			
-			double hyp =  (((Main.height/2)-50.) * Math.cos(((90.-((schritt*temp)/2.))/ 180 * Math.PI)) * 2.);
-			double gk = ( Math.cos((90.-((schritt*temp)/2.))/ 180. * Math.PI) * hyp);
-			double x,y;
-			if(temp > (NoOfVertexs/2.)){
-			x = ((Main.width/2.)-50.)+Math.sqrt((hyp*hyp) - (gk*gk));
-			}else {
-			x = (Main.width/2.)-50.-Math.sqrt((hyp*hyp) - (gk*gk));
-			}
-			y = (Main.height)-100.-gk;
-
-			VertexObjectList.put(temp.intValue(),insertVertex(getDefaultParent(), null, ((Integer)(temp).intValue()).toString(), x, y, 40,20));
-		}
-
-		Integer edgesTemp = 1;
-		for(Integer i1=0;i1<NoOfVertexs;i1++){
-			for(Integer i2=0;i2<NoOfVertexs;i2++){
-				if(distance.get(i1,i2) >0){
-				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, distance.get(i1,i2).toString()+"       ", VertexObjectList.get(i1+1), VertexObjectList.get(i2+1),"strokeColor=black;fillColor=black"));
-				edgesTemp++;
-				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, distance.get(i1,i2).toString()+"       ", VertexObjectList.get(i2+1), VertexObjectList.get(i1+1),"strokeColor=black;fillColor=black"));
-				edgesTemp++;
-				}
-			}
-		}
 	}
 
 	public static Graph valueOf(Matrix<Double> distance) {
@@ -75,12 +40,6 @@ public class GraphImpl extends mxGraph implements Graph {
 	}
 	
 	public void highlightPath(Path p) {
-		List<Integer> tl= p.waypoints();
-		if (tl.size() == 0) return;
-		for(Integer i = 1; i < tl.size();i++){
-			setCellStyle("strokeColor=red;fillColor=green;fontColor=red", getEdgesBetween(VertexObjectList.get(tl.get(i-1)),VertexObjectList.get(tl.get(i)))) ;
-		}
-		setCellStyle("strokeColor=red;fillColor=green;fontColor=red",getEdgesBetween(VertexObjectList.get(tl.get(0)),VertexObjectList.get(tl.get(tl.size()-1)))) ;
 	}
 
 	@Override
@@ -176,5 +135,6 @@ public class GraphImpl extends mxGraph implements Graph {
 		return new GraphImpl(distance.deepClone(), pheromones.deepClone());
 	}
 
+	public Matrix<Double> distanceVar(){ return this.distance;}
 
 }

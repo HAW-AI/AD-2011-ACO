@@ -10,12 +10,12 @@ public class Darstellung extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public Graph graph;
+	public PrintGraph graph;
 
 	public Darstellung(Graph g) {
 	super("ACO");
-	graph  = g;
-	mxGraphComponent graphComponent = new mxGraphComponent((GraphImpl) graph);
+	graph  = PrintGraph.printableGraph(g);
+	mxGraphComponent graphComponent = new mxGraphComponent((PrintGraph) graph);
 	getContentPane().add(graphComponent);
 	}
 }
