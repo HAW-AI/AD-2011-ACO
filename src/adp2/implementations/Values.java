@@ -113,7 +113,7 @@ public final class Values {
     }
     
     /**
-     * Create a simulation with number of ant-input
+     * Create a simulation with a defined number of ants starting at once
      * 
      * @param graph 
      * @param antsQuantity  total number of ants in the graph, pushed at once
@@ -129,7 +129,7 @@ public final class Values {
     }
     
     /**
-     * Create a Simulation with number of ant-input and logs states of all graphs
+     * Create a simulation with a defined number of ants starting at once and logs states of all graphs
      * 
      * @param graph 
      * @param antsQuantity  total number of ants in the graph, pushed at once
@@ -146,11 +146,11 @@ public final class Values {
     }
     
     /**
-     * Create a Simulation with number of ant-input and number of how many ants entry graph at each step
+     * Create a simulation with a defined number of ants in total starting step by step
      * 
      * @param graph 
      * @param antsQuantity  total number of ants in the graph
-     * @param antsByStep 	number of ants, pushed at one step
+     * @param antsByStep 	number of ants, pushed at every step
      * 
      * @return Simulation 
      * 
@@ -163,11 +163,11 @@ public final class Values {
     }
     
     /**
-     * Create a Simulation with number of ant-input, number of how many ants entry graph at each step and logs states of all graphs
+     * Create a simulation with a defined number of ants in total starting step by step and logs states of all graphs
      * 
      * @param graph 
      * @param antsQuantity  total number of ants in the graph
-     * @param antsByStep 	number of ants, pushed at one step
+     * @param antsByStep 	number of ants, pushed at every step
      * @param logStates 	simulation log states or not
      * 
      * @return Simulation
