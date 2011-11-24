@@ -1,6 +1,5 @@
 package adp2.implementations;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,15 +42,6 @@ public class NaG implements Graph {
 	@Override
 	public void decrementPheromone(int value) {}
 
-	@Override
-	public List<Integer> pointsBetween(int von, int bis) {
-		return new ArrayList<Integer>();
-	}
-
-	@Override
-	public int minDist(int von, int bis) {
-		return -1;
-	}
 
 	@Override
 	public void highlightPath(Path p) {
