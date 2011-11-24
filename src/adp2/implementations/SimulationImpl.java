@@ -14,6 +14,7 @@ public class SimulationImpl implements Simulation{
 		List<List<Integer>> pheromoneUpdateList = new ArrayList<List<Integer>>();		
 
 		int antQuantity;
+		int antsLaunched = 0;
 		int antsByStep = 0; //Anzahl der Ameisen die pro Step hinzugefuegt werden
 		double antAlpha = 0.5;
 		int startPoint = 1;
@@ -78,57 +79,67 @@ public class SimulationImpl implements Simulation{
 	    }
 	    
 	    @Override
-	    public void start(){
-	    	int antsLaunched = 0;
-	    	long startzeit = System.currentTimeMillis();
-	    	while(System.currentTimeMillis()-startzeit < 2000){ //Abbruch nach 2Sec, weitere Bedingungen kommen
-	    		
-	    		/*
-	    		 * antList = Ameisen aktuell im Graphen
-	    		 * antsByStep = Ameisen die hinzugefuegt werden pro Step (wenn angegeben)
-	    		 * antQuantity = Anzahl der Ameisen ï¿½ber maximal in den Graphen laufen
-	    		 * */
-	    
-	    		if((antsByStep() != 0) && (antsLaunched <= antQuantity())){
-	    			if( (antsLaunched+antsByStep()) <= antQuantity()){ //Ameisen um antsByStep erhoehen
-	    				antsLaunched += antsByStep();
-	    				addAnts(antsByStep());
-	    			} else if(antsLaunched < antQuantity()){ // Ameisen um Rest < antsByStep erhï¿½hen
-	    				antsLaunched += antQuantity()-antList().size();
-	    				addAnts(antQuantity()-antList().size());
-	    			}
-	    		}
-	    		int i = 0;
-	    		while (i < antList().size()){
-	    			if (antList().get(i).hasFinished()) {
-	    				if (antList().get(i).weglaenge() < bestDistance()) {
-	    					setBestDistance(antList().get(i).weglaenge());
-	    					setBestPath(antList().get(i).traveledPath().waypoints());
-	    				}
-	    				removeAnt(i); 
-	    			} else {
-		    			if(antList().get(i).getWaitingTime() == 0){ 	//Befindlich auf Knoten
-		    				antList().get(i).step(); 					//Entscheidungsalgorithmus und einen Schritt gehen
-		    				addPheromoneUpdate(antList().get(i).prePosition(),antList().get(i).position(),pheromoneIntensity()); //Pheromonverteilung vorbereiten
-		    			}else{
-		    				antList().get(i).step();
-		    			}
-		    			i++;
-	    			}
-	    		}
-	    		pheromoneDecreament();
-	    		pheromoneIncrement();
-	    		if (logStates) {
-		    		graphStates.add(currentGraph);
-		    		/*
-		    		 * For every Step this adds the current Graph to the list of graphStates
-		    		 * Doing so gives us the ability to replay the Graph transformations. 
-		    		 */
-		    		currentGraph = currentGraph.deepClone();
-	    		}
+	    public void run(){
+	    	boolean run = true;
+	    	while(run){
+	    		run = simulate();
 	    	}
 	    }
 		
+	    private boolean simulate(){
+	    	/*
+    		 * antList = Ameisen aktuell im Graphen
+    		 * antsByStep = Ameisen die hinzugefuegt werden pro Step (wenn angegeben)
+    		 * antQuantity = Anzahl der Ameisen über maximal in den Graphen laufen
+    		 * */
+	    	
+    
+    		if((antsByStep() != 0) && (antsLaunched < antQuantity())){
+    			if( (antsLaunched+antsByStep()) <= antQuantity()){ //Ameisen um antsByStep erhoehen
+    				antsLaunched += antsByStep();
+    				addAnts(antsByStep());
+    			} else if(antsLaunched < antQuantity()){ // Ameisen um Rest < antsByStep erhï¿½hen
+    				antsLaunched += antQuantity()-antList().size();
+    				addAnts(antQuantity()-antList().size());
+    			}
+    		}
+    		int i = 0;
+    		while (i < antList().size()){
+    			if (antList().get(i).hasFinished()) {
+    				if (antList().get(i).weglaenge() < bestDistance()) {
+    					setBestDistance(antList().get(i).weglaenge());
+    					setBestPath(antList().get(i).traveledPath().waypoints());
+    				}
+    				removeAnt(i); 
+    			} else {
+	    			if(antList().get(i).getWaitingTime() == 0){ 	//Befindlich auf Knoten
+	    				antList().get(i).step(); 					//Entscheidungsalgorithmus und einen Schritt gehen
+	    				addPheromoneUpdate(antList().get(i).prePosition(),antList().get(i).position(),pheromoneIntensity()); //Pheromonverteilung vorbereiten
+	    			}else{
+	    				antList().get(i).step();
+	    			}
+	    			i++;
+    			}
+    		}
+    		pheromoneDecreament();
+    		pheromoneIncrement();
+    		if (logStates) {
+	    		graphStates.add(currentGraph);
+	    		/*
+	    		 * For every Step this adds the current Graph to the list of graphStates
+	    		 * Doing so gives us the ability to replay the Graph transformations. 
+	    		 */
+	    		currentGraph = currentGraph.deepClone();
+    		}
+    		//Ende wenn alle Ameisen durchgelaufen sind und keine mehr kommen (per antsByStep)
+    		return !(antList().isEmpty() && (antsLaunched == antQuantity()));
+	    }	
+	    
+	    @Override
+		public void runForSeconds(int runtimeInS) {}
+	    
+	    @Override
+		public void runForSteps(int simulationSteps) {}
 
 	    /*Getter and Setter*/
 	    

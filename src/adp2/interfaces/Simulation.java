@@ -15,7 +15,19 @@ public interface Simulation {
 	 * Starts the simulation process
 	 * 
 	 */
-	void start();
+	void run();
+	
+	/**
+	 * Starts the simulation process
+	 * 
+	 */
+	void runForSeconds(int runtimeInS);
+	
+	/**
+	 * Starts the simulation process
+	 * 
+	 */
+	void runForSteps(int simulationSteps);
 	
 	/**
 	 * Returns the shortest path found for the simulation
