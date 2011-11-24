@@ -111,9 +111,14 @@ public final class Values {
     public static Simulation NaS() {
     	return NaS.valueOf();
     }
-
+    
     /**
-     * Create a Simulation
+     * Create a simulation with number of ant-input
+     * 
+     * @param graph 
+     * @param antsQuantity  total number of ants in the graph, pushed at once
+     * 
+     * @return Simulation 
      * 
      */
     public static Simulation simulation(Graph graph, int antsQuantity) {
@@ -124,7 +129,13 @@ public final class Values {
     }
     
     /**
-     * Create a Simulation
+     * Create a Simulation with number of ant-input and logs states of all graphs
+     * 
+     * @param graph 
+     * @param antsQuantity  total number of ants in the graph, pushed at once
+     * @param logStates 	simulation log states or not
+     * 
+     * @return Simulation 
      * 
      */
     public static Simulation simulation(Graph graph, int antsQuantity, boolean logStates) {
@@ -135,7 +146,13 @@ public final class Values {
     }
     
     /**
-     * Create a Simulation
+     * Create a Simulation with number of ant-input and number of how many ants entry graph at each step
+     * 
+     * @param graph 
+     * @param antsQuantity  total number of ants in the graph
+     * @param antsByStep 	number of ants, pushed at one step
+     * 
+     * @return Simulation 
      * 
      */
     public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep) {
@@ -146,7 +163,14 @@ public final class Values {
     }
     
     /**
-     * Create a Simulation
+     * Create a Simulation with number of ant-input, number of how many ants entry graph at each step and logs states of all graphs
+     * 
+     * @param graph 
+     * @param antsQuantity  total number of ants in the graph
+     * @param antsByStep 	number of ants, pushed at one step
+     * @param logStates 	simulation log states or not
+     * 
+     * @return Simulation
      * 
      */
     public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep, boolean logStates) {
