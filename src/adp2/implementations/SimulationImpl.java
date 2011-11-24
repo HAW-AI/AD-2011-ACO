@@ -19,7 +19,7 @@ public class SimulationImpl implements Simulation{
 		int pheromoneIntensity = 10;
 		
 		int bestDistance = Integer.MAX_VALUE;
-		List<Integer> bestPath = new ArrayList<Integer>();
+		public List<Integer> bestPath = new ArrayList<Integer>();
 
 		
 	    public static Simulation valueOf(Graph graph, int AntsQuantity) {
@@ -165,7 +165,6 @@ public class SimulationImpl implements Simulation{
 
 		@Override
 		public Path minPath() {
-			// TODO Auto-generated method stub
-			return null;
+			return Values.path(bestPath, bestDistance);
 		}
 }

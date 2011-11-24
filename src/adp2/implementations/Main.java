@@ -2,11 +2,17 @@ package adp2.implementations;
 
 import java.util.List;
 import java.util.Arrays;
+
+import javax.swing.JFrame;
+
 import adp2.interfaces.Graph;
 import adp2.interfaces.Matrix;
 import adp2.interfaces.Simulation;
 
 public class Main {
+	public static int width = 1280;
+	public static int height = 720;
+	
 	public static void main(String[] args) {
 		List<Integer> dist = Arrays.asList(0, 2, 10, 1, 20, 1, 20,
 				3, 20, 2, 0, 2, 20, 20, 20, 20, 20, 20,
@@ -52,5 +58,12 @@ public class Main {
 		Graph g = GraphImpl.valueOf(distM);
 		Simulation s1 = SimulationImpl.valueOf(g, 100);
 		s1.start();
+		
+		Darstellung frame = new Darstellung(g);
+		frame.setSize(width, height);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		frame.graph.highlightPath(s1.minPath());	
+		
 	}
 }
