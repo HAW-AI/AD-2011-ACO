@@ -76,6 +76,7 @@ public class GraphImpl extends mxGraph implements Graph {
 	
 	public void highlightPath(Path p) {
 		List<Integer> tl= p.waypoints();
+		if (tl.size() == 0) return;
 		for(Integer i = 1; i < tl.size();i++){
 			setCellStyle("strokeColor=red;fillColor=green;fontColor=red", getEdgesBetween(VertexObjectList.get(tl.get(i-1)),VertexObjectList.get(tl.get(i)))) ;
 		}
