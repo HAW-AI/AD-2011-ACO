@@ -32,15 +32,15 @@ public class GraphImpl extends mxGraph implements Graph {
 		
 		for (Double temp = 1.0; temp<=NoOfVertexs;temp++) {
 			
-			double hyp =  (((Main.height/2)-50) * Math.cos(((90-((schritt*temp)/2))/ 180 * Math.PI)) * 2);
-			double gk = ( Math.cos((90-((schritt*temp)/2))/ 180 * Math.PI) * hyp);
+			double hyp =  (((Main.height/2)-50.) * Math.cos(((90.-((schritt*temp)/2.))/ 180 * Math.PI)) * 2.);
+			double gk = ( Math.cos((90.-((schritt*temp)/2.))/ 180. * Math.PI) * hyp);
 			double x,y;
-			if(temp > (NoOfVertexs/2)){
-			x = ((Main.width/2)-50)+Math.sqrt((hyp*hyp) - (gk*gk));
+			if(temp > (NoOfVertexs/2.)){
+			x = ((Main.width/2.)-50.)+Math.sqrt((hyp*hyp) - (gk*gk));
 			}else {
-			x = (Main.width/2)-50-Math.sqrt((hyp*hyp) - (gk*gk));
+			x = (Main.width/2.)-50.-Math.sqrt((hyp*hyp) - (gk*gk));
 			}
-			y = (Main.height)-100-gk;
+			y = (Main.height)-100.-gk;
 
 			VertexObjectList.put(temp.intValue(),insertVertex(getDefaultParent(), null, ((Integer)(temp).intValue()).toString(), x, y, 40,20));
 		}
@@ -130,7 +130,7 @@ public class GraphImpl extends mxGraph implements Graph {
 	}
 
 	@Override
-	public void decrementPheromone(int value) {
+	public void decrementPheromone(double value) {
 		for (int i = 0; i < pheromones.width(); i++) {
 			for (int j = 0; j < pheromones.height(); j++) {
 				if (pheromones.get(i, j) - value < 0) {

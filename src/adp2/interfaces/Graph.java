@@ -12,7 +12,7 @@ public interface Graph {
 
 	double intensity(int von, int nach);
 
-	void decrementPheromone(int value);
+	void decrementPheromone(double value);
 	
 	public void incrementPheromone(int start, int end, double pheromone);
 	
