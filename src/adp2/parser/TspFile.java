@@ -11,15 +11,15 @@ import java.util.List;
 import adp2.implementations.MutableMatrixImpl;
 import adp2.interfaces.Matrix;
 
-public class Tsp {
-	public static Tsp open(String filename) {
-		return new Tsp(filename);
+public class TspFile {
+	public static TspFile open(String filename) {
+		return new TspFile(filename);
 	}
 
 	private String[] content;
 	private Integer dimension;
 	private Double[] values;
-	public Tsp(String filename) {
+	public TspFile(String filename) {
 		dimension(head(content(filename)));
 		lowerDiagonalRow(body(content(filename)));
 	}

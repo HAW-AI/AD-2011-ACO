@@ -3,19 +3,19 @@ package adp2.implementations;
 import javax.swing.JFrame;
 import adp2.interfaces.Graph;
 import adp2.interfaces.Simulation;
-import adp2.parser.Tsp;
+import adp2.parser.TspFile;
 
 public class Main {
 	public static int width = 1280;
 	public static int height = 720;
 	
 	public static void main(String[] args) {
-		Tsp t = null;
+		TspFile t = null;
 //		t = Tsp.open("samples/gr21.tsp");
-		t = Tsp.open("samples/ant2.tsp");		
+//		t = Tsp.open("samples/ant2.tsp");		
 //		t = Tsp.open("samples/ant5.tsp");
 //		t = Tsp.open("samples/ant9.tsp");
-//		t = Tsp.open("samples/ant15.tsp");
+		t = TspFile.open("samples/ant15.tsp");
 		Graph g = GraphImpl.valueOf(t.matrix());
 		Simulation sim = SimulationImpl.valueOf(g, 10, 3);
 		sim.start();
