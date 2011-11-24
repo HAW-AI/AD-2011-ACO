@@ -44,6 +44,9 @@ public class BruteForceTSPTest {
     private Path path3;
     private Matrix<Integer> distances3;
     
+    private Path path4;
+    private Matrix<Integer> distances4;
+    
     @Before
     public void setup() {
         tsp = bruteForceTSP();
@@ -71,6 +74,9 @@ public class BruteForceTSPTest {
         
         path3 = NaP();
         distances3 = NaM();
+        
+        path4 = path(asList(1), 0);
+        distances4 = matrix(1, 1, asList(-1));
     }
     
     @Test
@@ -86,5 +92,10 @@ public class BruteForceTSPTest {
     @Test
     public void testMinPath3() {
         assertEquals(path3, tsp.minPath(distances3));
+    }
+    
+    @Test
+    public void testMinPath4() {
+        assertEquals(path4, tsp.minPath(distances4));
     }
 }
