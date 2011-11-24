@@ -78,7 +78,7 @@ public class SimulationImpl implements Simulation{
 	    }
 	    
 	    @Override
-	    public void start(){
+	    public void run(){
 	    	int antsLaunched = 0;
 	    	long startzeit = System.currentTimeMillis();
 	    	while(System.currentTimeMillis()-startzeit < 2000){ //Abbruch nach 2Sec, weitere Bedingungen kommen
@@ -129,6 +129,11 @@ public class SimulationImpl implements Simulation{
 	    	}
 	    }
 		
+	    @Override
+		public void runForSeconds(int runtimeInS) {}
+	    
+	    @Override
+		public void runForSteps(int simulationSteps) {}
 
 	    /*Getter and Setter*/
 	    
