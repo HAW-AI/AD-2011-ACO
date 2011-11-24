@@ -49,7 +49,7 @@ public class Main {
 		List<Integer> easy = Arrays.asList(
 				0,4,
 				4,0);
-		Matrix<Integer> distM = MatrixImpl.valueOf(5, 5, graphy);
+		Matrix<Integer> distM = ImmutableMatrixImpl.valueOf(5, 5, graphy);
 		Graph g = GraphImpl.valueOf(distM);
 		Simulation s1 = SimulationImpl.valueOf(g, 100);
 		s1.start();

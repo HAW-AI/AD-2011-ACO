@@ -8,20 +8,18 @@ import java.util.Set;
 
 import com.mxgraph.view.mxGraph;
 
-import adp2.interfaces.Graph;
-import adp2.interfaces.Matrix;
-import adp2.interfaces.Path;
+import adp2.interfaces.*;
 import static adp2.implementations.Values.*;
 
 public class GraphImpl extends mxGraph implements Graph {
 
 	private final Matrix<Integer> distance;
-	private Matrix<Double> pheromones;
+	private MutableMatrix<Double> pheromones;
 	private final HashMap<Integer,Object> VertexObjectList = new HashMap<Integer,Object>();
 	private final HashMap<Integer,Object> EdgeObjectList = new HashMap<Integer,Object>();
 	private final int NoOfVertexs;
 
-	private GraphImpl(Matrix<Integer> distance, Matrix<Double> pheromones) {
+	private GraphImpl(Matrix<Integer> distance, MutableMatrix<Double> pheromones) {
 		this.distance = distance;
 		this.pheromones = pheromones;
 		
@@ -68,12 +66,12 @@ public class GraphImpl extends mxGraph implements Graph {
 		return new GraphImpl(distance, calcPheromoneMatrix(distance.width(), distance.height()));
 	}	
 	
-	private static Matrix<Double> calcPheromoneMatrix(int width, int height){
+	private static MutableMatrix<Double> calcPheromoneMatrix(int width, int height){
 		List<Double> resultList=new ArrayList<Double>();
 		for(int i=0; i<(width*height); i++){
 			resultList.add(0.);
 		}
-		return matrix(width, height, resultList);
+		return mutableMatrix(width, height, resultList);
 	}
 	
 	public void highlightPath(Path p) {

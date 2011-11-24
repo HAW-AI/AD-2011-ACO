@@ -25,13 +25,5 @@ public interface Matrix<E> extends Iterable<E> {
      */
     E get(int x, int y);
     
-    /**
-     * Set a value at the positin (x,y) in the Matrix.
-     * 
-     * @param x x-position
-     * @param y y-position
-     * @param value the value which should be set at (x,y)
-     */
-    void set(int x, int y, E value);
     
 }

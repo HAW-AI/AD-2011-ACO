@@ -32,7 +32,23 @@ public final class Values {
     public static <T> Matrix<T> matrix(int width, int height, List<T> values) {
         if (values == null || values.size() != width*height || values.contains(null))
             return NaM();
-        return MatrixImpl.valueOf(width, height, values);
+        return ImmutableMatrixImpl.valueOf(width, height, values);
+    }
+    
+    /**
+     * Create a Matrix with given dimensions and values.
+     * 
+     * @param width  the width
+     * @param height the height
+     * @param values the values (the first n elements are the first row, the
+     *               following the second one and so forth)
+     * @return a valid Matrix object or NaM if any argument is or contains null
+     *         or values.size() != width*height
+     */
+    public static <T> MutableMatrix<T> mutableMatrix(int width, int height, List<T> values) {
+        if (values == null || values.size() != width*height || values.contains(null))
+            return NaMM();
+        return MutableMatrixImpl.valueOf(width, height, values);
     }
     
     /**
@@ -44,6 +60,15 @@ public final class Values {
         return NaM.valueOf();
     }
 
+    /**
+     * Not a Mutable Matrix
+     * 
+     * @return Not a Mutable Matrix
+     */
+    public static <T> MutableMatrix<T> NaMM() {
+        return NaMM.valueOf();
+    }
+    
     /**
      * Not a Graph
      *

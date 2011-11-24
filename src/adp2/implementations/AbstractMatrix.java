@@ -6,23 +6,12 @@ import java.util.List;
 
 import adp2.interfaces.Matrix;
 
-public final class MatrixImpl<E> implements Matrix<E> {
+public abstract class AbstractMatrix<E> implements Matrix<E> {
 
-    final private int width;
-    final private int height;
-    final private List<E> values;
-    
-    public static <E> Matrix<E> valueOf(int width, int height, List<E> values) {
-        // pre-condition check in factory!
-        return new MatrixImpl<E>(width, height, values);
-    }
-
-    private MatrixImpl(int width, int height, List<E> values) {
-        this.width = width;
-        this.height = height;
-        this.values = new ArrayList<E>(values);
-    }
-
+    protected int width;
+    protected int height;
+    protected List<E> values;
+	
     @Override
     public int width() {
         return width;
@@ -45,13 +34,13 @@ public final class MatrixImpl<E> implements Matrix<E> {
         }
         return values.get(x + (y * width()));
     }
-    
+	
     @Override
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof MatrixImpl<?>)) return false;
-        return ((MatrixImpl<?>)o).values.equals(values);
+        if (o == null || !(o instanceof AbstractMatrix<?>)) return false;
+        return ((AbstractMatrix<?>)o).values.equals(values);
     }
-    
+	
     @Override
     public int hashCode() {
         return values.hashCode();
@@ -69,13 +58,5 @@ public final class MatrixImpl<E> implements Matrix<E> {
         }
         return result.toString();
     }
-
-	@Override
-	public void set(int x, int y, E value) {
-        if (x < 0 || x >= this.width() || y < 0 || y >= this.height()) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-        values.add(x + (y * width()), value);
-	}
 
 }
