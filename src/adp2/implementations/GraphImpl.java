@@ -130,7 +130,7 @@ public class GraphImpl extends mxGraph implements Graph {
 	}
 
 	@Override
-	public void decrementPheromone(int value) {
+	public void decrementPheromone(double value) {
 		for (int i = 0; i < pheromones.width(); i++) {
 			for (int j = 0; j < pheromones.height(); j++) {
 				if (pheromones.get(i, j) - value < 0) {

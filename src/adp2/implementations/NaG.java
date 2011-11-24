@@ -39,7 +39,7 @@ public class NaG implements Graph {
 	}
 
 	@Override
-	public void decrementPheromone(int value) {}
+	public void decrementPheromone(double value) {}
 
 
 	@Override

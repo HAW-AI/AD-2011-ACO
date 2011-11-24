@@ -17,7 +17,7 @@ public class SimulationImpl implements Simulation{
 		int antsByStep = 0; //Anzahl der Ameisen die pro Step hinzugefuegt werden
 		double antAlpha = 0.5;
 		int startPoint = 1;
-		int pheromoneDecrease = 1;
+		double pheromoneDecrease = 1;
 		int pheromoneIntensity = 10;
 		// The Simulation should not log the states of all Graphs by default
 		boolean logStates = false;
@@ -86,7 +86,7 @@ public class SimulationImpl implements Simulation{
 	    		/*
 	    		 * antList = Ameisen aktuell im Graphen
 	    		 * antsByStep = Ameisen die hinzugefuegt werden pro Step (wenn angegeben)
-	    		 * antQuantity = Anzahl der Ameisen über maximal in den Graphen laufen
+	    		 * antQuantity = Anzahl der Ameisen ï¿½ber maximal in den Graphen laufen
 	    		 * */
 	    
 	    		if((antsByStep() != 0) && (antsLaunched <= antQuantity())){
@@ -188,7 +188,7 @@ public class SimulationImpl implements Simulation{
 	    	return pheromoneIntensity;
 	    }
 	    
-	    private int pheromoneDecrease(){
+	    private double pheromoneDecrease(){
 	    	return pheromoneDecrease;
 	    }
 	    
