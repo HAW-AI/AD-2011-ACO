@@ -16,8 +16,6 @@ public class GraphImpl extends mxGraph implements Graph {
 
 	private final Matrix<Integer> distance;
 	private Matrix<Double> pheromones;
-	private Double[][] dm;
-	private Double[][] tm;
 	private final HashMap<Integer,Object> VertexObjectList = new HashMap<Integer,Object>();
 	private final HashMap<Integer,Object> EdgeObjectList = new HashMap<Integer,Object>();
 	private final int NoOfVertexs;
@@ -25,9 +23,6 @@ public class GraphImpl extends mxGraph implements Graph {
 	private GraphImpl(Matrix<Integer> distance, Matrix<Double> pheromones) {
 		this.distance = distance;
 		this.pheromones = pheromones;
-		dm = new Double[distance.width()][distance.height()];
-		tm = new Double[distance.width()][distance.height()];
-		floydWarshall();
 		
 
 		NoOfVertexs = this.distance.height();
@@ -142,74 +137,11 @@ public class GraphImpl extends mxGraph implements Graph {
 	public void incrementPheromone(List<List<Integer>> pheromoneUpdateList){
 		for(List<Integer> update : pheromoneUpdateList){
 			//0 und 1 -> Matrix Pos, 2 -> Pheromon Update
-			//Auf 0 und 1 wird -1 um von der externen Nummerierung (ab 1) auf die interne (ab 0) für die Matrix zu kommen
+			//Auf 0 und 1 wird -1 um von der externen Nummerierung (ab 1) auf die interne (ab 0) fï¿½r die Matrix zu kommen
 			pheromones.set(update.get(0)-1, update.get(1)-1,pheromones.get(update.get(0)-1, update.get(1)-1)+update.get(2));
 			pheromones.set(update.get(1)-1, update.get(0)-1,pheromones.get(update.get(1)-1, update.get(0)-1)+update.get(2));
 		}
 	}
 
-	private void floydWarshall() {
-		for (int i = 0; i < distance.width(); i++) {
-			for (int j = 0; j < distance.height(); j++) {
-				tm[i][j] = 0.0;
-				if (!(i == j)) {
-					if (distance.get(i, j) == -1) {
-						dm[i][j] = Double.POSITIVE_INFINITY;
-					} else {
-						dm[i][j] = (double) distance.get(i, j);
-					}
-				} else {
-					dm[i][j] = 0.0;
-				}
-			}
-		}
 
-		for (int i = 0; i < distance.width(); i++) {
-			for (int j = 0; j < distance.height(); j++) {
-				if (!(i == j)) {
-					for (int k = 0; k < distance.width(); k++) {
-						if (!(j == k)) {
-							if (dm[i][k] != Math.min(dm[i][k],
-									(dm[i][j] + dm[j][k]))) {
-								dm[i][k] = Math.min(dm[i][k],
-										(dm[i][j] + dm[j][k]));
-								tm[i][k] = (double) j;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	@Override
-	public List<Integer> pointsBetween(int von, int bis) {
-		ArrayList<Integer> res = new ArrayList<Integer>();
-		if (von == bis) {
-			return res;
-		}
-		res.add(von);
-		res.addAll(pointsBetween_(von, bis));
-		res.add(bis);
-		return res;
-	}
-
-	private List<Integer> pointsBetween_(int von, int bis) {
-		ArrayList<Integer> res = new ArrayList<Integer>();
-		int i = tm[von][bis].intValue();
-		if (i == 0) {
-			return res;
-		} else {
-			res.addAll(pointsBetween_(von, i));
-			res.add(i);
-			res.addAll(pointsBetween_(i, bis));
-			return res;
-		}
-
-	}
-
-	@Override
-	public int minDist(int von, int bis) {
-		return dm[von][bis].intValue();
-	}
 }

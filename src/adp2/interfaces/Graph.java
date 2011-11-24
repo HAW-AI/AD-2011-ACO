@@ -19,23 +19,6 @@ public interface Graph {
 	
 	public void highlightPath(Path p);
 
-    /**
-     * Points between two nodes
-     * 
-     * @param von Startnode
-     * @param bis Endnode
-     * @return Integer-List that includes von,bis and 
-     * all nodes of the shortest way between them
-     */
-	List<Integer> pointsBetween(int von, int bis);
 
-    /**
-     * minimum distance between two nodes
-     * 
-     * @param von Startnode
-     * @param bis Endnode
-     * @return distance of the shortest way between Start- and Endnode
-     */
-	int minDist(int von, int bis);
 
 }
