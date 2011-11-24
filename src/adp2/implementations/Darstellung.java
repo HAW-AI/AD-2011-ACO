@@ -48,14 +48,10 @@ public class Darstellung extends JFrame {
 				20, 20, 20, 20, 20, 20, 1, 0, 2, 20, 20, 20, 20, 20, 20, 20,
 				20, 20, 20, 20, 20, 20, 2, 0);
 		
-		List<Double> pher = new ArrayList<Double>();
-		for (int i = 0; i < 225; i++) {
-			pher.add(0.0);
-		}
-		Matrix<Integer> distM = Values.matrix(15, 15, dist2);
-		Matrix<Double> pherM = Values.matrix(15, 15, pher);
 
-		Darstellung frame = new Darstellung(GraphImpl.valueOf(distM, pherM));
+		Matrix<Integer> distM = Values.matrix(15, 15, dist2);
+
+		Darstellung frame = new Darstellung(GraphImpl.valueOf(distM));
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);

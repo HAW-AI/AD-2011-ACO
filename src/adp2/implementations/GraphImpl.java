@@ -11,6 +11,7 @@ import com.mxgraph.view.mxGraph;
 import adp2.interfaces.Graph;
 import adp2.interfaces.Matrix;
 import adp2.interfaces.Path;
+import static adp2.implementations.Values.*;
 
 public class GraphImpl extends mxGraph implements Graph {
 
@@ -59,12 +60,21 @@ public class GraphImpl extends mxGraph implements Graph {
 		}
 	}
 
-	public static Graph valueOf(Matrix<Integer> distance, Matrix<Double> pheromones) {
-		if (distance == null ||  pheromones == null) {
+	public static Graph valueOf(Matrix<Integer> distance) {
+		
+		if (distance == null) {
 			return Values.NaG();
 		}
-		return new GraphImpl(distance, pheromones);
+		return new GraphImpl(distance, calcPheromoneMatrix(distance.width(), distance.height()));
 	}	
+	
+	private static Matrix<Double> calcPheromoneMatrix(int width, int height){
+		List<Double> resultList=new ArrayList<Double>();
+		for(int i=0; i<(width*height); i++){
+			resultList.add(0.);
+		}
+		return matrix(width, height, resultList);
+	}
 	
 	public void highlightPath(Path p) {
 		List<Integer> tl= p.waypoints();
