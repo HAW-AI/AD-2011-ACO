@@ -56,7 +56,7 @@ public class Main {
 				4,0);
 		Matrix<Integer> distM = ImmutableMatrixImpl.valueOf(5, 5, graphy);
 		Graph g = GraphImpl.valueOf(distM);
-		Simulation sim = SimulationImpl.valueOf(g, 100);
+		Simulation sim = SimulationImpl.valueOf(g, 10, 3);
 		sim.start();
 		
     	//Anzeige des Ergebnisses

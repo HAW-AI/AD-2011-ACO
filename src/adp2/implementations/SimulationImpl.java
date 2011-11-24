@@ -9,8 +9,8 @@ import adp2.interfaces.*;
 public class SimulationImpl implements Simulation{
 
 		Graph graph;	
-		List<Ant> antList;
-		List<List<Integer>> pheromoneUpdateList;		
+		List<Ant> antList = new ArrayList<Ant>();
+		List<List<Integer>> pheromoneUpdateList = new ArrayList<List<Integer>>();		
 
 		int antQuantity;
 		int antsByStep = 0; //Anzahl der Ameisen die pro Step hinzugefuegt werden
@@ -33,8 +33,6 @@ public class SimulationImpl implements Simulation{
 		}
 	    
 	    private SimulationImpl(Graph graph, int antsQuantity) {
-	    	antList = new ArrayList<Ant>();
-	    	pheromoneUpdateList = new ArrayList<List<Integer>>();
 	    	setGraph(graph);
 	    	setAntQuantity(antsQuantity);
 	    	addAnts(antsQuantity);
@@ -49,31 +47,36 @@ public class SimulationImpl implements Simulation{
 	    @Override
 	    public void start(){
 	    	long startzeit = System.currentTimeMillis();
-	    	while(System.currentTimeMillis()-startzeit < 10000){ //Abbruch nach 10Sec, weitere Bedingungen kommen
+	    	while(System.currentTimeMillis()-startzeit < 2000){ //Abbruch nach 2Sec, weitere Bedingungen kommen
 	    		if(antsByStep() != 0){
-	    			addAnts(antsByStep());
+	    			if( (antList().size()+antsByStep()) <= antQuantity()){ //Ameisen um antsByStep erhöhen
+	    				addAnts(antsByStep());
+	    			} else if(antList().size() < antQuantity()){ // Ameisen um Rest < antsByStep erhöhen
+	    				addAnts(antQuantity()-antList().size());
+	    			}
 	    		}
+	    		//System.out.println(antList().size()+" -> "+antList.size());
 	    		int i = 0;
-	    		while (i < antList.size()){
-	    			if (antList.get(i).hasFinished()) {
-	    				if (antList.get(i).weglaenge() < bestDistance()) {
-	    					setBestDistance(antList.get(i).weglaenge());
-	    					setBestPath(antList.get(i).traveledPath().waypoints());
+	    		while (i < antList().size()){
+	    			if (antList().get(i).hasFinished()) {
+	    				if (antList().get(i).weglaenge() < bestDistance()) {
+	    					setBestDistance(antList().get(i).weglaenge());
+	    					setBestPath(antList().get(i).traveledPath().waypoints());
 	    				}
 	    				removeAnt(i); 
 	    			} else {
-		    			if(antList.get(i).getWaitingTime() == 0){ 	//Befindlich auf Knoten
-		    				antList.get(i).step(); 					//Entscheidungsalgorithmus und einen Schritt gehen
-		    				addPheromoneUpdate(antList.get(i).prePosition(),antList.get(i).position(),pheromoneIntensity); //Pheromonverteilung vorbereiten
+		    			if(antList().get(i).getWaitingTime() == 0){ 	//Befindlich auf Knoten
+		    				antList().get(i).step(); 					//Entscheidungsalgorithmus und einen Schritt gehen
+		    				addPheromoneUpdate(antList().get(i).prePosition(),antList().get(i).position(),pheromoneIntensity()); //Pheromonverteilung vorbereiten
 		    			}else{
-		    				antList.get(i).step();
+		    				antList().get(i).step();
 		    			}
 		    			i++;
 	    			}
 	    		}
 	    		pheromoneDecreament();
 	    		pheromoneIncrement();
-	    	}	    	
+	    	}
 	    }
 		
 
@@ -99,7 +102,7 @@ public class SimulationImpl implements Simulation{
 	    	return antsByStep;
 	    }
 	    
-	    public int bestDistance(){
+	    private int bestDistance(){
 	    	return bestDistance;
 	    }
 	    
@@ -107,7 +110,7 @@ public class SimulationImpl implements Simulation{
 	    	bestDistance = distance;
 	    }
 	    
-	    public List<Integer> bestPath(){
+	    private List<Integer> bestPath(){
 	    	return bestPath;
 	    }
 	    
@@ -131,6 +134,10 @@ public class SimulationImpl implements Simulation{
 	    	return graph;
 	    }
 	    
+	    private int pheromoneIntensity(){
+	    	return pheromoneIntensity;
+	    }
+	    
 	    private int pheromoneDecrease(){
 	    	return pheromoneDecrease;
 	    }
@@ -143,11 +150,11 @@ public class SimulationImpl implements Simulation{
 	    /*Functions*/
 	    
 	    private void addAnt(){
-	    	antList.add(AntImpl.valueOf(startPoint(), antAlpha(), graph())); /////START POINT?
+	    	antList().add(AntImpl.valueOf(startPoint(), antAlpha(), graph())); /////START POINT?
 	    }
 	    
 	    private void addAnts(int quantity){
-	    	for(int i=0; i <= quantity; i++){
+	    	for(int i=1; i <= quantity; i++){
 	    		addAnt();
 	    	}
 	    }
@@ -162,19 +169,19 @@ public class SimulationImpl implements Simulation{
 	    	pheromoneElement.add(to);
 	    	pheromoneElement.add(intensity);
 	    	if (from != to){
-	    		pheromoneUpdateList.add(pheromoneElement);
+	    		pheromoneUpdateList().add(pheromoneElement);
 	    	}
 	    }
 	    
 	    private void pheromoneIncrement(){
 	    	for(List<Integer> list: pheromoneUpdateList()){
-	    		graph.incrementPheromone(list.get(0), list.get(1),list.get(2));
-	    		graph.incrementPheromone(list.get(1), list.get(0),list.get(2));
+	    		graph().incrementPheromone(list.get(0), list.get(1),list.get(2));
+	    		graph().incrementPheromone(list.get(1), list.get(0),list.get(2));
 	    	}
 	    }
 	    
 	    private void pheromoneDecreament(){
-	    	graph.decrementPheromone(pheromoneDecrease());
+	    	graph().decrementPheromone(pheromoneDecrease());
 	    }
 
 		@Override
