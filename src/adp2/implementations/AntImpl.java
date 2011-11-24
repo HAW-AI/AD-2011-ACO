@@ -109,6 +109,7 @@ public class AntImpl implements Ant {
 			pheromon = 0;
 		}
 		
+		//double balance = alpha * (pheromon/10) + (1-alpha) * distanz;
 		double balance = alpha * pheromon + (1-alpha) * distanz;
 		return balance * 1000 + 1; // balance * 1000, damit die +1 nicht stark ins Gewicht faellt
 	}
