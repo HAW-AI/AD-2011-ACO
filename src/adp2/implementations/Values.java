@@ -8,6 +8,7 @@ import adp2.interfaces.Graph;
 import adp2.interfaces.Matrix;
 import adp2.interfaces.MutableMatrix;
 import adp2.interfaces.Path;
+import adp2.interfaces.Simulation;
 import adp2.interfaces.TSP;
 
 /**
@@ -101,7 +102,56 @@ public final class Values {
     public static Path NaP() {
     	return NaP.valueOf();
     }
+    
+    /**
+     * Not an Simulation
+     *
+     * @return Not an Simulation
+     */
+    public static Simulation NaS() {
+    	return NaS.valueOf();
+    }
 
+    /**
+     * Create a Simulation
+     * 
+     */
+    public static Simulation simulation(Graph graph, int antsQuantity) {
+    	return SimulationImpl.valueOf(graph, antsQuantity);
+    }
+    
+    /**
+     * Create a Simulation
+     * 
+     */
+    public static Simulation simulation(Graph graph, int antsQuantity, boolean logStates) {
+    	return SimulationImpl.valueOf(graph, antsQuantity, logStates);
+    }
+    
+    /**
+     * Create a Simulation
+     * 
+     */
+    public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep) {
+    	return SimulationImpl.valueOf(graph, antsQuantity, antsByStep);
+    }
+    
+    /**
+     * Create a Simulation
+     * 
+     */
+    public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep, boolean logStates) {
+    	return SimulationImpl.valueOf(graph, antsQuantity, antsByStep, logStates);
+    }
+    
+    /**
+     * Create a Simulation
+     * 
+     */
+    public static Simulation simulation() {
+    	return SimulationImpl.valueOf(graph, antsQuantity)
+    }
+    
     /**
      * Create a Path
      * 
