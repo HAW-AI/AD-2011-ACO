@@ -9,13 +9,13 @@ import java.util.List;
 
 public class PrintGraph extends mxGraph {
 
-  private final int NoOfVertexs;
+	private final int NoOfVertexs;
 	private static final HashMap<Integer,Object> VertexObjectList = new HashMap<Integer,Object>();
 	private static final HashMap<Integer,Object> EdgeObjectList = new HashMap<Integer,Object>();
 	private final Graph graph;
 	private PrintGraph(Graph graph){
 		this.graph = graph;
-		NoOfVertexs = graph.distanceVar().height();
+		NoOfVertexs = ((GraphImpl)graph).distanceVar().height();
 		double schritt = 360/NoOfVertexs;
 		
 		
@@ -39,10 +39,10 @@ public class PrintGraph extends mxGraph {
 		Integer edgesTemp = 1;
 		for(Integer i1=0;i1<NoOfVertexs;i1++){
 			for(Integer i2=0;i2<NoOfVertexs;i2++){
-				if((graph.distanceVar().get(i1,i2)) >0){
-				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, graph.distanceVar().get(i1,i2).toString()+"       ", VertexObjectList.get(i1+1), VertexObjectList.get(i2+1),"strokeColor=black;fillColor=black"));
+				if((((GraphImpl)graph).distanceVar().get(i1,i2)) >0){
+				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, ((GraphImpl)graph).distanceVar().get(i1,i2).toString()+"       ", VertexObjectList.get(i1+1), VertexObjectList.get(i2+1),"strokeColor=black;fillColor=black"));
 				edgesTemp++;
-				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, graph.distanceVar().get(i1,i2).toString()+"       ", VertexObjectList.get(i2+1), VertexObjectList.get(i1+1),"strokeColor=black;fillColor=black"));
+				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, ((GraphImpl)graph).distanceVar().get(i1,i2).toString()+"       ", VertexObjectList.get(i2+1), VertexObjectList.get(i1+1),"strokeColor=black;fillColor=black"));
 				edgesTemp++;
 				}
 			}
