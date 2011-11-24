@@ -1,5 +1,6 @@
 package adp2.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -14,12 +15,12 @@ import static adp2.implementations.Values.*;
 import static java.util.Arrays.asList;
 
 
-// Tests run against the Scala implementation from Esser:
+// Tests run against the slightly modified Scala implementation by Esser:
 //    
 //    def minPath(cities: List[Int], distance: (Int, Int) => Int) =
 //    cities.permutations.foldLeft(cities, Int.MaxValue) {
 //      (cPathMin, cPath) => {
-//        val sum = cPath.zip(cPath.tail).foldLeft(0)((d, cc) => d + distance(cc._1, cc._2)) + distance(cPath.last, cPath.first)
+//        val sum = cPath.zip(cPath.tail).foldLeft(0)((d, cc) => d + distance(cc._1, cc._2))
 //        if (cPathMin._2 > sum) (cPath, sum) else cPathMin
 //      }
 //    }
@@ -27,8 +28,11 @@ import static java.util.Arrays.asList;
 //    def distance(c1: Int, c2: Int) = 100/(if (c1>c2) (c1 - c2) else (c2 - c1))
 //            
 //            
-// "+ distance(cPath.last, cPath.first)" was added to add the distance back to
-// the start point.
+// one line was changed to add the distance back to the start point:
+// val sum = cPath.zip(cPath.tail :+ cPath.head).foldLeft(0)((d, cc) => d + distance(cc._1, cc._2))
+//
+// The Java implementation differs from the Scala implementation to allow
+// paths of length 1.
 
 
 public class BruteForceTSPTest {
@@ -39,6 +43,15 @@ public class BruteForceTSPTest {
     
     private Path path2;
     private Matrix<Integer> distances2;
+    
+    private Path path3;
+    private Matrix<Integer> distances3;
+    
+    private Path path4;
+    private Matrix<Integer> distances4;
+    
+    private Path path5;
+    private Matrix<Integer> distances5;
     
     @Before
     public void setup() {
@@ -64,15 +77,23 @@ public class BruteForceTSPTest {
              50, 100,  -1
         );
         distances2 = matrix(3, 3, distList2);
+        
+        path3 = NaP();
+        distances3 = NaM();
+        
+        path4 = path(asList(1), 0);
+        distances4 = matrix(1, 1, asList(-1));
+        
+        path5 = NaP();
+        distances5 = matrix(0, 0, new ArrayList<Integer>());
     }
     
     @Test
-    public void testMinPath1() {
+    public void testMinPath() {
         assertEquals(path1, tsp.minPath(distances1));
-    }
-    
-    @Test
-    public void testMinPath2() {
         assertEquals(path2, tsp.minPath(distances2));
+        assertEquals(path3, tsp.minPath(distances3));
+        assertEquals(path4, tsp.minPath(distances4));
+        assertEquals(path5, tsp.minPath(distances5));
     }
 }

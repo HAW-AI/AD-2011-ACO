@@ -22,8 +22,9 @@ public final class BruteForceTSP implements TSP {
 
     @Override
     public Path minPath(Matrix<Integer> distances) {
-        if (distances.width() != distances.height())
+        if (distances.width() != distances.height() || distances.width() == 0) {
             return NaP();
+        }
         
         // check symmetry
         for (int i = 0, half = distances.width()/2; i <= half; ++i) {
@@ -54,14 +55,15 @@ public final class BruteForceTSP implements TSP {
             }
             
             // add way back to start point
-            distance += distances.get(perm.get(perm.size()-1)-1, perm.get(0)-1);
+            if (perm.size() > 1) {
+                distance += distances.get(perm.get(perm.size()-1)-1, perm.get(0)-1);
+            }
             
             if (minDistance > distance) {
                 minWaypoints = new ArrayList<Integer>(perm);
                 minDistance = distance;
             }
         }
-        
         
         return path(minWaypoints, minDistance);
     }

@@ -1,7 +1,6 @@
 package adp2.implementations;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import adp2.interfaces.Graph;
