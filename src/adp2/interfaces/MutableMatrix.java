@@ -11,5 +11,9 @@ public interface MutableMatrix<E> extends Matrix<E> {
      */
     void set(int x, int y, E value);
     
+	/**
+	 * deepClone()
+	 * @return a copy of the graph where all fields are also copies of their original values.
+	 */
     MutableMatrix<E> deepClone();
 }
