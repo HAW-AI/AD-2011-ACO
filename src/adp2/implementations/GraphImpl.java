@@ -157,6 +157,18 @@ public class GraphImpl extends mxGraph implements Graph {
 //			pheromones.set(update.get(1)-1, update.get(0)-1,pheromones.get(update.get(1)-1, update.get(0)-1)+update.get(2));
 //		}
 //	}
+	
+	public String toString(){
+		StringBuffer result = new StringBuffer();
+		result.append("Distance:\n");
+		result.append(distance.toString());
+		result.append("\n");
+		result.append("Pheromones:\n");
+		result.append(pheromones.toString());
+		result.append("\n");
+		
+		return result.toString();
+	}
 
 
 }
