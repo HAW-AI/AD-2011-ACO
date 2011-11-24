@@ -122,7 +122,7 @@ public final class Values {
      * @param args the array from which the Graph will be created 
      * @return a valid Graph Object
      */
-    public static Graph grahFromList(double... args){
+    public static Graph graphFromList(double... args){
     	if(!graphPreCheck(args)){
     		return NaG();
     	}
