@@ -132,7 +132,7 @@ public class GraphImpl extends mxGraph implements Graph {
 
 	@Override
 	public Graph deepClone() {
-		return new GraphImpl(distance.deepClone(), pheromones.deepClone());
+		return new GraphImpl(distance, pheromones.deepClone());
 	}
 
 	public Matrix<Double> distanceVar(){ return this.distance;}
