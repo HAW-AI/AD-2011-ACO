@@ -254,8 +254,8 @@ public class SimulationImpl implements Simulation{
 	    	for(List<Integer> list: pheromoneUpdateList()){
 	    		currentGraph.incrementPheromone(list.get(0), list.get(1),list.get(2));
 	    		currentGraph.incrementPheromone(list.get(1), list.get(0),list.get(2));
-
 	    	}
+    		pheromoneUpdateList().clear();
 	    }
 	    
 	    private void pheromoneDecreament(){
