@@ -102,6 +102,7 @@ public class TspFile {
 			try {
 				reader = new BufferedReader(new FileReader(new File(filename)));
 			} catch (FileNotFoundException e) {
+				// TODO: nicht schšn.
 				throw new IllegalArgumentException();
 			}
 			List<String> buffer = new ArrayList<String>();
