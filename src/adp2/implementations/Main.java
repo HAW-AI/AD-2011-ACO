@@ -11,15 +11,15 @@ public class Main {
 	
 	public static void main(String[] args) {
 		TspFile t = null;
-//		t = TspFile.open("samples/gr21.tsp");
+		t = TspFile.open("samples/gr21.tsp");
 //		t = TspFile.open("samples/ant2.tsp");		
 //		t = TspFile.open("samples/ant5.tsp");
 //		t = TspFile.open("samples/ant9.tsp");
-		t = TspFile.open("samples/ant15.tsp");
+//		t = TspFile.open("samples/ant15.tsp");
 		Graph g = GraphImpl.valueOf(t.matrix());
-		Simulation sim = Values.simulation(g, 10, 3);
+		Simulation sim = Values.simulation(g, 1000, 5);
 		//sim.run();
-		sim.runForSeconds(10);
+		sim.runForSeconds(30);
 		//sim.runForSteps(1000);
 		
     	//Anzeige des Ergebnisses

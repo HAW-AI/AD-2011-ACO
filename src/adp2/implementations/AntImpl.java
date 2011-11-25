@@ -212,7 +212,7 @@ public class AntImpl implements Ant {
 			
 			
 			
-			waitingTime=g.distance(path.get(path.size()-2), path.get(path.size()-1));
+			//waitingTime=g.distance(path.get(path.size()-2), path.get(path.size()-1));
 		}
 
 		

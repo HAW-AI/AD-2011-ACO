@@ -16,7 +16,7 @@ public class SimulationImpl implements Simulation{
 		int antQuantity;
 		int antsLaunched = 0;
 		int antsByStep = 0; //Anzahl der Ameisen die pro Step hinzugefuegt werden
-		double antAlpha = 0.5;
+		double antAlpha = 0.3;
 		int startPoint = 1;
 		double pheromoneDecrease = 1;
 		int pheromoneIntensity = 10;
