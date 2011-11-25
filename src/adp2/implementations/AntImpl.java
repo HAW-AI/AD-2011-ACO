@@ -13,6 +13,8 @@ import java.util.Set;
 	
 
 public class AntImpl implements Ant {
+	private static int number = 0;
+	private int mynumber;
 	private List<Integer> path; // der aktuelle Weg
 	private int weglaenge;	// die aktuelle Weglaenge
 	private Set<Integer> unvisitedNodes;	//alle Knoten des Graphen, bei dem Ameise noch nicht war
@@ -23,6 +25,7 @@ public class AntImpl implements Ant {
 	
 	
 	private AntImpl(int startNode, double alpha, Graph g){
+		mynumber = number++;
 		path = new ArrayList<Integer>();
 		weglaenge = 0;
 		path.add(startNode);
@@ -207,7 +210,7 @@ public class AntImpl implements Ant {
 			
 			if(unvisitedNodes.isEmpty() && path.get(path.size() - 1) == path.get(0)){
 				finished = true;
-				System.out.println("Ameise fertig");
+				System.out.println(this + " fertig");
 			}
 			
 			
@@ -237,7 +240,7 @@ public class AntImpl implements Ant {
 		else return path.get(0);
 	}
 	
-	
-	
-
+	public String toString() {
+		return String.format("Ameise %d", mynumber);
+	}
 }

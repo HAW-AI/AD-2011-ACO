@@ -25,11 +25,5 @@ public interface Matrix<E> extends Iterable<E> {
      */
     E get(int x, int y);
     
-	/**
-	 * deepClone()
-	 * @return a copy of the graph where all fields are also copies of their original values.
-	 */
-    Matrix<E> deepClone();
-    
     
 }

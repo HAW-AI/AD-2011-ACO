@@ -20,11 +20,6 @@ public final class ImmutableMatrixImpl<E> extends AbstractMatrix<E> {
         this.values = new ArrayList<E>(values);
     }
 
-	@Override
-	public Matrix<E> deepClone() {
-		return valueOf(width, height, new ArrayList<E>(values));
-	}    
-
     
 
 

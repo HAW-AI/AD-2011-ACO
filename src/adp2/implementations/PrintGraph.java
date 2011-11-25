@@ -1,5 +1,6 @@
 package adp2.implementations;
 
+import adp2.app.Main;
 import adp2.interfaces.Graph;
 import adp2.interfaces.Path;
 
