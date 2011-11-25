@@ -102,8 +102,8 @@ public class TspFile {
 			try {
 				reader = new BufferedReader(new FileReader(new File(filename)));
 			} catch (FileNotFoundException e) {
-				// TODO: nicht schšn.
-				throw new IllegalArgumentException();
+				// XXX: maybe we should leave the exception as it is
+				throw new IllegalArgumentException(filename + " not found");
 			}
 			List<String> buffer = new ArrayList<String>();
 			String line; 
