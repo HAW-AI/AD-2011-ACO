@@ -21,7 +21,7 @@ public final class BruteForceTSP implements TSP {
     private BruteForceTSP() {}
 
     @Override
-    public Path minPath(Matrix<Integer> distances) {
+    public Path minPath(Matrix<Double> distances) {
         if (distances.width() != distances.height() || distances.width() == 0) {
             return NaP();
         }
@@ -29,7 +29,7 @@ public final class BruteForceTSP implements TSP {
         // check symmetry
         for (int i = 0, half = distances.width()/2; i <= half; ++i) {
             for (int j = 0; j <= half; ++j) {
-                if (distances.get(i,j) != distances.get(j,i)) {
+                if (!distances.get(i,j).equals(distances.get(j,i))) {
                     return NaP();
                 }
             }

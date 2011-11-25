@@ -39,42 +39,42 @@ public class BruteForceTSPTest {
     private TSP tsp;
     
     private Path path1;
-    private Matrix<Integer> distances1;
+    private Matrix<Double> distances1;
     
     private Path path2;
-    private Matrix<Integer> distances2;
+    private Matrix<Double> distances2;
     
     private Path path3;
-    private Matrix<Integer> distances3;
+    private Matrix<Double> distances3;
     
     private Path path4;
-    private Matrix<Integer> distances4;
+    private Matrix<Double> distances4;
     
     private Path path5;
-    private Matrix<Integer> distances5;
+    private Matrix<Double> distances5;
     
     @Before
     public void setup() {
         tsp = bruteForceTSP();
         
         path1 = path(asList(1, 5, 2, 7, 4, 8, 3, 6), 209);
-        List<Integer> distList1 = asList(
-             -1, 100,  50,  33,  25,  20,  16,  14,
-            100,  -1, 100,  50,  33,  25,  20,  16,
-             50, 100,  -1, 100,  50,  33,  25,  20,
-             33,  50, 100,  -1, 100,  50,  33,  25,
-             25,  33,  50, 100,  -1, 100,  50,  33,
-             20,  25,  33,  50, 100,  -1, 100,  50,
-             16,  20,  25,  33,  50, 100,  -1, 100,
-             14,  16,  20,  25,  33,  50, 100,  -1
+        List<Double> distList1 = asList(
+             -1.0, 100.0,  50.0,  33.0,  25.0,  20.0,  16.0,  14.0,
+            100.0,  -1.0, 100.0,  50.0,  33.0,  25.0,  20.0,  16.0,
+             50.0, 100.0,  -1.0, 100.0,  50.0,  33.0,  25.0,  20.0,
+             33.0,  50.0, 100.0,  -1.0, 100.0,  50.0,  33.0,  25.0,
+             25.0,  33.0,  50.0, 100.0,  -1.0, 100.0,  50.0,  33.0,
+             20.0,  25.0,  33.0,  50.0, 100.0,  -1.0, 100.0,  50.0,
+             16.0,  20.0,  25.0,  33.0,  50.0, 100.0,  -1.0, 100.0,
+             14.0,  16.0,  20.0,  25.0,  33.0,  50.0, 100.0,  -1.0
          );
         distances1 = matrix(8, 8, distList1);
         
         path2 = path(asList(1, 2, 3), 250);
-        List<Integer> distList2 = asList(
-             -1, 100,  50,
-            100,  -1, 100,
-             50, 100,  -1
+        List<Double> distList2 = asList(
+                -1.0, 100.0,  50.0,
+                100.0,  -1.0, 100.0,
+                 50.0, 100.0,  -1.0
         );
         distances2 = matrix(3, 3, distList2);
         
@@ -82,14 +82,14 @@ public class BruteForceTSPTest {
         distances3 = NaM();
         
         path4 = path(asList(1), 0);
-        distances4 = matrix(1, 1, asList(-1));
+        distances4 = matrix(1, 1, asList(-1.0));
         
         path5 = NaP();
-        distances5 = matrix(0, 0, new ArrayList<Integer>());
+        distances5 = matrix(0, 0, new ArrayList<Double>());
     }
     
     @Test
-    public void testMinPath() {
+    public void testMinPath() {System.out.println(path2 + " vs " + tsp.minPath(distances2));
         assertEquals(path1, tsp.minPath(distances1));
         assertEquals(path2, tsp.minPath(distances2));
         assertEquals(path3, tsp.minPath(distances3));
