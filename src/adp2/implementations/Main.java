@@ -9,6 +9,10 @@ public class Main {
 	public static int width = 1280;
 	public static int height = 720;
 	
+	public static final int ANT_QUANTITIY = 1000;
+	public static final int ANT_BY_TIME = 5;
+	public static final int RUN_FOR_SECONDS = 30;
+	
 	public static void main(String[] args) {
 		TspFile t = null;
 		t = TspFile.open("samples/gr21.tsp");
@@ -17,10 +21,8 @@ public class Main {
 //		t = TspFile.open("samples/ant9.tsp");
 //		t = TspFile.open("samples/ant15.tsp");
 		Graph g = GraphImpl.valueOf(t.matrix());
-		Simulation sim = Values.simulation(g, 1000, 5);
-		//sim.run();
-		sim.runForSeconds(30);
-		//sim.runForSteps(1000);
+		Simulation sim = Values.simulation(g, ANT_QUANTITIY, ANT_BY_TIME);
+		sim.runForSeconds(RUN_FOR_SECONDS);
 		
     	//Anzeige des Ergebnisses
 		int distance = 0;
