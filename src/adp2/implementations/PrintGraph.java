@@ -47,7 +47,7 @@ public class PrintGraph extends mxGraph {
 				}
 			}
 		}
-		
+		setCellsMovable(false);
 	}
 	
 	public static PrintGraph printableGraph(Graph g){ return new PrintGraph(g);}
