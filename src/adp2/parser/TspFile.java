@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import adp2.implementations.MutableMatrixImpl;
+import adp2.implementations.ImmutableMatrixImpl;
 import adp2.interfaces.Matrix;
 
 public class TspFile {
@@ -25,7 +25,7 @@ public class TspFile {
 	}
 	
 	public Matrix<Double> matrix() {
-		return MutableMatrixImpl.valueOf(dimension, dimension, Arrays.asList(values));
+		return ImmutableMatrixImpl.valueOf(dimension, dimension, Arrays.asList(values));
 		
 	}
 
