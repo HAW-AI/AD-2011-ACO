@@ -7,7 +7,7 @@ public class Controller {
 	 * @param args
 	 */
 	public static void main(String[] args) {;
-		TspFile t = TspFile.open("samples/gr21.tsp");
+		TspFile t = TspFile.open("samples/ant9.tsp");
 		System.out.println(t.matrix());
 	}
 }

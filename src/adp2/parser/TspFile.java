@@ -40,7 +40,7 @@ public class TspFile {
 					c = String.valueOf(e);
 					t = Double.parseDouble(c);
 					v[x + (y*dimension)] = t;
-					v[(dimension-1-x) + ((dimension-1-y)*dimension)] = t;
+					v[y + (x*dimension)] = t;
 					x++;
 					if (c.equals("0")) {
 						y++;
