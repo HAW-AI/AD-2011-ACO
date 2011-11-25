@@ -89,7 +89,7 @@ public class BruteForceTSPTest {
     }
     
     @Test
-    public void testMinPath() {System.out.println(path2 + " vs " + tsp.minPath(distances2));
+    public void testMinPath() {
         assertEquals(path1, tsp.minPath(distances1));
         assertEquals(path2, tsp.minPath(distances2));
         assertEquals(path3, tsp.minPath(distances3));
