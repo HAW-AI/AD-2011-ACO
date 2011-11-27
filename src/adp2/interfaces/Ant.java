@@ -37,7 +37,7 @@ public interface Ant {
 	 * @return int - traveled distance
 	 * 
 	 */
-	int weglaenge();
+	double weglaenge();
 	
 	/**
 	 * Alpha value for balance computation between pheromones and distance

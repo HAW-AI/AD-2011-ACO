@@ -34,8 +34,8 @@ public class NaA implements Ant {
 	}
 
 	@Override
-	public int weglaenge() {
-		return -1;
+	public double weglaenge() {
+		return Double.NaN;
 	}
 
 	@Override

@@ -188,7 +188,7 @@ public final class Values {
      * @return a valid Path object or Path(EmptyList, -1) if waypoints is or
      *         contains null or if distance is negative
      */
-    public static Path path(List<Integer> waypoints, int distance) {
+    public static Path path(List<Integer> waypoints, double distance) {
         if (waypoints == null || waypoints.contains(null) || distance < 0)
             return NaP();
         return PathImpl.valueOf(waypoints, distance);

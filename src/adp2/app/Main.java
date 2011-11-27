@@ -29,7 +29,7 @@ public class Main {
 		sim.runForSeconds(RUN_FOR_SECONDS);
 		
     	//Anzeige des Ergebnisses
-		int distance = 0;
+		double distance = 0;
     	if(sim.minPath().distance() > 0){
     		distance = sim.minPath().distance();
     		System.out.println("Distance: " + distance + " (MaxInt? " + (Integer.MAX_VALUE-distance==0 ? "true" : "false") + ")" );

@@ -8,14 +8,14 @@ import adp2.interfaces.Path;
 public final class PathImpl implements Path {
     
     private final List<Integer> waypoints;
-    private final int distance;
+    private final double distance;
 
-    public static Path valueOf(List<Integer> waypoints, int distance) {
+    public static Path valueOf(List<Integer> waypoints, double distance) {
         // pre-condition checks in factory
         return new PathImpl(waypoints, distance);
     }
     
-    private PathImpl(List<Integer> waypoints, int distance) {
+    private PathImpl(List<Integer> waypoints, double distance) {
         this.waypoints = new ArrayList<Integer>(waypoints);
         this.distance = distance;
     }
@@ -26,7 +26,7 @@ public final class PathImpl implements Path {
     }
 
     @Override
-    public int distance() {
+    public double distance() {
         return distance;
     }
     
@@ -38,7 +38,7 @@ public final class PathImpl implements Path {
     
     @Override
     public int hashCode() {
-        return 41*waypoints.hashCode() + distance;
+        return (int) (41*waypoints.hashCode() + distance);
     }
     
     @Override

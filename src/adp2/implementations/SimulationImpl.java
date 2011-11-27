@@ -23,7 +23,7 @@ public class SimulationImpl implements Simulation{
 		// The Simulation should not log the states of all Graphs by default
 		boolean logStates = false;
 		
-		int bestDistance = Integer.MAX_VALUE;
+		double bestDistance = Double.MAX_VALUE;
 		public List<Integer> bestPath = new ArrayList<Integer>();
 
 		//Ameisen werden alle direkt rein geworfen
@@ -179,11 +179,11 @@ public class SimulationImpl implements Simulation{
 	    	return antsByStep;
 	    }
 	    
-	    private int bestDistance(){
+	    private double bestDistance(){
 	    	return bestDistance;
 	    }
 	    
-	    private void setBestDistance(int distance){
+	    private void setBestDistance(double distance){
 	    	bestDistance = distance;
 	    }
 	    

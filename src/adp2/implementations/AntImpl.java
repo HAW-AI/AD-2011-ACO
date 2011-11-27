@@ -16,7 +16,7 @@ public class AntImpl implements Ant {
 	private static int number = 0;
 	private int mynumber;
 	private List<Integer> path; // der aktuelle Weg
-	private int weglaenge;	// die aktuelle Weglaenge
+	private double weglaenge;	// die aktuelle Weglaenge
 	private Set<Integer> unvisitedNodes;	//alle Knoten des Graphen, bei dem Ameise noch nicht war
 	private double alpha; 
 	private Graph g;
@@ -222,7 +222,7 @@ public class AntImpl implements Ant {
 	}
 
 	@Override
-	public int weglaenge() {
+	public double weglaenge() {
 		return this.weglaenge;
 	}
 

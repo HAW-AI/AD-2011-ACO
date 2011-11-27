@@ -24,8 +24,8 @@ public final class NaP implements Path {
 	}
 
 	@Override
-	public int distance() {
-		return -1;
+	public double distance() {
+		return Double.NaN;
 	}
 
 }

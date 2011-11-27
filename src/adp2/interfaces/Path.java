@@ -15,5 +15,5 @@ public interface Path {
      * 
      * @return total distance of the path
      */
-    int distance();
+    double distance();
 }
