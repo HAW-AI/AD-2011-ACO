@@ -9,7 +9,7 @@ import adp2.interfaces.Simulation;
 public class NaS implements Simulation {
 	public static NaS instance;
 	
-	public static Simulation valueOf() {
+	public static Simulation creator() {
 		if (instance == null) {
             instance = new NaS();
         }

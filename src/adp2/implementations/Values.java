@@ -64,7 +64,7 @@ public final class Values {
      * @return Not a Matrix
      */
     public static <T> Matrix<T> NaM() {
-        return NaM.valueOf();
+        return NaM.creator();
     }
 
     /**
@@ -73,7 +73,7 @@ public final class Values {
      * @return Not a Mutable Matrix
      */
     public static <T> MutableMatrix<T> NaMM() {
-        return NaMM.valueOf();
+        return NaMM.creator();
     }
     
     /**
@@ -82,7 +82,7 @@ public final class Values {
      * @return Not a Graph
      */
     public static Graph NaG() {
-		return NaG.valueOf();
+		return NaG.creator();
 	}
 
     /**
@@ -91,7 +91,7 @@ public final class Values {
      * @return Not an Ant
      */
     public static Ant NaA() {
-    	return NaA.valueOf();
+    	return NaA.creator();
     }
 
     /**
@@ -100,7 +100,7 @@ public final class Values {
      * @return Not an Ant
      */
     public static Path NaP() {
-    	return NaP.valueOf();
+    	return NaP.creator();
     }
     
     /**
@@ -109,7 +109,7 @@ public final class Values {
      * @return Not an Simulation
      */
     public static Simulation NaS() {
-    	return NaS.valueOf();
+    	return NaS.creator();
     }
     
     /**

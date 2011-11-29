@@ -10,7 +10,7 @@ public final class NaM<T> implements Matrix<T> {
     private static Matrix<Object> instance;
     
     @SuppressWarnings("unchecked")
-    public static <T> Matrix<T> valueOf() {
+    public static <T> Matrix<T> creator() {
         if (instance == null) {
             instance = (NaM<Object>)new NaM<T>();
         }

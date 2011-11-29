@@ -6,7 +6,7 @@ import adp2.interfaces.Path;
 public class NaA implements Ant {
 	public static NaA instance;
 
-	public static Ant valueOf() {
+	public static Ant creator() {
 		if (instance == null) {
             instance = new NaA();
         }

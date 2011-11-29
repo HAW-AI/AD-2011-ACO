@@ -9,7 +9,7 @@ import adp2.interfaces.Path;
 public final class NaP implements Path {
 	public static Path instance;
 
-	public static Path valueOf() {
+	public static Path creator() {
 		if (instance == null) {
             instance = new NaP();
         }
