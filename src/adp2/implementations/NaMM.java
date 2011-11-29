@@ -10,7 +10,7 @@ public class NaMM<T> implements MutableMatrix<T> {
     private static MutableMatrix<Object> instance;
     
     @SuppressWarnings("unchecked")
-    public static <T> MutableMatrix<T> creator() {
+    protected static <T> MutableMatrix<T> creator() {
         if (instance == null) {
             instance = (NaMM<Object>)new NaMM<T>();
         }

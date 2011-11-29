@@ -55,7 +55,7 @@ public final class Values {
     public static <T> MutableMatrix<T> mutableMatrix(int width, int height, List<T> values) {
         if (values == null || values.size() != width*height || values.contains(null))
             return NaMM();
-        return MutableMatrixImpl.valueOf(width, height, values);
+        return MutableMatrixImpl.creator(width, height, values);
     }
     
     /**

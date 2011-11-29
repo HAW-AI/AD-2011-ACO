@@ -9,7 +9,7 @@ import adp2.interfaces.Path;
 public class NaG implements Graph {
 	public static Graph instance;
 
-	public static Graph creator() {
+	protected static Graph creator() {
 		if (instance == null) {
             instance = new NaG();
         }
