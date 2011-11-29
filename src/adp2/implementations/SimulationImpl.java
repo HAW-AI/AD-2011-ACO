@@ -1,8 +1,7 @@
 package adp2.implementations;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import static adp2.implementations.Values.*;
 
 import adp2.interfaces.*;
 
@@ -11,15 +10,15 @@ public class SimulationImpl implements Simulation{
 		Graph currentGraph;
 		List<Graph> graphStates;
 		List<Ant> antList = new ArrayList<Ant>();
-		List<List<Integer>> pheromoneUpdateList = new ArrayList<List<Integer>>();		
+		List<PheromoneElement> pheromoneUpdateList = new ArrayList<PheromoneElement>();		
 
 		int antQuantity;
 		int antsLaunched = 0;
 		int antsByStep = 0; //Anzahl der Ameisen die pro Step hinzugefuegt werden
 		double antAlpha = 0.3;
 		int startPoint = 1;
-		double pheromoneDecrease = 1;
-		int pheromoneIntensity = 10;
+		double pheromoneDecrease = 1.0;
+		double pheromoneIntensity = 10.0;
 		// The Simulation should not log the states of all Graphs by default
 		boolean logStates = false;
 		
@@ -223,7 +222,7 @@ public class SimulationImpl implements Simulation{
 	    	return currentGraph;
 	    }
 	    
-	    private int pheromoneIntensity(){
+	    private double pheromoneIntensity(){
 	    	return pheromoneIntensity;
 	    }
 	    
@@ -231,7 +230,7 @@ public class SimulationImpl implements Simulation{
 	    	return pheromoneDecrease;
 	    }
 	    
-	    private List<List<Integer>> pheromoneUpdateList(){
+	    private List<PheromoneElement> pheromoneUpdateList(){
 	    	return pheromoneUpdateList;
 	    }
 	    
@@ -252,22 +251,22 @@ public class SimulationImpl implements Simulation{
 	    	antList().remove(antIndex);
 	    }
 	    
-	    private void addPheromoneUpdate(int from,int to, int intensity){
-	    	List<Integer> pheromoneElement = new ArrayList<Integer>();
-	    	pheromoneElement.add(from);
-	    	pheromoneElement.add(to);
-	    	pheromoneElement.add(intensity);
+	    private void addPheromoneUpdate(int from,int to, double d){
+	    	PheromoneElement pheromoneElem = pheromoneElement(from, to, d);
+//	    	pheromoneElement.add(from);
+//	    	pheromoneElement.add(to);
+//	    	pheromoneElement.add(d);s
 	    	if (from != to){
-	    		pheromoneUpdateList().add(pheromoneElement);
+	    		pheromoneUpdateList().add(pheromoneElem);
 	    	}
 	    }
 	    
 	    private void pheromoneIncrement(){
-	    	for(List<Integer> list: pheromoneUpdateList()){
-			currentGraph.incrementPheromone(list.get(0), list.get(1),
-					list.get(2));
-			currentGraph.incrementPheromone(list.get(1), list.get(0),
-					list.get(2));
+	    	for(PheromoneElement elem: pheromoneUpdateList()){
+			currentGraph.incrementPheromone(elem.from(), elem.to(),
+					elem.pheromone());
+			currentGraph.incrementPheromone(elem.to(), elem.from(),
+			        elem.pheromone());
 	    	}
     		pheromoneUpdateList().clear();
 	    }

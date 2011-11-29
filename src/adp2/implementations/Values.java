@@ -9,6 +9,7 @@ import adp2.interfaces.Graph;
 import adp2.interfaces.Matrix;
 import adp2.interfaces.MutableMatrix;
 import adp2.interfaces.Path;
+import adp2.interfaces.PheromoneElement;
 import adp2.interfaces.Simulation;
 import adp2.interfaces.TSP;
 
@@ -314,7 +315,10 @@ public final class Values {
 	public static <E extends Comparable<? super E>> PermutationIterator<E> permutationIterator(
 			List<E> l) {
 		return PermutationIterator.create(l);
-
+	}
+	
+	public static PheromoneElement pheromoneElement(int from, int to, double pheromone) {
+	    return PheromoneElementImpl.valueOf(from, to, pheromone);
 	}
 
 }
