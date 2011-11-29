@@ -9,7 +9,7 @@ import adp2.interfaces.Path;
 public class NaG implements Graph {
 	public static Graph instance;
 
-	protected static Graph creator() {
+	protected static Graph create() {
 		if (instance == null) {
             instance = new NaG();
         }
@@ -53,6 +53,6 @@ public class NaG implements Graph {
 
 	@Override
 	public Graph deepClone() {
-		return creator();
+		return create();
 	}
 }

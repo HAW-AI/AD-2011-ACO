@@ -7,7 +7,7 @@ import adp2.interfaces.*;
 
 public class MutableMatrixImpl<E> extends AbstractMatrix<E> implements MutableMatrix<E> {
 
-    protected static <E> MutableMatrixImpl<E> creator(int width, int height, List<E> values) {
+    protected static <E> MutableMatrixImpl<E> create(int width, int height, List<E> values) {
         // pre-condition check in factory!
         return new MutableMatrixImpl<E>(width, height, values);
     }
@@ -28,6 +28,6 @@ public class MutableMatrixImpl<E> extends AbstractMatrix<E> implements MutableMa
 
 	@Override
 	public MutableMatrix<E> deepClone() {
-		return creator(width, height, new ArrayList<E>(values));
+		return create(width, height, new ArrayList<E>(values));
 	}
 }

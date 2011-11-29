@@ -10,7 +10,7 @@ public class NaMM<T> implements MutableMatrix<T> {
     private static MutableMatrix<Object> instance;
     
     @SuppressWarnings("unchecked")
-    protected static <T> MutableMatrix<T> creator() {
+    protected static <T> MutableMatrix<T> create() {
         if (instance == null) {
             instance = (NaMM<Object>)new NaMM<T>();
         }
@@ -44,7 +44,7 @@ public class NaMM<T> implements MutableMatrix<T> {
 
 	@Override
 	public MutableMatrix<T> deepClone() {
-		return creator();
+		return create();
 	}
 
 	

@@ -68,7 +68,7 @@ public final class Values {
 		if (values == null || values.size() != width * height
 				|| values.contains(null))
             return NaMM();
-        return MutableMatrixImpl.creator(width, height, values);
+        return MutableMatrixImpl.create(width, height, values);
     }
     
     /**
@@ -77,16 +77,16 @@ public final class Values {
      * @return Not a Matrix
      */
     public static <T> Matrix<T> NaM() {
-        return NaM.creator();
+        return NaM.create();
     }
 
     /**
      * Not a Mutable Matrix
-     * 
+create     * 
      * @return Not a Mutable Matrix
      */
     public static <T> MutableMatrix<T> NaMM() {
-        return NaMM.creator();
+        return NaMM.create();
     }
     
     /**
@@ -95,7 +95,7 @@ public final class Values {
      * @return Not a Graph
      */
     public static Graph NaG() {
-		return NaG.creator();
+		return NaG.create();
 	}
 
     /**
@@ -104,7 +104,7 @@ public final class Values {
      * @return Not an Ant
      */
     public static Ant NaA() {
-    	return NaA.creator();
+    	return NaA.create();
     }
 
     /**
@@ -113,7 +113,7 @@ public final class Values {
      * @return Not an Ant
      */
     public static Path NaP() {
-    	return NaP.creator();
+    	return NaP.create();
     }
     
     /**
@@ -122,7 +122,7 @@ public final class Values {
      * @return Not an Simulation
      */
     public static Simulation NaS() {
-    	return NaS.creator();
+    	return NaS.create();
     }
     
     /**
@@ -221,7 +221,7 @@ public final class Values {
     public static Path path(List<Integer> waypoints, double distance) {
         if (waypoints == null || waypoints.contains(null) || distance < 0)
             return NaP();
-        return PathImpl.creator(waypoints, distance);
+        return PathImpl.create(waypoints, distance);
     }
     
     /**
@@ -288,6 +288,10 @@ public final class Values {
      */
     public static Darstellung darstellung(Graph g){
     	return Darstellung.create(g);
+    }
+    
+    public static PrintGraph printableGraph(Graph g){
+    	return PrintGraph.create(g);
     }
     
 

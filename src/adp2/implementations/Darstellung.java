@@ -18,7 +18,7 @@ public class Darstellung extends JFrame {
 
 	private Darstellung(Graph g) {
 	super("ACO");
-	graph  = PrintGraph.printableGraph(g);
+	graph  = Values.printableGraph(g);
 	mxGraphComponent graphComponent = new mxGraphComponent((PrintGraph) graph);
 	getContentPane().add(graphComponent);
 	}

@@ -10,7 +10,7 @@ public final class PathImpl implements Path {
     private final List<Integer> waypoints;
     private final double distance;
 
-    protected static Path creator(List<Integer> waypoints, double distance) {
+    protected static Path create(List<Integer> waypoints, double distance) {
         // pre-condition checks in factory
         return new PathImpl(waypoints, distance);
     }
