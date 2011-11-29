@@ -191,7 +191,7 @@ public final class Values {
     public static Path path(List<Integer> waypoints, double distance) {
         if (waypoints == null || waypoints.contains(null) || distance < 0)
             return NaP();
-        return PathImpl.valueOf(waypoints, distance);
+        return PathImpl.creator(waypoints, distance);
     }
     
     /**
