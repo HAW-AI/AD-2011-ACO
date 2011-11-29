@@ -242,7 +242,7 @@ public final class Values {
 		MutableMatrix<Double> m = mutableMatrix((int) Math.sqrt(args.length),
 				(int) Math.sqrt(args.length), l);
     	
-    	return GraphImpl.valueOf(m);
+    	return GraphImpl.create(m);
     }
     
     /**
@@ -274,14 +274,22 @@ public final class Values {
     }
     
     /**
-     * Create a new ant -> public for testing purposes only -> should be package private
-     * @param startNode
-     * @param alpha
+     * Create a new Graph
+     * @param matrix
+     * @return Graph
+     */
+	public static Graph Graph(Matrix<Double> matrix) {
+		return GraphImpl.create(matrix);
+	}
+    /**
+     * Create a new Darstellung
      * @param g
-     * @return Ant
+     * @return Darstellung
      */
     public static Darstellung darstellung(Graph g){
     	return Darstellung.create(g);
     }
+    
+
     
 }

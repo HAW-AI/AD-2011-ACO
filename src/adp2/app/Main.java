@@ -24,7 +24,7 @@ public class Main {
 //		t = TspFile.open("samples/ant5.tsp");
 //		t = TspFile.open("samples/ant9.tsp");
 //		t = TspFile.open("samples/ant15.tsp");
-		Graph g = GraphImpl.valueOf(t.matrix());
+		Graph g = Values.Graph(t.matrix());
 		Simulation sim = Values.simulation(g, ANT_QUANTITIY, ANT_BY_TIME);
 		sim.runForSeconds(RUN_FOR_SECONDS);
 		

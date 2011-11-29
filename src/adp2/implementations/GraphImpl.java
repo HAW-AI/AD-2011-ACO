@@ -23,7 +23,7 @@ public class GraphImpl extends mxGraph implements Graph {
 		this.pheromones = pheromones;
 	}
 
-	public static Graph valueOf(Matrix<Double> distance) {
+	protected static Graph create(Matrix<Double> distance) {
 		
 		if (distance == null) {
 			return Values.NaG();
