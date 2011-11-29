@@ -43,7 +43,7 @@ public class Main {
     	}
 		
 		
-		Darstellung frame = new Darstellung(g);
+		Darstellung frame = Values.darstellung(g);
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);

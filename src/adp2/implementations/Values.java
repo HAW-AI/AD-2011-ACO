@@ -238,4 +238,15 @@ public final class Values {
     	return AntImpl.create(startNode, alpha, g);
     }
     
+    /**
+     * Create a new ant -> public for testing purposes only -> should be package private
+     * @param startNode
+     * @param alpha
+     * @param g
+     * @return Ant
+     */
+    public static Darstellung darstellung(Graph g){
+    	return Darstellung.create(g);
+    }
+    
 }
