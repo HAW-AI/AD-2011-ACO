@@ -11,7 +11,7 @@ public final class BruteForceTSP implements TSP {
     
     private static TSP instance;
     
-    public static TSP valueOf() {
+    protected static TSP create() {
         if (instance == null) {
             instance = new BruteForceTSP();
         }

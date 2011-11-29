@@ -23,7 +23,7 @@ public final class Values {
      * @return brute force TSP
      */
     public static TSP bruteForceTSP() {
-        return BruteForceTSP.valueOf();
+        return BruteForceTSP.create();
     }
 
     /**
