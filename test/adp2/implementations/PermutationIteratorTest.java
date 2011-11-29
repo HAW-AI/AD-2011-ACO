@@ -56,7 +56,7 @@ public class PermutationIteratorTest {
     
     private <T extends Comparable<? super T>> List<List<T>> permutationsList(List<T> input) {
         List<List<T>> res = new LinkedList<List<T>>();
-        Iterator<List<T>> iter = new PermutationIterator<T>(input);
+        Iterator<List<T>> iter = Values.permutationIterator(input);
         while (iter.hasNext()) res.add(iter.next());
         return res;
     }

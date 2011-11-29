@@ -51,7 +51,7 @@ public class PrintGraph extends mxGraph {
 		setCellsMovable(false);
 	}
 	
-	public static PrintGraph create(Graph g){ return new PrintGraph(g);}
+	protected static PrintGraph create(Graph g){ return new PrintGraph(g);}
 	
 	public void highlightPath(Path p) {
 		List<Integer> tl= p.waypoints();

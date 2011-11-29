@@ -42,7 +42,7 @@ public final class BruteForceTSP implements TSP {
         List<Integer> waypoints = new ArrayList<Integer>(distances.width());
         for (int i = 1; i <= distances.width(); ++i) waypoints.add(i);
         
-        Iterator<List<Integer>> iter = new PermutationIterator<Integer>(waypoints);
+        Iterator<List<Integer>> iter = Values.permutationIterator(waypoints);
         
         while (iter.hasNext()) {
             List<Integer> perm = iter.next();

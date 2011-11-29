@@ -20,12 +20,17 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
      * 
      * @param l List of values to permute
      */
-    public PermutationIterator(List<E> l) {
+    private PermutationIterator(List<E> l) {
         permutation = first_permutation(l);
         lastPermutation = last_permutation(l);
         isFirstPermutation = true;
     }
 
+    protected  static <E extends Comparable<? super E>> PermutationIterator<E> create(List<E> l){
+    	return new PermutationIterator(l);
+    	
+    }
+    
     /**
      * Check if there is another permutation.
      */
