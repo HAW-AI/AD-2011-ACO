@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import adp2.implementations.ImmutableMatrixImpl;
+import adp2.implementations.Values;
 import adp2.interfaces.Matrix;
 
 public class TspFile {
@@ -25,7 +26,7 @@ public class TspFile {
 	}
 	
 	public Matrix<Double> matrix() {
-		return ImmutableMatrixImpl.valueOf(dimension, dimension, Arrays.asList(values));
+		return Values.immutableMatrix(dimension, dimension, Arrays.asList(values));
 		
 	}
 
