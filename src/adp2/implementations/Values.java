@@ -125,7 +125,7 @@ public final class Values {
     	if(antsQuantity < 0){ 
     		return Values.NaS();
     	}
-    	return SimulationImpl.valueOf(graph, antsQuantity);
+    	return SimulationImpl.create(graph, antsQuantity);
     }
     
     /**
@@ -142,7 +142,7 @@ public final class Values {
     	if(antsQuantity < 0){ 
     		return Values.NaS();
     	}
-    	return SimulationImpl.valueOf(graph, antsQuantity, logStates);
+    	return SimulationImpl.create(graph, antsQuantity, logStates);
     }
     
     /**
@@ -159,7 +159,7 @@ public final class Values {
     	if(antsQuantity < 0 || antsByStep < 0){ 
     		return Values.NaS();
     	}
-    	return SimulationImpl.valueOf(graph, antsQuantity, antsByStep);
+    	return SimulationImpl.create(graph, antsQuantity, antsByStep);
     }
     
     /**
@@ -177,7 +177,7 @@ public final class Values {
     	if(antsQuantity < 0 || antsByStep < 0){ 
     		return Values.NaS();
     	}
-    	return SimulationImpl.valueOf(graph, antsQuantity, antsByStep, logStates);
+    	return SimulationImpl.create(graph, antsQuantity, antsByStep, logStates);
     }
     
     /**
