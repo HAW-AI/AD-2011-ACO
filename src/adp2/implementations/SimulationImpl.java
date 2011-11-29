@@ -227,7 +227,7 @@ public class SimulationImpl implements Simulation{
 	    /*Functions*/
 	    
 	    private void addAnt(){
-	    	antList().add(AntImpl.valueOf(startPoint(), antAlpha(), graph())); /////START POINT?
+	    	antList().add(Values.ant(startPoint(), antAlpha(), graph())); /////START POINT?
 	    }
 	    
 	    private void addAnts(int quantity){

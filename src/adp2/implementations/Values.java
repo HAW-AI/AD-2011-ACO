@@ -235,7 +235,7 @@ public final class Values {
      * @return Ant
      */
     public static Ant ant(int startNode, double alpha, Graph g){
-    	return AntImpl.valueOf(startNode, alpha, g);
+    	return AntImpl.create(startNode, alpha, g);
     }
     
 }
