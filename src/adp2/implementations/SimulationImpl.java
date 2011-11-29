@@ -27,24 +27,27 @@ public class SimulationImpl implements Simulation{
 		public List<Integer> bestPath = new ArrayList<Integer>();
 
 		//Ameisen werden alle direkt rein geworfen
-	    public static Simulation valueOf(Graph graph, int antsQuantity) {
+	protected static Simulation create(Graph graph, int antsQuantity) {
 			return new SimulationImpl(graph, antsQuantity);
 		}
 	    
 	    //Ameisen werden in Wellen rein geworfen
-	    public static Simulation valueOf(Graph graph, int antsQuantity, int antsByStep) {
+	protected static Simulation create(Graph graph, int antsQuantity,
+			int antsByStep) {
 			return new SimulationImpl(graph, antsQuantity, antsByStep);
 		}
 	    
 		//Ameisen werden alle direkt rein geworfen
 	    // Log States
-	    public static Simulation valueOf(Graph graph, int antsQuantity, boolean logStates) {
+	protected static Simulation create(Graph graph, int antsQuantity,
+			boolean logStates) {
 			return new SimulationImpl(graph, antsQuantity, logStates);
 		}
 	    
 	    //Ameisen werden in Wellen rein geworfen
 	    // Log States
-	    public static Simulation valueOf(Graph graph, int antsQuantity, int antsByStep, boolean logStates) {
+	protected static Simulation create(Graph graph, int antsQuantity,
+			int antsByStep, boolean logStates) {
 			return new SimulationImpl(graph, antsQuantity, antsByStep, logStates);
 		}
 	    
@@ -70,7 +73,8 @@ public class SimulationImpl implements Simulation{
 	    	this.logStates = logStates;
 	    }
 	
-	    private SimulationImpl(Graph graph, int antsQuantity, int antsByStep, boolean logStates) {
+	private SimulationImpl(Graph graph, int antsQuantity, int antsByStep,
+			boolean logStates) {
 	    	setGraph(graph);
 	    	setAntQuantity(antsQuantity);
 	    	setAntsByStep(antsByStep);
@@ -110,17 +114,19 @@ public class SimulationImpl implements Simulation{
 	    
 	    private boolean simulate(){
 	    	/*
-    		 * antList = Ameisen aktuell im Graphen
-    		 * antsByStep = Ameisen die hinzugefuegt werden pro Step (wenn angegeben)
-    		 * antQuantity = Anzahl der Ameisen über maximal in den Graphen laufen
-    		 * */
-	    	
+		 * antList = Ameisen aktuell im Graphen antsByStep = Ameisen die
+		 * hinzugefuegt werden pro Step (wenn angegeben) antQuantity = Anzahl
+		 * der Ameisen über maximal in den Graphen laufen
+		 */
     
     		if((antsByStep() != 0) && (antsLaunched < antQuantity())){
-    			if( (antsLaunched+antsByStep()) <= antQuantity()){ //Ameisen um antsByStep erhoehen
+			if ((antsLaunched + antsByStep()) <= antQuantity()) { // Ameisen um
+																	// antsByStep
+																	// erhoehen
     				antsLaunched += antsByStep();
     				addAnts(antsByStep());
-    			} else if(antsLaunched < antQuantity()){ // Ameisen um Rest < antsByStep erhï¿½hen
+			} else if (antsLaunched < antQuantity()) { // Ameisen um Rest <
+														// antsByStep erhï¿½hen
     				antsLaunched += antQuantity()-antList().size();
     				addAnts(antQuantity()-antList().size());
     			}
@@ -134,9 +140,13 @@ public class SimulationImpl implements Simulation{
     				}
     				removeAnt(i); 
     			} else {
-	    			if(antList().get(i).getWaitingTime() == 0){ 	//Befindlich auf Knoten
-	    				antList().get(i).step(); 					//Entscheidungsalgorithmus und einen Schritt gehen
-	    				addPheromoneUpdate(antList().get(i).prePosition(),antList().get(i).position(),pheromoneIntensity()); //Pheromonverteilung vorbereiten
+				if (antList().get(i).getWaitingTime() == 0) { // Befindlich auf
+																// Knoten
+					antList().get(i).step(); // Entscheidungsalgorithmus und
+												// einen Schritt gehen
+					addPheromoneUpdate(antList().get(i).prePosition(),
+							antList().get(i).position(), pheromoneIntensity()); // Pheromonverteilung
+																				// vorbereiten
 	    			}else{
 	    				antList().get(i).step();
 	    			}
@@ -148,12 +158,14 @@ public class SimulationImpl implements Simulation{
     		if (logStates) {
 	    		graphStates.add(currentGraph);
 	    		/*
-	    		 * For every Step this adds the current Graph to the list of graphStates
-	    		 * Doing so gives us the ability to replay the Graph transformations. 
+			 * For every Step this adds the current Graph to the list of
+			 * graphStates Doing so gives us the ability to replay the Graph
+			 * transformations.
 	    		 */
 	    		currentGraph = currentGraph.deepClone();
     		}
-    		//Ende wenn alle Ameisen durchgelaufen sind und keine mehr kommen (per antsByStep)
+		// Ende wenn alle Ameisen durchgelaufen sind und keine mehr kommen (per
+		// antsByStep)
     		return !(antList().isEmpty() && (antsLaunched == antQuantity()));
 	    }	
 
@@ -252,8 +264,10 @@ public class SimulationImpl implements Simulation{
 	    
 	    private void pheromoneIncrement(){
 	    	for(List<Integer> list: pheromoneUpdateList()){
-	    		currentGraph.incrementPheromone(list.get(0), list.get(1),list.get(2));
-	    		currentGraph.incrementPheromone(list.get(1), list.get(0),list.get(2));
+			currentGraph.incrementPheromone(list.get(0), list.get(1),
+					list.get(2));
+			currentGraph.incrementPheromone(list.get(1), list.get(0),
+					list.get(2));
 	    	}
     		pheromoneUpdateList().clear();
 	    }
@@ -270,6 +284,8 @@ public class SimulationImpl implements Simulation{
 
 		@Override
 		public Path minPath() {
-			return Values.path(bestPath(), bestDistance());
-		}
+		return Values.path(bestPath(), bestDistance());
+	}
+
+		
 }
