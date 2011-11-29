@@ -9,7 +9,7 @@ public final class ImmutableMatrixImpl<E> extends AbstractMatrix<E> {
 
 
     
-    public static <E> ImmutableMatrixImpl<E> valueOf(int width, int height, List<E> values) {
+    protected static <E> ImmutableMatrixImpl<E> create(int width, int height, List<E> values) {
         // pre-condition check in factory!
         return new ImmutableMatrixImpl<E>(width, height, values);
     }

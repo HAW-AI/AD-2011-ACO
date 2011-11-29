@@ -47,7 +47,7 @@ public final class Values {
 		if (values == null || values.size() != width * height
 				|| values.contains(null))
             return NaM();
-        return ImmutableMatrixImpl.valueOf(width, height, values);
+        return immutableMatrix(width, height, values);
     }
     
     /**
@@ -242,7 +242,7 @@ public final class Values {
 		MutableMatrix<Double> m = mutableMatrix((int) Math.sqrt(args.length),
 				(int) Math.sqrt(args.length), l);
     	
-    	return GraphImpl.create(m);
+    	return graph(m);
     }
     
     /**
@@ -278,9 +278,21 @@ public final class Values {
      * @param matrix
      * @return Graph
      */
-	public static Graph Graph(Matrix<Double> matrix) {
+	public static Graph graph(Matrix<Double> matrix) {
 		return GraphImpl.create(matrix);
 	}
+	
+	 /**
+     * Create a new ImmutableMatrixImpl<E>
+     * @param width
+     * @param height
+     * @param values
+     * @return ImmutableMatrixImpl<E>
+     */
+	public static <E> ImmutableMatrixImpl<E>  immutableMatrix(int width, int height, List<E> values) {
+		return ImmutableMatrixImpl.create(width, height, values);
+	}
+	
     /**
      * Create a new Darstellung
      * @param g
