@@ -22,6 +22,10 @@ public final class Values {
      * 
      * @return brute force TSP
      */
+
+	private Values() {
+	}
+
     public static TSP bruteForceTSP() {
         return BruteForceTSP.create();
     }
@@ -29,15 +33,19 @@ public final class Values {
     /**
      * Create a Matrix with given dimensions and values.
      * 
-     * @param width  the width
-     * @param height the height
-     * @param values the values (the first n elements are the first row, the
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
+	 * @param values
+	 *            the values (the first n elements are the first row, the
      *               following the second one and so forth)
      * @return a valid Matrix object or NaM if any argument is or contains null
      *         or values.size() != width*height
      */
     public static <T> Matrix<T> matrix(int width, int height, List<T> values) {
-        if (values == null || values.size() != width*height || values.contains(null))
+		if (values == null || values.size() != width * height
+				|| values.contains(null))
             return NaM();
         return ImmutableMatrixImpl.valueOf(width, height, values);
     }
@@ -45,15 +53,20 @@ public final class Values {
     /**
      * Create a Matrix with given dimensions and values.
      * 
-     * @param width  the width
-     * @param height the height
-     * @param values the values (the first n elements are the first row, the
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
+	 * @param values
+	 *            the values (the first n elements are the first row, the
      *               following the second one and so forth)
      * @return a valid Matrix object or NaM if any argument is or contains null
      *         or values.size() != width*height
      */
-    public static <T> MutableMatrix<T> mutableMatrix(int width, int height, List<T> values) {
-        if (values == null || values.size() != width*height || values.contains(null))
+	public static <T> MutableMatrix<T> mutableMatrix(int width, int height,
+			List<T> values) {
+		if (values == null || values.size() != width * height
+				|| values.contains(null))
             return NaMM();
         return MutableMatrixImpl.creator(width, height, values);
     }
@@ -116,7 +129,8 @@ public final class Values {
      * Create a simulation with a defined number of ants starting at once
      * 
      * @param graph 
-     * @param antsQuantity  total number of ants in the graph, pushed at once
+	 * @param antsQuantity
+	 *            total number of ants in the graph, pushed at once
      * 
      * @return Simulation 
      * 
@@ -129,16 +143,20 @@ public final class Values {
     }
     
     /**
-     * Create a simulation with a defined number of ants starting at once and logs states of all graphs
+	 * Create a simulation with a defined number of ants starting at once and
+	 * logs states of all graphs
      * 
      * @param graph 
-     * @param antsQuantity  total number of ants in the graph, pushed at once
-     * @param logStates 	simulation log states or not
+	 * @param antsQuantity
+	 *            total number of ants in the graph, pushed at once
+	 * @param logStates
+	 *            simulation log states or not
      * 
      * @return Simulation 
      * 
      */
-    public static Simulation simulation(Graph graph, int antsQuantity, boolean logStates) {
+	public static Simulation simulation(Graph graph, int antsQuantity,
+			boolean logStates) {
     	if(antsQuantity < 0){ 
     		return Values.NaS();
     	}
@@ -146,16 +164,20 @@ public final class Values {
     }
     
     /**
-     * Create a simulation with a defined number of ants in total starting step by step
+	 * Create a simulation with a defined number of ants in total starting step
+	 * by step
      * 
      * @param graph 
-     * @param antsQuantity  total number of ants in the graph
-     * @param antsByStep 	number of ants, pushed at every step
+	 * @param antsQuantity
+	 *            total number of ants in the graph
+	 * @param antsByStep
+	 *            number of ants, pushed at every step
      * 
      * @return Simulation 
      * 
      */
-    public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep) {
+	public static Simulation simulation(Graph graph, int antsQuantity,
+			int antsByStep) {
     	if(antsQuantity < 0 || antsByStep < 0){ 
     		return Values.NaS();
     	}
@@ -163,28 +185,36 @@ public final class Values {
     }
     
     /**
-     * Create a simulation with a defined number of ants in total starting step by step and logs states of all graphs
+	 * Create a simulation with a defined number of ants in total starting step
+	 * by step and logs states of all graphs
      * 
      * @param graph 
-     * @param antsQuantity  total number of ants in the graph
-     * @param antsByStep 	number of ants, pushed at every step
-     * @param logStates 	simulation log states or not
+	 * @param antsQuantity
+	 *            total number of ants in the graph
+	 * @param antsByStep
+	 *            number of ants, pushed at every step
+	 * @param logStates
+	 *            simulation log states or not
      * 
      * @return Simulation
      * 
      */
-    public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep, boolean logStates) {
+	public static Simulation simulation(Graph graph, int antsQuantity,
+			int antsByStep, boolean logStates) {
     	if(antsQuantity < 0 || antsByStep < 0){ 
     		return Values.NaS();
     	}
-    	return SimulationImpl.create(graph, antsQuantity, antsByStep, logStates);
+		return SimulationImpl
+				.create(graph, antsQuantity, antsByStep, logStates);
     }
     
     /**
      * Create a Path
      * 
-     * @param waypoints the waypoints in order of traversal
-     * @param distance  the total distance of the path
+	 * @param waypoints
+	 *            the waypoints in order of traversal
+	 * @param distance
+	 *            the total distance of the path
      * @return a valid Path object or Path(EmptyList, -1) if waypoints is or
      *         contains null or if distance is negative
      */
@@ -197,7 +227,8 @@ public final class Values {
     /**
      * Create a Graph from Array
      * 
-     * @param args the array from which the Graph will be created 
+	 * @param args
+	 *            the array from which the Graph will be created
      * @return a valid Graph Object
      */
     public static Graph graphFromList(double... args){
@@ -208,7 +239,8 @@ public final class Values {
     	for(Double elem : args){
     		l.add(elem);
     	}
-    	MutableMatrix<Double> m = mutableMatrix((int)Math.sqrt(args.length), (int)Math.sqrt(args.length), l);
+		MutableMatrix<Double> m = mutableMatrix((int) Math.sqrt(args.length),
+				(int) Math.sqrt(args.length), l);
     	
     	return GraphImpl.valueOf(m);
     }
@@ -216,7 +248,8 @@ public final class Values {
     /**
      * PreConditionCheck for the Method "graphFromList"
      * 
-     * @param args the array from which the Graph will be created 
+	 * @param args
+	 *            the array from which the Graph will be created
      * @return a boolean to show if given Array is valid
      */
     private static boolean graphPreCheck(double[] x){
@@ -228,7 +261,9 @@ public final class Values {
     }
     
     /**
-     * Create a new ant -> public for testing purposes only -> should be package private
+	 * Create a new ant -> public for testing purposes only -> should be package
+	 * private
+	 * 
      * @param startNode
      * @param alpha
      * @param g
