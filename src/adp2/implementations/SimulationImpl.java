@@ -1,5 +1,9 @@
 package adp2.implementations;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 import static adp2.implementations.Values.*;
 
@@ -11,7 +15,8 @@ public class SimulationImpl implements Simulation{
 		List<Graph> graphStates;
 		List<Ant> antList = new ArrayList<Ant>();
 		List<PheromoneElement> pheromoneUpdateList = new ArrayList<PheromoneElement>();		
-
+		File file = new File("..\\test.log");
+		
 		int antQuantity;
 		int antsLaunched = 0;
 		int antsByStep = 0; //Anzahl der Ameisen die pro Step hinzugefuegt werden
@@ -83,31 +88,73 @@ public class SimulationImpl implements Simulation{
 	    
 	    @Override
 	    public void run(){
+	        file.delete();
 	    	boolean run = true;
 	    	while(run){
 	    		run = simulate();
+	    		writeToFile();
+	    		writeWay();
 	    	}
 	    }
 		
 	    @Override
 	    public void runForSteps(int simulationSteps){
+	        file.delete();
 	    	boolean run = true;
 	    	antsLaunched = 0;
 	    	int loops = 0;
 	    	while(run && loops < simulationSteps){
 	    		run = simulate();
+	    		writeToFile();
+                writeWay();
 	    		loops++;
 	    	}
 	    }
 	    
+	    private void writeToFile() {
+	        try
+            {
+             if(!bestPath().isEmpty()){
+                
+                FileWriter fw = new FileWriter( file.getPath() , true );
+                
+                PrintWriter pw = new PrintWriter( fw );
+                pw.println("\n");
+                pw.println("Best path: " + bestPath());
+                pw.println("Shortest way: " + bestDistance());
+                pw.println("-------------------------------------");
+                
+                fw.flush();
+                fw.close();
+                
+                pw.flush();
+                pw.close();
+             }
+    }
+    catch( IOException e )
+    {
+        e.printStackTrace();
+    } 
+	    }
+	    
+	    private void writeWay() {
+	        System.out.println("\n");
+	        System.out.println("Best path: " + bestPath());
+	        System.out.println("Shortest way: " + bestDistance());
+	        System.out.println("-------------------------------------");
+	    }
+	    
 	    @Override
 	    public void runForSeconds(int runtimeInS){
+	        file.delete();
 	    	boolean run = true;
 	    	antsLaunched = 0;
 	    	long timeStart = System.currentTimeMillis();
 	    	long timeStop = runtimeInS * 1000;
 	    	while(run && System.currentTimeMillis() - timeStart < timeStop){
 	    		run = simulate();
+	    		writeToFile();
+                writeWay();
 	    	}
 	    }
 	    
@@ -116,7 +163,8 @@ public class SimulationImpl implements Simulation{
 		 * antList = Ameisen aktuell im Graphen antsByStep = Ameisen die
 		 * hinzugefuegt werden pro Step (wenn angegeben) antQuantity = Anzahl
 		 * der Ameisen über maximal in den Graphen laufen
-		 */
+		 */ 
+       
     
     		if((antsByStep() != 0) && (antsLaunched < antQuantity())){
 			if ((antsLaunched + antsByStep()) <= antQuantity()) { // Ameisen um
@@ -136,6 +184,7 @@ public class SimulationImpl implements Simulation{
     				if (antList().get(i).weglaenge() < bestDistance()) {
     					setBestDistance(antList().get(i).weglaenge());
     					setBestPath(antList().get(i).traveledPath().waypoints());
+    					
     				}
     				removeAnt(i); 
     			} else {
@@ -165,6 +214,9 @@ public class SimulationImpl implements Simulation{
     		}
 		// Ende wenn alle Ameisen durchgelaufen sind und keine mehr kommen (per
 		// antsByStep)
+
+        
+    		
     		return !(antList().isEmpty() && (antsLaunched == antQuantity()));
 	    }	
 
