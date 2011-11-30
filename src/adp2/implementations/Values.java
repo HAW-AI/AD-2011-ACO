@@ -307,6 +307,16 @@ public final class Values {
 	public static Darstellung darstellung(Graph g) {
 		return Darstellung.create(g);
 	}
+	
+	/**
+	 * Erstellt eine Graphendarstellung die NUR den Path p enthällt
+	 * @param g
+	 * @param p
+	 * @return Darstellung
+	 */
+	   public static Darstellung darstellung(Graph g, Path p) {
+	        return Darstellung.create(g, p);
+	    }
 
 	public static PrintGraph printableGraph(Graph g) {
 		return PrintGraph.create(g);

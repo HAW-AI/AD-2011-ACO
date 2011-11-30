@@ -5,6 +5,8 @@ import adp2.interfaces.Graph;
 import adp2.interfaces.Path;
 
 import com.mxgraph.view.mxGraph;
+
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,12 +57,18 @@ public class PrintGraph extends mxGraph {
 	
 	public void highlightPath(Path p) {
 		List<Integer> tl= p.waypoints();
+		
 		if (tl.size() == 0) return;
 		for(Integer i = 1; i < tl.size();i++){
-			setCellStyle("strokeColor=red;fillColor=green;fontColor=red", getEdgesBetween(VertexObjectList.get(tl.get(i-1)),VertexObjectList.get(tl.get(i)))) ;
+		  
+			setCellStyle("strokeColor=green;fillColor=green;fontColor=red", getEdgesBetween(VertexObjectList.get(tl.get(i-1)),VertexObjectList.get(tl.get(i)))) ;
+			
 		}
 		setCellStyle("strokeColor=red;fillColor=green;fontColor=red",getEdgesBetween(VertexObjectList.get(tl.get(0)),VertexObjectList.get(tl.get(tl.size()-1)))) ;
 	}
+	
+
+	 
 	
 	
 }

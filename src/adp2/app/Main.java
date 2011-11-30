@@ -41,13 +41,19 @@ public class Main {
     	} else{
     		System.out.println("NO WAY!");
     	}
+    	Darstellung frame;
+    	if(sim.minPath().waypoints().size() > 20) {
+    	    frame = Values.darstellung(g, sim.minPath());
+    	} else {
+    	    frame = Values.darstellung(g);
+    	}
 		
-		
-		Darstellung frame = Values.darstellung(g);
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
 		frame.graph.highlightPath(sim.minPath());	
+		
 		
 	}
 }
