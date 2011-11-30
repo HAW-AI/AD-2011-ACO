@@ -274,6 +274,10 @@ public final class Values {
 	public static Ant ant(int startNode, double alpha, Graph g) {
 		return AntImpl.create(startNode, alpha, g);
 	}
+	
+	public static Ant ant(double alpha, Graph g) {
+		return AntImpl.create(alpha, g);
+	}
 
 	/**
 	 * Create a new Graph

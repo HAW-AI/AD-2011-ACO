@@ -35,11 +35,30 @@ public class AntImpl implements Ant {
 		finished = false;
 	}
 	
+	private AntImpl(double alpha, Graph g){
+		mynumber = number++;
+		path = new ArrayList<Integer>();
+		weglaenge = 0;
+		int startNode = (mynumber % g.allNodes().size()) + 1;
+		path.add(startNode);
+		this.g = g;
+		unvisitedNodes = g.neighbors(startNode);
+		this.alpha = alpha;
+		finished = false;
+	}
+	
 	protected static Ant create(int startNode, double alpha, Graph g){
 		if (g == null || g instanceof NaG || alpha < 0 || alpha > 1 || !g.allNodes().contains(startNode)) {
 			return Values.NaA();
 		}
 		return new AntImpl(startNode, alpha, g);
+	}
+	
+	protected static Ant create(double alpha, Graph g){
+		if (g == null || g instanceof NaG || alpha < 0 || alpha > 1) {
+			return Values.NaA();
+		}
+		return new AntImpl(alpha, g);
 	}
 	
 	
