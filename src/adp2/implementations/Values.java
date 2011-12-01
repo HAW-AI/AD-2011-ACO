@@ -130,7 +130,7 @@ public final class Values {
     public static TSP NaTSP() {
         return NaTSP.create();
     }
-    
+
     public static PheromoneElement NaPE() {
         return NaPE.create();
     }
@@ -342,7 +342,9 @@ public final class Values {
 
     public static PheromoneElement pheromoneElement(int from, int to,
             double pheromone) {
-        if(from <= 0 || to <= 0 || pheromone < 0){return NaPE(); }
+        if (from <= 0 || to <= 0 || pheromone < 0) {
+            return NaPE();
+        }
         return PheromoneElementImpl.valueOf(from, to, pheromone);
     }
 
@@ -351,7 +353,14 @@ public final class Values {
     }
 
     public static TSP acoTSP(int antsQuantity, int antsByStep) {
-	       if(antsQuantity < 0 || antsByStep < 0) {return NaTSP();}
-	        return AcoTSP.create(antsQuantity, antsByStep);
-	    }
+        if (antsQuantity < 0 || antsByStep < 0) {
+            return NaTSP();
+        }
+        return AcoTSP.create(antsQuantity, antsByStep);
+    }
+
+    public static TSP acoTSP(int antsQuantity, int antsByStep, int number, boolean runForSeconds) {
+        if(antsQuantity < 0 || antsByStep < 0  || number < 0  ) {return NaTSP();}
+         return AcoTSP.create(antsQuantity, antsByStep, number, runForSeconds);
+     }
 }
