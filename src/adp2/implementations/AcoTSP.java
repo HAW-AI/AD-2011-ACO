@@ -16,20 +16,24 @@ import adp2.interfaces.TSP;
 public class AcoTSP implements TSP {
 
     private int antsQuantity;
+    private int antsByStep;
+    private Simulation sim;
 
     
-    private AcoTSP(int antsQuantity) {
+    private AcoTSP(int antsQuantity, int antsByStep) {
         this.antsQuantity = antsQuantity;
+        this.antsByStep = antsByStep;
 
     }
     
     static AcoTSP create(){
-        return new AcoTSP(1000);
+        return new AcoTSP(1000, 5);
     }
     
-    static AcoTSP create(int antsQuantity){
-        return new AcoTSP(antsQuantity);
+    static AcoTSP create(int antsQuantity, int antsByStep){
+        return new AcoTSP(antsQuantity, antsByStep);
     }
+
     
 
 //    
@@ -39,7 +43,8 @@ public class AcoTSP implements TSP {
     @Override
     public Path minPath(Matrix<Double> m) {
         Graph graph = Values.graph(m);
-        Simulation sim = Values.simulation(graph, antsQuantity);
+        
+        sim = Values.simulation(graph, antsQuantity, antsByStep);
         sim.run();
         return sim.minPath();
     }

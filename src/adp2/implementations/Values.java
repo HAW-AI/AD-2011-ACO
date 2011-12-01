@@ -334,5 +334,12 @@ public final class Values {
 	public static PheromoneElement pheromoneElement(int from, int to, double pheromone) {
 	    return PheromoneElementImpl.valueOf(from, to, pheromone);
 	}
+	
+	public static TSP acoTSP() {
+	    return AcoTSP.create();
+	}
+	   public static TSP acoTSP(int antsQuantity, int antsByStep) {
+	        return AcoTSP.create(antsQuantity, antsByStep);
+	    }
 
 }
