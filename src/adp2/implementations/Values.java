@@ -127,10 +127,19 @@ public final class Values {
         return NaS.create();
     }
 
+    
+    /**
+     * Not a Traveling Salesman Probelm
+     * @return Traveling Salesman Probelm
+     */
     public static TSP NaTSP() {
         return NaTSP.create();
     }
 
+    /**
+     * not a PheromoneElement
+     * @return not a PheromoneElement
+     */
     public static PheromoneElement NaPE() {
         return NaPE.create();
     }
@@ -340,6 +349,13 @@ public final class Values {
         return PermutationIterator.create(l);
     }
 
+    /**
+     * not a PheromoneElement
+     * @param from
+     * @param to
+     * @param pheromone
+     * @return not a PheromoneElement
+     */
     public static PheromoneElement pheromoneElement(int from, int to,
             double pheromone) {
         if (from <= 0 || to <= 0 || pheromone < 0) {
@@ -347,6 +363,11 @@ public final class Values {
         }
         return PheromoneElementImpl.valueOf(from, to, pheromone);
     }
+    
+    /**
+     * TSP Lösung per ANT Algorithmus
+     * @return AcoTsp
+     */
 
     public static TSP acoTSP() {
         return AcoTSP.create();
@@ -359,6 +380,14 @@ public final class Values {
         return AcoTSP.create(antsQuantity, antsByStep);
     }
 
+    /**
+     * TSP Ant Algortihmus
+     * @param antsQuantity
+     * @param antsByStep
+     * @param number
+     * @param runForSeconds    gibt an ob number maxSeconds(true) oder maxSteps(false)
+     * @return AcoTSP
+     */
     public static TSP acoTSP(int antsQuantity, int antsByStep, int number, boolean runForSeconds) {
         if(antsQuantity < 0 || antsByStep < 0  || number < 0  ) {return NaTSP();}
          return AcoTSP.create(antsQuantity, antsByStep, number, runForSeconds);
