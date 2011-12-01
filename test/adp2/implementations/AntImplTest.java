@@ -48,12 +48,13 @@ public class AntImplTest {
 		ant.step();
 		ant.step();
 		ant.step();
-		assertEquals(2,ant.traveledPath().waypoints().size());
+		assertEquals(3,ant.traveledPath().waypoints().size());
 		ant.step();
 		ant.step();
 		ant.step();
 		assertEquals(3,ant.traveledPath().waypoints().size());
 	}
+
 
 
 	@Test

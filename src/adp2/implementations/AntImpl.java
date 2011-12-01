@@ -172,6 +172,10 @@ public class AntImpl implements Ant {
 			// berechnung der balances
 			Map<Integer,Double> probability = balances();		
 			
+			if (probability.isEmpty()) {
+				finished = true;
+				System.out.println(this + " fertig");
+			} else {
 			
 			/*
 			 * bildet die Summe aus allen Balancewerten ==> aus den einzelnen Werten und der Summe wird im 
@@ -230,6 +234,7 @@ public class AntImpl implements Ant {
 				System.out.println(this + " fertig");
 			}
 			
+			}
 			
 			
 		}

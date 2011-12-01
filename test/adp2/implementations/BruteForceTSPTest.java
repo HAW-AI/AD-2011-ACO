@@ -57,7 +57,7 @@ public class BruteForceTSPTest {
     public void setup() {
         tsp = bruteForceTSP();
         
-        path1 = path(asList(1, 5, 2, 7, 4, 8, 3, 6), 209);
+        path1 = path(asList(1, 5, 2, 7, 4, 8, 3, 6, 1), 209);
         List<Double> distList1 = asList(
              -1.0, 100.0,  50.0,  33.0,  25.0,  20.0,  16.0,  14.0,
             100.0,  -1.0, 100.0,  50.0,  33.0,  25.0,  20.0,  16.0,
@@ -70,7 +70,7 @@ public class BruteForceTSPTest {
          );
         distances1 = matrix(8, 8, distList1);
         
-        path2 = path(asList(1, 2, 3), 250);
+        path2 = path(asList(1, 2, 3, 1), 250);
         List<Double> distList2 = asList(
                 -1.0, 100.0,  50.0,
                 100.0,  -1.0, 100.0,
@@ -81,7 +81,7 @@ public class BruteForceTSPTest {
         path3 = NaP();
         distances3 = NaM();
         
-        path4 = path(asList(1), 0);
+        path4 = path(asList(1, 1), 0);
         distances4 = matrix(1, 1, asList(-1.0));
         
         path5 = NaP();
