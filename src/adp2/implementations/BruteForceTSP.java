@@ -10,6 +10,7 @@ import static adp2.implementations.Values.*;
 public final class BruteForceTSP implements TSP {
     
     private static TSP instance;
+
     
     protected static TSP create() {
         if (instance == null) {
