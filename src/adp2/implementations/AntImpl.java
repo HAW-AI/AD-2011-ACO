@@ -19,7 +19,7 @@ public class AntImpl implements Ant {
 	private double weglaenge;	// die aktuelle Weglaenge
 	private Set<Integer> unvisitedNodes;	//alle Knoten des Graphen, bei dem Ameise noch nicht war
 	private double alpha; 
-	private Graph g;
+	private Graph graph;
 	boolean finished;
 	
 	
@@ -28,7 +28,7 @@ public class AntImpl implements Ant {
 		path = new ArrayList<Integer>();
 		weglaenge = 0;
 		path.add(startNode);
-		this.g = g;
+		this.graph = g;
 		unvisitedNodes = g.neighbors(startNode);
 		this.alpha = alpha;
 		finished = false;
@@ -40,7 +40,7 @@ public class AntImpl implements Ant {
 		weglaenge = 0;
 		int startNode = (mynumber % g.allNodes().size()) + 1;
 		path.add(startNode);
-		this.g = g;
+		this.graph = g;
 		unvisitedNodes = g.neighbors(startNode);
 		this.alpha = alpha;
 		finished = false;
@@ -77,7 +77,7 @@ public class AntImpl implements Ant {
 	
 	
 	private Set<Integer> unvisitedNeighbors(){
-		Set<Integer> neighbors = g.neighbors(position());
+		Set<Integer> neighbors = graph.neighbors(position());
 		neighbors.retainAll(unvisitedNodes);
 		return neighbors;
 	}
@@ -96,17 +96,17 @@ public class AntImpl implements Ant {
 		double maxDist = -1.0;
 		double maxPher = -1.0;
 		for(Integer elem : this.unvisitedNeighbors()){
-			if(g.distance(position(), elem) > maxDist){
-				maxDist = g.distance(position(), elem);
+			if(graph.distance(position(), elem) > maxDist){
+				maxDist = graph.distance(position(), elem);
 			}
-			if(g.intensity(position(), elem) > maxPher){
-				maxPher = g.intensity(position(), elem);
+			if(graph.intensity(position(), elem) > maxPher){
+				maxPher = graph.intensity(position(), elem);
 			}
 		}
 		
 		// berechne die balances und speichere sie in der Map
 		for(Integer elem : this.unvisitedNeighbors()){
-			result.put(elem,balance1(maxDist, maxPher, g.intensity(position(), elem), g.distance(position(), elem)));
+			result.put(elem,balance1(maxDist, maxPher, graph.intensity(position(), elem), graph.distance(position(), elem)));
 		}
 		return result;
 		
@@ -224,7 +224,7 @@ public class AntImpl implements Ant {
 			}
 			
 			
-			weglaenge += g.distance(position(), minNode);
+			weglaenge += graph.distance(position(), minNode);
 
 			path.add(minNode);
 			unvisitedNodes.remove(minNode);
