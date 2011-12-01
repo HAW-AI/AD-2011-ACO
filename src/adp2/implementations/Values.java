@@ -119,9 +119,9 @@ public final class Values {
 	}
 
 	/**
-	 * Not an Simulation
+	 * Not a Simulation
 	 * 
-	 * @return Not an Simulation
+	 * @return Not a Simulation
 	 */
 	public static Simulation NaS() {
 		return NaS.create();
