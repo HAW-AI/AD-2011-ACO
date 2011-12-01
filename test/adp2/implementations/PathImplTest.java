@@ -25,8 +25,8 @@ public class PathImplTest {
 	@Test
 	public void testDistance() {
 		List<Integer> list = new ArrayList<Integer>();
-		assertEquals(0, Values.path(list, 0).distance());
-		assertEquals(42, Values.path(list, 42).distance());
+		assertEquals(0, Values.path(list, 0).distance(),0.001);
+		assertEquals(42, Values.path(list, 42).distance(),0.001);
 	}
 
 	@Test
