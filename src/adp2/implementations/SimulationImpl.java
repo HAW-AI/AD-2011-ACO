@@ -327,11 +327,7 @@ public class SimulationImpl implements Simulation{
 	    	currentGraph.decrementPheromone(pheromoneDecrease());
 	    }
 
-		@Override
-		public Map<Path, Integer> frequencyMap() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+		
 
 		@Override
 		public Path minPath() {
