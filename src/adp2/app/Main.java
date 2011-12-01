@@ -59,14 +59,7 @@ public class Main {
 		
 		frame.graph.highlightPath(sim.minPath());	
 		
-		List<Double> v = new ArrayList<>();
-		v.add(1.0);
-		v.add(1.0);
-		v.add(1.0);
-		v.add(1.0);
-		Matrix<Double> m =Values.matrix(2, 3, v);
-		System.err.println("Matrix: " + m );
-		System.err.println("minPath: " + Values.acoTSP().minPath(m));
+		
 		
 	}
 }
