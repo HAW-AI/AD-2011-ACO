@@ -192,7 +192,7 @@ public class SimulationImpl implements Simulation{
 																// Knoten
 					antList().get(i).step(); // Entscheidungsalgorithmus und
 												// einen Schritt gehen
-					addPheromoneUpdate(antList().get(i).prePosition(),
+					addPheromoneUpdate(antList().get(i).prevPosition(),
 							antList().get(i).position(), pheromoneIntensity()); // Pheromonverteilung
 																				// vorbereiten
 	    			}else{

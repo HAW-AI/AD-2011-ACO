@@ -63,15 +63,15 @@ public class AntImplTest {
 	@Test
 	public void testPrePosition() {
 		Ant ant=ant(1,0.2,graph2x2);
-		assertEquals(1, ant.prePosition());
+		assertEquals(1, ant.prevPosition());
 		ant.step();
-		assertEquals(1, ant.prePosition());
-		ant.step();
-		ant.step();
+		assertEquals(1, ant.prevPosition());
 		ant.step();
 		ant.step();
 		ant.step();
-		assertEquals(2, ant.prePosition());
+		ant.step();
+		ant.step();
+		assertEquals(2, ant.prevPosition());
 	}
 
 }

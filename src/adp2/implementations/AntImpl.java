@@ -254,7 +254,7 @@ public class AntImpl implements Ant {
 		return this.waitingTime;
 	}
 	
-	public int prePosition(){
+	public int prevPosition(){
 		if(path.size()>1) return path.get(path.size()-2);
 		else return path.get(0);
 	}

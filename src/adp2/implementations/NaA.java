@@ -49,7 +49,7 @@ public class NaA implements Ant {
 	}
 
 	@Override
-	public int prePosition() {
+	public int prevPosition() {
 		return -1;
 	}
 }

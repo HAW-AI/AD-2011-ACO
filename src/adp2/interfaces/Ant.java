@@ -61,7 +61,7 @@ public interface Ant {
 	 * 
 	 * @return int - node of the position before the current
 	 */
-	int prePosition();
+	int prevPosition();
 }
 
 
