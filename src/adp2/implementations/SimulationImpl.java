@@ -191,16 +191,12 @@ public class SimulationImpl implements Simulation{
     				}
     				removeAnt(i); 
     			} else {
-				if (ant.getWaitingTime() == 0) { // Befindlich auf
 																// Knoten
 					ant.step(); // Entscheidungsalgorithmus und
 												// einen Schritt gehen
 					addPheromoneUpdate(ant.prevPosition(),
 							ant.position(), pheromoneIntensity()); // Pheromonverteilung
 																				// vorbereiten
-	    			}else{
-	    				ant.step();
-	    			}
 	    			i++;
     			}
     		}

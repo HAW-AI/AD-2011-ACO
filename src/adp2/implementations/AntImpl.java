@@ -21,7 +21,6 @@ public class AntImpl implements Ant {
 	private double alpha; 
 	private Graph g;
 	boolean finished;
-	private double waitingTime=0.0;
 	
 	
 	private AntImpl(int startNode, double alpha, Graph g){
@@ -163,7 +162,6 @@ public class AntImpl implements Ant {
 	@Override
 	public void step() {
 		if(finished) System.out.println("Tote Ameise, kann nicht laufen");
-		if(waitingTime>0) waitingTime--;
 		else if (!finished){
 			if(unvisitedNodes.isEmpty()){
 				unvisitedNodes.add(path.get(0));
@@ -234,7 +232,6 @@ public class AntImpl implements Ant {
 			
 			
 			
-			//waitingTime=g.distance(path.get(path.size()-2), path.get(path.size()-1));
 		}
 
 		
@@ -250,9 +247,7 @@ public class AntImpl implements Ant {
 		return this.alpha;
 	}
 	
-	public double getWaitingTime(){
-		return this.waitingTime;
-	}
+
 	
 	public int prevPosition(){
 		if(path.size()>1) return path.get(path.size()-2);

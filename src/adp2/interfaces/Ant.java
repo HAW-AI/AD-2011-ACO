@@ -46,14 +46,6 @@ public interface Ant {
 	 */
 	double alpha();
 	
-	/**
-	 * The time the ant has to wait until the ant can move to the next node.
-	 * Depends on the distance between the current and the next node.
-	 * One call of step  reduces this value by one.
-	 *  
-	 * @return double - waiting time
-	 */
-	double getWaitingTime();
 	
 	/**
 	 * The position before the current position. If the ant hasn't traveled so far. 

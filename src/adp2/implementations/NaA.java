@@ -43,10 +43,7 @@ public class NaA implements Ant {
 		return 0;
 	}
 
-	@Override
-	public double getWaitingTime() {
-		return 0.0;
-	}
+
 
 	@Override
 	public int prevPosition() {
