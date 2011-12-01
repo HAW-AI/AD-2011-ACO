@@ -1,11 +1,14 @@
 package adp2.app;
 
+import java.util.*;
+
 import javax.swing.JFrame;
 
 import adp2.implementations.Darstellung;
 import adp2.implementations.GraphImpl;
 import adp2.implementations.Values;
 import adp2.interfaces.Graph;
+import adp2.interfaces.Matrix;
 import adp2.interfaces.Simulation;
 import adp2.parser.TspFile;
 
@@ -55,7 +58,6 @@ public class Main {
 		frame.setVisible(true);
 		
 		frame.graph.highlightPath(sim.minPath());	
-		
 		
 		
 		

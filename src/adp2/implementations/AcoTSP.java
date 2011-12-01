@@ -65,8 +65,11 @@ public class AcoTSP implements TSP {
      * @see adp2.interfaces.TSP#minPath(adp2.interfaces.Matrix)
      */
     @Override
-    public Path minPath(Matrix<Double> m) {
-        Graph graph = Values.graph(m);
+    public Path minPath(Matrix<Double> matrix) {
+    	 if (matrix.width() != matrix.height() || matrix.width() == 0){
+    		return Values.NaP();
+    	}
+        Graph graph = Values.graph(matrix);
         
         sim = Values.simulation(graph, antsQuantity, antsByStep);
         if(maxSeconds == 0 && maxSteps == 0) {
