@@ -27,10 +27,7 @@ public class NaS implements Simulation {
 	@Override
 	public void runForSteps(int simulationSteps) {}
 
-	@Override
-	public Map<Path, Integer> frequencyMap() {
-		return new HashMap<Path, Integer>();
-	}
+	
 
 	@Override
 	public Path minPath() {
