@@ -66,8 +66,14 @@ public final class BruteForceTSP implements TSP {
             }
         }
         // add Startpoint at end of way
-        minWaypoints.add(minWaypoints.get(0));
-        return path(minWaypoints, minDistance);
+        if (!minWaypoints.isEmpty()){
+        	minWaypoints.add(minWaypoints.get(0));
+        	return path(minWaypoints, minDistance);
+        } else {
+        	return path(minWaypoints, Double.POSITIVE_INFINITY);
+        }
+        
+        
     }
 
 }
