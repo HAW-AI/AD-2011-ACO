@@ -22,15 +22,15 @@ public final class BruteForceTSP implements TSP {
     private BruteForceTSP() {}
 
     @Override
-    public Path minPath(Matrix<Double> distances) {
-        if (distances.width() != distances.height() || distances.width() == 0) {
+    public Path minPath(Matrix<Double> matrix) {
+        if (matrix.width() != matrix.height() || matrix.width() == 0) {
             return NaP();
         }
         
         // check symmetry
-        for (int i = 0, half = distances.width()/2; i <= half; ++i) {
+        for (int i = 0, half = matrix.width()/2; i <= half; ++i) {
             for (int j = 0; j <= half; ++j) {
-                if (!distances.get(i,j).equals(distances.get(j,i))) {
+                if (!matrix.get(i,j).equals(matrix.get(j,i))) {
                     return NaP();
                 }
             }
@@ -40,8 +40,8 @@ public final class BruteForceTSP implements TSP {
         int minDistance = Integer.MAX_VALUE;
         
         // waypoints numbered from 1 through n
-        List<Integer> waypoints = new ArrayList<Integer>(distances.width());
-        for (int i = 1; i <= distances.width(); ++i) waypoints.add(i);
+        List<Integer> waypoints = new ArrayList<Integer>(matrix.width());
+        for (int i = 1; i <= matrix.width(); ++i) waypoints.add(i);
         
         Iterator<List<Integer>> iter = Values.permutationIterator(waypoints);
         
@@ -52,12 +52,12 @@ public final class BruteForceTSP implements TSP {
             for (int i = 0; i < perm.size()-1; ++i) {
                 // waypoints are numbered from 1 through n, so we need to
                 // subtract 1 to get the proper index
-                distance += distances.get(perm.get(i)-1, perm.get(i+1)-1);
+                distance += matrix.get(perm.get(i)-1, perm.get(i+1)-1);
             }
             
             // add way back to start point
             if (perm.size() > 1) {
-                distance += distances.get(perm.get(perm.size()-1)-1, perm.get(0)-1);
+                distance += matrix.get(perm.get(perm.size()-1)-1, perm.get(0)-1);
             }
             
             if (minDistance > distance) {
