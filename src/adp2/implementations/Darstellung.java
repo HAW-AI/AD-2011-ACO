@@ -30,6 +30,7 @@ public class Darstellung extends JFrame {
 	       for(int x = 1; x <= ((GraphImpl) g).distanceVar().height(); x++) {
 	           for (int y = 1; y <= ((GraphImpl) g).distanceVar().height(); y++) {
 	               temp = p.waypoints().indexOf(x);
+	               // -1 wenn x nicht in waypoints
 	               if(temp != -1 && y == p.waypoints().get(temp+1)){
 	                   dist = g.distance(x, y);
 	               } else {

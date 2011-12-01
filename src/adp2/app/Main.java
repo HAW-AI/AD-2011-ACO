@@ -55,5 +55,7 @@ public class Main {
 		frame.graph.highlightPath(sim.minPath());	
 		
 		
+		
+		
 	}
 }
