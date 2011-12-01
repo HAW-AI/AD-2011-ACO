@@ -25,7 +25,7 @@ public class SimulationImpl implements Simulation{
 		double pheromoneDecrease = 1.0;
 		double pheromoneIntensity = 10.0;
 		// The Simulation should not log the states of all Graphs by default
-		boolean logStates = false;
+		final boolean logStates;
 		
 		double bestDistance = Double.MAX_VALUE;
 		public List<Integer> bestPath = new ArrayList<Integer>();
@@ -60,6 +60,7 @@ public class SimulationImpl implements Simulation{
 	    	setAntQuantity(antsQuantity);
 	    	addAnts(antsQuantity);
 	    	graphStates = new ArrayList<Graph>();
+	    	logStates = false;
 	    }
 	
 	    private SimulationImpl(Graph graph, int antsQuantity, int antsByStep) {
@@ -67,6 +68,7 @@ public class SimulationImpl implements Simulation{
 	    	setAntQuantity(antsQuantity);
 	    	setAntsByStep(antsByStep);
 	    	graphStates = new ArrayList<Graph>();
+	    	logStates = false;
 	    }
 	    
 	    private SimulationImpl(Graph graph, int antsQuantity, boolean logStates) {
@@ -180,23 +182,24 @@ public class SimulationImpl implements Simulation{
     		}
     		int i = 0;
     		while (i < antList().size()){
-    			if (antList().get(i).hasFinished()) {
-    				if (antList().get(i).weglaenge() < bestDistance()) {
-    					setBestDistance(antList().get(i).weglaenge());
-    					setBestPath(antList().get(i).traveledPath().waypoints());
+    			Ant ant = antList().get(i);
+    			if (ant.hasFinished()) {
+    				if (ant.traveledPath().waypoints().size() == (currentGraph.allNodes().size() + 1) && ant.weglaenge() < bestDistance()) {
+    					setBestDistance(ant.weglaenge());
+    					setBestPath(ant.traveledPath().waypoints());
     					
     				}
     				removeAnt(i); 
     			} else {
-				if (antList().get(i).getWaitingTime() == 0) { // Befindlich auf
+				if (ant.getWaitingTime() == 0) { // Befindlich auf
 																// Knoten
-					antList().get(i).step(); // Entscheidungsalgorithmus und
+					ant.step(); // Entscheidungsalgorithmus und
 												// einen Schritt gehen
-					addPheromoneUpdate(antList().get(i).prevPosition(),
-							antList().get(i).position(), pheromoneIntensity()); // Pheromonverteilung
+					addPheromoneUpdate(ant.prevPosition(),
+							ant.position(), pheromoneIntensity()); // Pheromonverteilung
 																				// vorbereiten
 	    			}else{
-	    				antList().get(i).step();
+	    				ant.step();
 	    			}
 	    			i++;
     			}

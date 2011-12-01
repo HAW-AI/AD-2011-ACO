@@ -27,5 +27,9 @@ public final class NaP implements Path {
 	public double distance() {
 		return Double.NaN;
 	}
+	
+	public String toString() {
+	    return "NaP";
+	}
 
 }

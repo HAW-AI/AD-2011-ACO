@@ -42,7 +42,7 @@ public class PrintGraph extends mxGraph {
 		Integer edgesTemp = 1;
 		for(Integer i1=0;i1<NoOfVertexs;i1++){
 			for(Integer i2=0;i2<NoOfVertexs;i2++){
-				if((((GraphImpl)graph).distanceVar().get(i1,i2)) >0){
+				if((((GraphImpl)graph).distanceVar().get(i1,i2)) >0 && (((GraphImpl)graph).distanceVar().get(i1,i2)) < Double.POSITIVE_INFINITY){
 				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, ((GraphImpl)graph).distanceVar().get(i1,i2).toString()+"       ", VertexObjectList.get(i1+1), VertexObjectList.get(i2+1),"strokeColor=black;fillColor=black"));
 				edgesTemp++;
 				EdgeObjectList.put(edgesTemp,insertEdge(getDefaultParent(), null, ((GraphImpl)graph).distanceVar().get(i1,i2).toString()+"       ", VertexObjectList.get(i2+1), VertexObjectList.get(i1+1),"strokeColor=black;fillColor=black"));
