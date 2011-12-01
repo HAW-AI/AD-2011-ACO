@@ -20,12 +20,25 @@ public class AntImplTest {
 
 	@Test
 	public void testValueOf() {
-		assertTrue(!(ant(1,0.2,graph2x2) instanceof NaA));
-		assertTrue((ant(1,-0.2,graph2x2) instanceof NaA));
-		assertTrue((ant(-1,0.2,graph2x2) instanceof NaA));
-		assertTrue((ant(3,0.2,graph2x2) instanceof NaA));
-		assertTrue((ant(1,0.2,null) instanceof NaA));
-		assertTrue((ant(1,0.2,NaG()) instanceof NaA));
+		//Test ant(int , double ,graph)
+		assertTrue(!(ant(1,0.1,graph2x2) instanceof NaA));
+		
+		assertTrue((ant(1,0.1,null) instanceof NaA));
+		
+		assertTrue((ant(1,0.1,NaG()) instanceof NaA));
+		assertTrue((ant(1,-0.1,graph2x2) instanceof NaA));
+		assertTrue((ant(1,1.1,graph2x2) instanceof NaA));
+		assertTrue((ant(3,0.1,graph2x2) instanceof NaA));
+		assertTrue((ant(-1,0.1,graph2x2) instanceof NaA));
+		
+		//Test ant( double ,graph)
+		assertTrue(!(ant(0.1,graph2x2) instanceof NaA));
+		
+		assertTrue((ant(0.1,null) instanceof NaA));
+		
+		assertTrue((ant(0.1,NaG()) instanceof NaA));
+		assertTrue((ant(-0.1,graph2x2) instanceof NaA));
+		assertTrue((ant(1.1,graph2x2) instanceof NaA));
 	}
 
 	@Test
