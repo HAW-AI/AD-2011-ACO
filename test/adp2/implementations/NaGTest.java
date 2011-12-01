@@ -10,17 +10,24 @@ import org.junit.Test;
 import static adp2.implementations.Values.*;
 import adp2.interfaces.*;
 
-public class GraphTest {
+public class NaGTest {
+	Graph myNaG;
 	
 	@Before
 	public void setUp() throws Exception {
-		
+		myNaG = Values.NaG();
 	}
 
 	@Test
-	public void testNaG() {
+	public void testCreator() {
 		assertTrue((graphFromList(1.0, 2.0, 3.0) instanceof NaG));
 		assertTrue((graphFromList(1.0, 2.0, 3.0, 4.0, 5.0) instanceof NaG));
 		assertFalse((graphFromList(1.0, 2.0, 3.0, 4.0) instanceof NaG));
+	}
+	
+	@Test
+	public void testMethodes() {
+		assertEquals(-1,myNaG.intensity(1,1),0.001);
+		assertEquals(-1,myNaG.intensity(1,1),0.001);
 	}
 }

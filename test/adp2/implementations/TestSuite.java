@@ -9,6 +9,6 @@ import org.junit.runners.Suite;
     MatrixImplTest.class,
     BruteForceTSPTest.class,
     PathImplTest.class,
-    GraphTest.class
+    NaGTest.class
 })
 public final class TestSuite {}
