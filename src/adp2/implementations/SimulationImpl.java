@@ -25,7 +25,7 @@ public class SimulationImpl implements Simulation{
 		double pheromoneDecrease = 1.0;
 		double pheromoneIntensity = 10.0;
 		// The Simulation should not log the states of all Graphs by default
-		boolean logStates = false;
+		final boolean logStates;
 		
 		double bestDistance = Double.MAX_VALUE;
 		public List<Integer> bestPath = new ArrayList<Integer>();
@@ -60,6 +60,7 @@ public class SimulationImpl implements Simulation{
 	    	setAntQuantity(antsQuantity);
 	    	addAnts(antsQuantity);
 	    	graphStates = new ArrayList<Graph>();
+	    	logStates = false;
 	    }
 	
 	    private SimulationImpl(Graph graph, int antsQuantity, int antsByStep) {
@@ -67,6 +68,7 @@ public class SimulationImpl implements Simulation{
 	    	setAntQuantity(antsQuantity);
 	    	setAntsByStep(antsByStep);
 	    	graphStates = new ArrayList<Graph>();
+	    	logStates = false;
 	    }
 	    
 	    private SimulationImpl(Graph graph, int antsQuantity, boolean logStates) {

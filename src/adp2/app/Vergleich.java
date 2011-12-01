@@ -24,7 +24,7 @@ public class Vergleich {
 //      t = TspFile.open("samples/ant9.tsp");
 //      t = TspFile.open("samples/ant15.tsp");
         TSP bf = Values.bruteForceTSP();
-        TSP aco = Values.acoTSP();
+        TSP aco = Values.acoTSP(0,0);
         
         Path bfPath = bf.minPath(t.matrix());
         Path acoPath = aco.minPath(t.matrix());
