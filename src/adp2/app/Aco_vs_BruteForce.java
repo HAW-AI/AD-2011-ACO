@@ -23,6 +23,8 @@ public class Aco_vs_BruteForce {
 //      t = TspFile.open("samples/ant5.tsp");
       t = TspFile.open("samples/ant9.tsp");
 //      t = TspFile.open("samples/ant15.tsp");
+//		t = TspFile.open("samples/ant5Incomplete.tsp");
+//		t = TspFile.open("samples/ant5NoWay.tsp");
         TSP bf = Values.bruteForceTSP();
         TSP aco = Values.acoTSP();
         Path bfPath;

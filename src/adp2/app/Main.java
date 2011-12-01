@@ -24,13 +24,15 @@ public class Main {
 //		t = TspFile.open("samples/ant5.tsp");
 //		t = TspFile.open("samples/ant9.tsp");
 //		t = TspFile.open("samples/ant15.tsp");
+//		t = TspFile.open("samples/ant5Incomplete.tsp");
+//		t = TspFile.open("samples/ant5NoWay.tsp");
 		Graph g = Values.graph(t.matrix());
 		Simulation sim = Values.simulation(g, ANT_QUANTITIY, ANT_BY_TIME);
 		sim.runForSeconds(RUN_FOR_SECONDS);
 		
     	//Anzeige des Ergebnisses
 		double distance = 0;
-    	if(sim.minPath().distance() > 0){
+    	if(sim.minPath().distance() < Double.MAX_VALUE){
     		distance = sim.minPath().distance();
     		System.out.println("Distance: " + distance + " (MaxInt? " + (Integer.MAX_VALUE-distance==0 ? "true" : "false") + ")" );
 	    	

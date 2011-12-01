@@ -39,7 +39,10 @@ public class TspFile {
 			for (String line : body) {
 				for (String e : line.replaceAll(" +", " ").trim().split(" ")) {
 					c = String.valueOf(e);
-					t = Double.parseDouble(c);
+					if(c.equals("-"))
+						t=Double.POSITIVE_INFINITY;
+					else
+						t = Double.parseDouble(c);
 					v[x + (y*dimension)] = t;
 					v[y + (x*dimension)] = t;
 					x++;
