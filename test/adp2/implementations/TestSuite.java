@@ -8,6 +8,7 @@ import org.junit.runners.Suite;
     PermutationIteratorTest.class,
     MatrixImplTest.class,
     BruteForceTSPTest.class,
-    PathImplTest.class
+    PathImplTest.class,
+    GraphTest.class
 })
 public final class TestSuite {}
