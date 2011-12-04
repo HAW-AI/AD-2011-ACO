@@ -24,6 +24,4 @@ public interface Matrix<E> extends Iterable<E> {
      * @return the value at (x, y)
      */
     E get(int x, int y);
-    
-    
 }

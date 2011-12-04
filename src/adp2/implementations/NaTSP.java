@@ -1,6 +1,3 @@
-/**
- * 
- */
 package adp2.implementations;
 
 import adp2.interfaces.Matrix;
@@ -13,25 +10,20 @@ import adp2.interfaces.TSP;
  */
 public class NaTSP implements TSP {
 
-    /* (non-Javadoc)
-     * @see adp2.interfaces.TSP#minPath(adp2.interfaces.Matrix)
-     */
+    public static TSP instance;
 
-        public static TSP instance;
-
-        protected static TSP create() {
-            if (instance == null) {
-                instance = new NaTSP();
-            }
-            return instance;
+    protected static TSP create() {
+        if (instance == null) {
+            instance = new NaTSP();
         }
+        return instance;
+    }
 
-        private NaTSP() {}
+    private NaTSP() {
+    }
 
-    
     @Override
     public Path minPath(Matrix<Double> m) {
         return Values.NaP();
     }
-
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package adp2.interfaces;
 
 /**
@@ -9,19 +6,18 @@ package adp2.interfaces;
  */
 public interface PheromoneElement {
 
-    
     /**
      * Get the Start Point of the Element
      * @return
      */
     int from();
+
     /**
      * Get the End Point of the Element
      * @return
      */
     int to();
-    
-    
+
     /**
      * get the pheromone of the current edge
      * @return

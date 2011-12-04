@@ -17,17 +17,17 @@ public class MutableMatrixImpl<E> extends AbstractMatrix<E> implements MutableMa
         this.height = height;
         this.values = new ArrayList<E>(values);
     }
-	
-	@Override
-	public void set(int x, int y, E value) {
+
+    @Override
+    public void set(int x, int y, E value) {
         if (x < 0 || x >= this.width() || y < 0 || y >= this.height()) {
             throw new ArrayIndexOutOfBoundsException();
         }
         values.add(x + (y * width()), value);
-	}
+    }
 
-	@Override
-	public MutableMatrix<E> deepClone() {
-		return create(width, height, new ArrayList<E>(values));
-	}
+    @Override
+    public MutableMatrix<E> deepClone() {
+        return create(width, height, new ArrayList<E>(values));
+    }
 }

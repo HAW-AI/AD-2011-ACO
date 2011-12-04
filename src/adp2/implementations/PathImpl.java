@@ -6,7 +6,7 @@ import java.util.List;
 import adp2.interfaces.Path;
 
 public final class PathImpl implements Path {
-    
+
     private final List<Integer> waypoints;
     private final double distance;
 
@@ -14,7 +14,7 @@ public final class PathImpl implements Path {
         // pre-condition checks in factory
         return new PathImpl(waypoints, distance);
     }
-    
+
     private PathImpl(List<Integer> waypoints, double distance) {
         this.waypoints = new ArrayList<Integer>(waypoints);
         this.distance = distance;
@@ -29,21 +29,22 @@ public final class PathImpl implements Path {
     public double distance() {
         return distance;
     }
-    
+
     @Override
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof PathImpl)) return false;
-        return ((PathImpl)o).waypoints.equals(waypoints) && ((PathImpl)o).distance == distance;
+        if (o == null || !(o instanceof PathImpl)) {
+            return false;
+        }
+        return ((PathImpl) o).waypoints.equals(waypoints) && ((PathImpl) o).distance == distance;
     }
-    
+
     @Override
     public int hashCode() {
-        return (int) (41*waypoints.hashCode() + distance);
+        return (int) (41 * waypoints.hashCode() + distance);
     }
-    
+
     @Override
     public String toString() {
         return "Path(" + waypoints + ", " + distance + ")";
     }
-
 }

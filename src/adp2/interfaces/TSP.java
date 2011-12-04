@@ -1,7 +1,5 @@
 package adp2.interfaces;
 
-import adp2.interfaces.Matrix;
-
 /**
  * Traveling Salesman Problem
  */
@@ -15,5 +13,4 @@ public interface TSP {
      *         Path(EmptyList, -1) if m is not an nxn-Matrix or is not symmetric
      */
     Path minPath(Matrix<Double> m);
-    
 }

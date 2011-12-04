@@ -3,12 +3,8 @@ package adp2.implementations;
 import java.util.ArrayList;
 import java.util.List;
 
-import adp2.interfaces.Matrix;
-
 public final class ImmutableMatrixImpl<E> extends AbstractMatrix<E> {
 
-
-    
     protected static <E> ImmutableMatrixImpl<E> create(int width, int height, List<E> values) {
         // pre-condition check in factory!
         return new ImmutableMatrixImpl<E>(width, height, values);
@@ -19,8 +15,4 @@ public final class ImmutableMatrixImpl<E> extends AbstractMatrix<E> {
         this.height = height;
         this.values = new ArrayList<E>(values);
     }
-
-    
-
-
 }

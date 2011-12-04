@@ -8,45 +8,41 @@ import adp2.interfaces.*;
 public class NaMM<T> implements MutableMatrix<T> {
 
     private static MutableMatrix<Object> instance;
-    
+
     @SuppressWarnings("unchecked")
     protected static <T> MutableMatrix<T> create() {
         if (instance == null) {
-            instance = (NaMM<Object>)new NaMM<T>();
+            instance = (NaMM<Object>) new NaMM<T>();
         }
-        return (NaMM<T>)instance;
+        return (NaMM<T>) instance;
     }
-	
-	@Override
-	public int width() {
-		return -1;
-	}
 
-	@Override
-	public int height() {
-		return -1;
-	}
+    @Override
+    public int width() {
+        return -1;
+    }
 
-	@Override
-	public T get(int x, int y) {
+    @Override
+    public int height() {
+        return -1;
+    }
+
+    @Override
+    public T get(int x, int y) {
         throw new IndexOutOfBoundsException();
-	}
+    }
 
-	@Override
-	public Iterator<T> iterator() {
+    @Override
+    public Iterator<T> iterator() {
         return new ArrayList<T>().iterator();
-	}
+    }
 
-	@Override
-	public void set(int x, int y, T value) {
-		
-	}
+    @Override
+    public void set(int x, int y, T value) {
+    }
 
-	@Override
-	public MutableMatrix<T> deepClone() {
-		return create();
-	}
-
-	
-	
+    @Override
+    public MutableMatrix<T> deepClone() {
+        return create();
+    }
 }

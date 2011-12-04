@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 /**
  * Iterator for permutations in lexicographic order.
  */
 public class PermutationIterator<E extends Comparable<? super E>> implements Iterator<List<E>> {
+
     List<E> permutation;
     List<E> lastPermutation;
     boolean isFirstPermutation;
-    
+
     /**
      * Create a permutation iterator from a list of values to permute.
      * 
@@ -26,11 +26,11 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
         isFirstPermutation = true;
     }
 
-    protected  static <E extends Comparable<? super E>> PermutationIterator<E> create(List<E> l){
-    	return new PermutationIterator(l);
-    	
+    protected static <E extends Comparable<? super E>> PermutationIterator<E> create(List<E> l) {
+        return new PermutationIterator(l);
+
     }
-    
+
     /**
      * Check if there is another permutation.
      */
@@ -61,8 +61,7 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
     public void remove() {
         throw new UnsupportedOperationException();
     }
-    
-    
+
     /**
      * The fist permutation (non-destructive).
      * 
@@ -70,12 +69,14 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
      * @return next permutation
      */
     private static <E extends Comparable<? super E>> List<E> first_permutation(List<E> l) {
-        if (l == null) return new ArrayList<E>();
+        if (l == null) {
+            return new ArrayList<E>();
+        }
         List<E> res = new ArrayList<E>(l);
         first_permutation_(res);
         return res;
     }
-    
+
     /**
      * The last permutation.
      * 
@@ -83,12 +84,14 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
      * @return the last permutation
      */
     private static <E extends Comparable<? super E>> List<E> last_permutation(List<E> l) {
-        if (l == null) return new ArrayList<E>();
+        if (l == null) {
+            return new ArrayList<E>();
+        }
         List<E> res = new ArrayList<E>(l);
         sort(res, java.util.Collections.reverseOrder());
         return res;
     }
-    
+
     /**
      * The next permutation (non-destructive).
      * 
@@ -96,12 +99,14 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
      */
     @SuppressWarnings("unused")
     private static <E extends Comparable<? super E>> List<E> next_permutation(List<E> l) {
-        if (l == null) return new ArrayList<E>();
+        if (l == null) {
+            return new ArrayList<E>();
+        }
         List<E> res = new ArrayList<E>(l);
         next_permutation_(res);
         return res;
     }
-    
+
     /**
      * The fist permutation (destructive).
      * 
@@ -111,7 +116,7 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
     private static <E extends Comparable<? super E>> void first_permutation_(List<E> l) {
         sort(l);
     }
-    
+
     /**
      * The next permutation (destructive).
      * 
@@ -127,31 +132,33 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
 
         // Find the largest index k such that a[k] < a[k + 1]. If no such index exists, the permutation is the last permutation.
         int k = -1;
-        for (int i = list.size()-2; i >= 0; --i) {
-            if (list.get(i) != null && list.get(i+1) != null && list.get(i).compareTo(list.get(i+1)) < 0) {
+        for (int i = list.size() - 2; i >= 0; --i) {
+            if (list.get(i) != null && list.get(i + 1) != null && list.get(i).compareTo(list.get(i + 1)) < 0) {
                 k = i;
                 break;
             }
         }
-        if (k == -1) return; // last permutation
-        
+        if (k == -1) {
+            return; // last permutation
+        }
         // Find the largest index l such that a[k] < a[l]. Since k + 1 is such an index, l is well defined and satisfies k < l.
-        int l = k+1;
-        for (int i = list.size()-1; i > k+1; --i) {
+        int l = k + 1;
+        for (int i = list.size() - 1; i > k + 1; --i) {
             if (list.get(i) != null && list.get(k).compareTo(list.get(i)) < 0) {
                 l = i;
                 break;
             }
         }
-        
+
         // Swap a[k] with a[l].
         swap(k, l, list);
-        
+
         // Reverse the sequence from a[k + 1] up to and including the final element a[n].
-        for (int i = k+1, j = list.size()-1; i < j; ++i, --j)
+        for (int i = k + 1, j = list.size() - 1; i < j; ++i, --j) {
             swap(i, j, list);
+        }
     }
-    
+
     /**
      * Swap two elements in a list.
      * 
@@ -166,5 +173,4 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
             l.set(j, tmp);
         }
     }
-
 }
