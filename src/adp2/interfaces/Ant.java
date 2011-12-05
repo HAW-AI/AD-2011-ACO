@@ -1,5 +1,9 @@
 package adp2.interfaces;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public interface Ant {
 
     /**
@@ -21,7 +25,7 @@ public interface Ant {
      * This is only the case, when the ant the whole distance between two nodes has been traveled.
      * 
      */
-    void step();
+//    void step();
 
     /**
      * Has the ant visited all nodes and returned home?
@@ -52,4 +56,16 @@ public interface Ant {
      * @return int - node of the position before the current
      */
     int prevPosition();
+    
+	Set<Integer> getUnvisitedNodes();
+
+	List<Integer> getPath();
+	
+	Map<Integer, Double> balances();
+
+	void setFinished(boolean b);
+
+	double sumOfValues(Map<?, Double> probabilities);
+	
+	void setPathLength(double pathLength);
 }

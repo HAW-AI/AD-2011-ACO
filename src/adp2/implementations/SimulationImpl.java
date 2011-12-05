@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+
 import static adp2.implementations.Values.*;
 
 import adp2.interfaces.*;
@@ -27,6 +28,8 @@ public class SimulationImpl implements Simulation {
     final boolean logStates;
     double bestDistance = Double.MAX_VALUE;
     public List<Integer> bestPath = new ArrayList<Integer>();
+    int DELAYEDUPDATE = 1;
+    int STEPBYSTEPUPDATE = 2;
 
     //Start all ants at once
     protected static Simulation create(Graph graph, int antsQuantity) {
@@ -91,7 +94,7 @@ public class SimulationImpl implements Simulation {
         file.delete();
         boolean run = true;
         while (run) {
-            run = simulate();
+            run = simulate(DELAYEDUPDATE);
             writeToFile();
             writeWay();
         }
@@ -104,7 +107,7 @@ public class SimulationImpl implements Simulation {
         antsLaunched = 0;
         int loops = 0;
         while (run && loops < simulationSteps) {
-            run = simulate();
+            run = simulate(STEPBYSTEPUPDATE);
             writeToFile();
             writeWay();
             loops++;
@@ -149,49 +152,105 @@ public class SimulationImpl implements Simulation {
         long timeStart = System.currentTimeMillis();
         long timeStop = runtimeInS * 1000;
         while (run && System.currentTimeMillis() - timeStart < timeStop) {
-            run = simulate();
+            run = simulate(DELAYEDUPDATE);
             writeToFile();
             writeWay();
         }
     }
 
-    private boolean simulate() {
+    private boolean simulate(int method) {
         /*
          * antList = List of ants currently traversing the graph
          * antsPerStep = Number of ants starting each step (if given)
          * antQuantity = total ants to traverse the graph
          */
 
+    	/*
+    	// pseudocode aus der aufgabe
+		repeat 
+		    if antCount < maxAnts then
+		        create a new ant
+		        set initial state
+		    end if 
+		    for all ants do
+		       determine all feasible neighbor states  
+		       if solution found or no feasible neighbor state then
+		          kill ant 
+		          if we use delayed pheromone update then
+		             evaluate solution
+		             deposit pheromone on all used edges according to a a strategy
+		          end if 
+		      else
+		          stochastically select a feasible neighbor state  
+		          if we use step-by-step pheromone update then
+		             deposit pheromone on the used edge
+		          end if 
+		      end if
+		   end for
+		   evaporate pheromone 
+		until termination criterion satisfied
+    	 */
 
+    	//PC: if antCount < maxAnts then
         if ((antsPerStep() != 0) && (antsLaunched < antQuantity())) {
             if ((antsLaunched + antsPerStep()) <= antQuantity()) {
                 // Increase ants by antsPerStep
                 antsLaunched += antsPerStep();
+                //PC: create a new ant
+                //PC: set initial state
                 addAnts(antsPerStep());
             } else if (antsLaunched < antQuantity()) {
                 // Increases the number of ants to the maximum if the current step would go beyond the limit
                 antsLaunched += antQuantity() - antList().size();
+                //PC: create a new ant
+                //PC: set initial state
                 addAnts(antQuantity() - antList().size());
             }
         }
+        //PC: for all ants do
         int i = 0;
         while (i < antList().size()) {
             Ant ant = antList().get(i);
+            //PC: if solution found or no feasible neighbor state then
             if (ant.hasFinished()) {
+                //PC: kill ant 
+                removeAnt(i);
+                //PC: evaluate solution
+                // algorithm gets here for every finished ant, no matter if delayed or step by step pheromone update!
                 if (ant.traveledPath().waypoints().size() == (currentGraph.allNodes().size() + 1) && ant.pathLength() < bestDistance()) {
                     setBestDistance(ant.pathLength());
                     setBestPath(ant.traveledPath().waypoints());
-
+	                //PC: if we use delayed pheromone update then
+	                if (method == DELAYEDUPDATE) {
+	                	//PC: deposit pheromone on all used edges according to a a strategy
+	                    // strategy is: "if better way was found". given due to solution evaluation above.
+	                    List<Integer> waypoints = ant.traveledPath().waypoints();
+	                    for (int j = 1; j < waypoints.size(); j++) {
+	                    	addPheromoneUpdate(waypoints.get(j-1), waypoints.get(j), pheromoneIntensity()); // Prepare pheromone updates
+	                    }
+	                    // TODO: strategy part 2: optional (?) pheromone boost according to path quality (means: not just better then before, but differentiate: bit better -> boost 1, lots better -> boost 2, ...)
+	                    pheromoneIncrement();
+	                }
                 }
-                removeAnt(i);
             } else {
-                ant.step(); // Choose next node & move there
-                addPheromoneUpdate(ant.prevPosition(), ant.position(), pheromoneIntensity()); // Prepare pheromone updates
+            	//PC: stochastically select a feasible neighbor state 
+                stochasticNeighborSelection(ant); // Choose next node & move there
+//            	ant.step(); // Choose next node & move there
+                //PC: if we use step-by-step pheromone update then
+                if (method == STEPBYSTEPUPDATE) {
+                	//PC: deposit pheromone on the used edge
+                	addPheromoneUpdate(ant.prevPosition(), ant.position(), pheromoneIntensity()); // Prepare pheromone updates
+                	pheromoneIncrement();
+                	// fehlt theoretisch: finished? dann: ant routing table updaten -> setbestpath + setbestdistance
+                }
                 i++;
             }
         }
+//        if (method == DELAYEDUPDATE) {
+//        	pheromoneIncrement();
+//        }
+        //PC: evaporate pheromone 
         pheromoneDecrement();
-        pheromoneIncrement();
         if (logStates) {
             graphStates.add(currentGraph);
             /*
@@ -203,6 +262,82 @@ public class SimulationImpl implements Simulation {
         }
         // Ends if all ants have traversed the graph
         return !(antList().isEmpty() && (antsLaunched == antQuantity()));
+    }
+    
+    @Override
+    public void stochasticNeighborSelection(Ant ant) {
+        if (ant.hasFinished()) {
+            System.out.println("Tote Ameise, kann nicht laufen");
+        } else if (!ant.hasFinished()) {
+            if (ant.getUnvisitedNodes().isEmpty()) {
+            	ant.getUnvisitedNodes().add(ant.getPath().get(0));
+            }
+
+            // calculation of balances
+            Map<Integer, Double> probabilities = ant.balances();
+
+            if (probabilities.isEmpty()) {
+                ant.setFinished(true);
+                System.out.println(this + " fertig");
+            } else {
+
+                /*
+                 * Adds up the balance-values; the sum and single values
+                 * are needed to calculate the probabilities in the next step
+                 */
+                double sum = ant.sumOfValues(probabilities);
+
+                /*
+                 * maps the neighbors to a value between 0 and 1
+                 * Value = own probability + pre-calculated value
+                 * Ex.:
+                 * 
+                 * Node                 Probability             Value
+                 * 1			0.3                     0.3
+                 * 2			0.1                     0.4
+                 * 3			0.5			0.9
+                 * 4			0.1			1.0
+                 */
+                double predecessor = 0;
+
+                for (Map.Entry<Integer, Double> entry : probabilities.entrySet()) {
+                    double probability = entry.getValue() / sum + predecessor;
+                    if (probability > 1.0) {
+                        probability = 1;
+                    }
+                    probabilities.put(entry.getKey(), probability);
+                    predecessor = probability;
+                }
+
+                /*
+                 * Determines the random choice of a path by the ant using a random value (0.0~1.0)
+                 * and the calculated probabilities
+                 * ==> Chooses the ant's next node
+                 * 
+                 * You may want to set minNode to -1 for debugging purposes
+                 */
+                double value = Math.random();
+                int minNode = 1;
+                double minValue = 1;
+                for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
+                    if (e.getValue() >= value && e.getValue() <= minValue) {
+                        minNode = e.getKey();
+                        minValue = e.getValue();
+                    }
+                }
+
+                // pathlength += graph.distance(position(), minNode);
+                ant.setPathLength(ant.pathLength() + graph().distance(ant.position(), minNode));
+
+                ant.getPath().add(minNode);
+                ant.getUnvisitedNodes().remove(minNode);
+
+                if (ant.getUnvisitedNodes().isEmpty() && ant.getPath().get(ant.getPath().size() - 1) == ant.getPath().get(0)) {
+                    ant.setFinished(true);
+                    System.out.println(this + " fertig");
+                }
+            }
+        }
     }
 
     /*Getter and Setter*/
@@ -270,14 +405,9 @@ public class SimulationImpl implements Simulation {
         return pheromoneUpdateList;
     }
 
-    /*Functions*/
-    private void addAnt() {
-        antList().add(Values.ant(antAlpha(), graph()));
-    }
-
     private void addAnts(int quantity) {
         for (int i = 1; i <= quantity; i++) {
-            addAnt();
+        	antList().add(AntImpl.create(antAlpha(), graph()));
         }
     }
 

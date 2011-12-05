@@ -87,7 +87,7 @@ public class AntImpl implements Ant {
      *                      wherein  Pheromone & Distance are the values for the current edge
      *                      and the maxValues are the highest values of all checked edges connected to the current node
      */
-    private Map<Integer, Double> balances() {
+    public Map<Integer, Double> balances() {
         Map<Integer, Double> result = new HashMap<Integer, Double>();
         //find highest distance to all neighbors  + 
         //find highest pheromone saturation for each outgoing edge
@@ -143,7 +143,8 @@ public class AntImpl implements Ant {
         return balance;
     }
 
-    private double sumOfValues(Map<?, Double> m) {
+    @Override
+    public double sumOfValues(Map<?, Double> m) {
         double sum = 0;
         for (Double elem : m.values()) {
             sum += elem;
@@ -151,80 +152,80 @@ public class AntImpl implements Ant {
         return sum;
     }
 
-    @Override
-    public void step() {
-        if (finished) {
-            System.out.println("Tote Ameise, kann nicht laufen");
-        } else if (!finished) {
-            if (unvisitedNodes.isEmpty()) {
-                unvisitedNodes.add(path.get(0));
-            }
-
-            // calculation of balances
-            Map<Integer, Double> probabilities = balances();
-
-            if (probabilities.isEmpty()) {
-                finished = true;
-                System.out.println(this + " fertig");
-            } else {
-
-                /*
-                 * Adds up the balance-values; the sum and single values
-                 * are needed to calculate the probabilities in the next step
-                 */
-                double sum = sumOfValues(probabilities);
-
-                /*
-                 * maps the neighbors to a value between 0 and 1
-                 * Value = own probability + pre-calculated value
-                 * Ex.:
-                 * 
-                 * Node                 Probability             Value
-                 * 1			0.3                     0.3
-                 * 2			0.1                     0.4
-                 * 3			0.5			0.9
-                 * 4			0.1			1.0
-                 */
-                double predecessor = 0;
-
-                for (Map.Entry<Integer, Double> entry : probabilities.entrySet()) {
-                    double probability = entry.getValue() / sum + predecessor;
-                    if (probability > 1.0) {
-                        probability = 1;
-                    }
-                    probabilities.put(entry.getKey(), probability);
-                    predecessor = probability;
-                }
-
-                /*
-                 * Determines the random choice of a path by the ant using a random value (0.0~1.0)
-                 * and the calculated probabilities
-                 * ==> Chooses the ant's next node
-                 * 
-                 * You may want to set minNode to -1 for debugging purposes
-                 */
-                double value = Math.random();
-                int minNode = 1;
-                double minValue = 1;
-                for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
-                    if (e.getValue() >= value && e.getValue() <= minValue) {
-                        minNode = e.getKey();
-                        minValue = e.getValue();
-                    }
-                }
-
-                pathlength += graph.distance(position(), minNode);
-
-                path.add(minNode);
-                unvisitedNodes.remove(minNode);
-
-                if (unvisitedNodes.isEmpty() && path.get(path.size() - 1) == path.get(0)) {
-                    finished = true;
-                    System.out.println(this + " fertig");
-                }
-            }
-        }
-    }
+//    @Override
+//    public void step() {
+//        if (finished) {
+//            System.out.println("Tote Ameise, kann nicht laufen");
+//        } else if (!finished) {
+//            if (unvisitedNodes.isEmpty()) {
+//                unvisitedNodes.add(path.get(0));
+//            }
+//
+//            // calculation of balances
+//            Map<Integer, Double> probabilities = balances();
+//
+//            if (probabilities.isEmpty()) {
+//                finished = true;
+//                System.out.println(this + " fertig");
+//            } else {
+//
+//                /*
+//                 * Adds up the balance-values; the sum and single values
+//                 * are needed to calculate the probabilities in the next step
+//                 */
+//                double sum = sumOfValues(probabilities);
+//
+//                /*
+//                 * maps the neighbors to a value between 0 and 1
+//                 * Value = own probability + pre-calculated value
+//                 * Ex.:
+//                 * 
+//                 * Node                 Probability             Value
+//                 * 1			0.3                     0.3
+//                 * 2			0.1                     0.4
+//                 * 3			0.5			0.9
+//                 * 4			0.1			1.0
+//                 */
+//                double predecessor = 0;
+//
+//                for (Map.Entry<Integer, Double> entry : probabilities.entrySet()) {
+//                    double probability = entry.getValue() / sum + predecessor;
+//                    if (probability > 1.0) {
+//                        probability = 1;
+//                    }
+//                    probabilities.put(entry.getKey(), probability);
+//                    predecessor = probability;
+//                }
+//
+//                /*
+//                 * Determines the random choice of a path by the ant using a random value (0.0~1.0)
+//                 * and the calculated probabilities
+//                 * ==> Chooses the ant's next node
+//                 * 
+//                 * You may want to set minNode to -1 for debugging purposes
+//                 */
+//                double value = Math.random();
+//                int minNode = 1;
+//                double minValue = 1;
+//                for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
+//                    if (e.getValue() >= value && e.getValue() <= minValue) {
+//                        minNode = e.getKey();
+//                        minValue = e.getValue();
+//                    }
+//                }
+//
+//                pathlength += graph.distance(position(), minNode);
+//
+//                path.add(minNode);
+//                unvisitedNodes.remove(minNode);
+//
+//                if (unvisitedNodes.isEmpty() && path.get(path.size() - 1) == path.get(0)) {
+//                    finished = true;
+//                    System.out.println(this + " fertig");
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public double pathLength() {
@@ -247,6 +248,26 @@ public class AntImpl implements Ant {
 
     @Override
     public String toString() {
-        return String.format("Ameise %d", mynumber);
+        return String.format("Ant %d", mynumber);
     }
+
+	@Override
+    public Set<Integer> getUnvisitedNodes() {
+	    return unvisitedNodes;
+    }
+	
+	@Override
+	public List<Integer> getPath() {
+		return path;
+	}
+
+	@Override
+    public void setFinished(boolean b) {
+		finished = b;
+    }
+	
+	@Override
+	public void setPathLength(double pathLength) {
+		this.pathlength = pathLength;
+	}
 }

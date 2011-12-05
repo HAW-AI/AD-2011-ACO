@@ -1,5 +1,6 @@
 package adp2.implementations;
 
+import adp2.interfaces.Ant;
 import adp2.interfaces.Path;
 import adp2.interfaces.Simulation;
 
@@ -33,4 +34,7 @@ public class NaS implements Simulation {
     public Path minPath() {
         return Values.NaP();
     }
+
+	@Override
+    public void stochasticNeighborSelection(Ant ant) {}
 }

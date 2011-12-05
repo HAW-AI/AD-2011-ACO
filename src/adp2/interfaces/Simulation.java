@@ -27,4 +27,6 @@ public interface Simulation {
      * @return shortest path
      */
     Path minPath();
+
+	void stochasticNeighborSelection(Ant ant);
 }

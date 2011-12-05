@@ -41,53 +41,53 @@ public class AntImplTest {
 		assertTrue((ant(1.1,graph2x2) instanceof NaA));
 	}
 
-	@Test
-	public void testTraveledPath() {
-		Ant ant=ant(1,0.2,graph2x2);
-		assertEquals(1,ant.traveledPath().waypoints().size());
-		ant.step();
-		ant.step();
-		ant.step();
-		assertEquals(3,ant.traveledPath().waypoints().size());
-		ant.step();
-		ant.step();
-		ant.step();
-		assertEquals(3,ant.traveledPath().waypoints().size());
-	}
-
-
-
-	@Test
-	public void testPrePosition() {
-		Ant ant=ant(1,0.2,graph2x2);
-		assertEquals(1, ant.prevPosition());
-		ant.step();
-		assertEquals(1, ant.prevPosition());
-		ant.step();
-		ant.step();
-		ant.step();
-		ant.step();
-		ant.step();
-		assertEquals(2, ant.prevPosition());
-	}
-	
-	@Test
-	public void testAxiome() {
-		System.out.println("Axiome Start");
-		Ant ant=ant(1,0.2,graph2x2);
-		while (!ant.hasFinished()) {
-			System.out.println((ant.traveledPath().waypoints().size()-1) +"\t"+ graph2x2.allNodes().size());
-			assertTrue((ant.traveledPath().waypoints().size()-1 == graph2x2.allNodes().size()) == ant.hasFinished());
-			ant.step();
-		}
-		assertTrue((ant.traveledPath().waypoints().size()-1 == graph2x2.allNodes().size()) == ant.hasFinished());
-		System.out.println((ant.traveledPath().waypoints().size()-1) +"\t"+ graph2x2.allNodes().size());
-		
-		
-		
-		assertTrue(ant.position() == ant.traveledPath().waypoints().get(ant.traveledPath().waypoints().size()-1));
-		System.out.println("Axiome Ende");
-	
-	}
+//	@Test
+//	public void testTraveledPath() {
+//		Ant ant=ant(1,0.2,graph2x2);
+//		assertEquals(1,ant.traveledPath().waypoints().size());
+//		ant.step();
+//		ant.step();
+//		ant.step();
+//		assertEquals(3,ant.traveledPath().waypoints().size());
+//		ant.step();
+//		ant.step();
+//		ant.step();
+//		assertEquals(3,ant.traveledPath().waypoints().size());
+//	}
+//
+//
+//
+//	@Test
+//	public void testPrePosition() {
+//		Ant ant=ant(1,0.2,graph2x2);
+//		assertEquals(1, ant.prevPosition());
+//		ant.step();
+//		assertEquals(1, ant.prevPosition());
+//		ant.step();
+//		ant.step();
+//		ant.step();
+//		ant.step();
+//		ant.step();
+//		assertEquals(2, ant.prevPosition());
+//	}
+//	
+//	@Test
+//	public void testAxiome() {
+//		System.out.println("Axiome Start");
+//		Ant ant=ant(1,0.2,graph2x2);
+//		while (!ant.hasFinished()) {
+//			System.out.println((ant.traveledPath().waypoints().size()-1) +"\t"+ graph2x2.allNodes().size());
+//			assertTrue((ant.traveledPath().waypoints().size()-1 == graph2x2.allNodes().size()) == ant.hasFinished());
+//			ant.step();
+//		}
+//		assertTrue((ant.traveledPath().waypoints().size()-1 == graph2x2.allNodes().size()) == ant.hasFinished());
+//		System.out.println((ant.traveledPath().waypoints().size()-1) +"\t"+ graph2x2.allNodes().size());
+//		
+//		
+//		
+//		assertTrue(ant.position() == ant.traveledPath().waypoints().get(ant.traveledPath().waypoints().size()-1));
+//		System.out.println("Axiome Ende");
+//	
+//	}
 
 }
