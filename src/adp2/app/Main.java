@@ -15,18 +15,18 @@ public class Main {
     public static int width = 1280;
     public static int height = 720;
 	
-    public static final int ANT_QUANTITIY = 1000;
-    public static final int ANTS_PER_STEP = 5;
-    public static final int RUN_FOR_SECONDS = 30;
-    public static final int RUN_FOR_STEPS = 30;
+    public static final int ANT_QUANTITIY = 10000; // was 1000 in code from group 2
+    public static final int ANTS_PER_STEP = 10; // was 5 in code from group 2
+    public static final int RUN_FOR_SECONDS = 30; // was 30 in code from group 2
+    public static final int RUN_FOR_STEPS = 1000;
 
     public static void main(String[] args) {
 		setUpLogging("%h/aco.log", Level.ALL, true, true);
 
         TspFile t = null;
-//		t = TspFile.open("samples/gr21.tsp");
+		t = TspFile.open("samples/gr21.tsp");
 //		t = TspFile.open("samples/ant2.tsp");		
-		t = TspFile.open("samples/ant5.tsp");
+//		t = TspFile.open("samples/ant5.tsp");
 //		t = TspFile.open("samples/ant9.tsp");
 //		t = TspFile.open("samples/ant15.tsp");
 //		t = TspFile.open("samples/ant5Incomplete.tsp");
@@ -34,8 +34,8 @@ public class Main {
         Graph g = Values.graph(t.matrix());
 
         Simulation sim = Values.simulation(g, ANT_QUANTITIY, ANTS_PER_STEP);
-//        sim.runForSeconds(RUN_FOR_SECONDS);
-        sim.runForSteps(RUN_FOR_STEPS);
+        sim.runForSeconds(RUN_FOR_SECONDS);
+//        sim.runForSteps(RUN_FOR_STEPS);
 
         //Anzeige des Ergebnisses
 		String log = "";

@@ -109,6 +109,7 @@ public class AntImpl implements Ant {
         return result;
     }
 
+    // (alpha * (pheromone/maxPheromone) + ((1- alpha) * (1 - (distance/maxDistance)))) * 1000 + 1
     // Returns a balance-value between 1 and 1001
     private double balance1(double maxDist, double maxPher, double pher, double dist) {
         double distance;
