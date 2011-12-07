@@ -93,5 +93,11 @@ public class AntImplTest {
 		System.out.println("Axiome Ende");
 	
 	}
+	
+	@Test
+	public void testBalances() {
+		Ant ant=ant(1,0.2,graph2x2);
+		System.out.println("test " + ant.balances());
+	}
 
 }

@@ -9,7 +9,6 @@ import adp2.interfaces.Simulation;
 import adp2.parser.TspFile;
 import java.io.IOException;
 import java.util.logging.*;
-import sun.awt.X11.XAWTFormatter;
 
 public class Main {
 	public static final Logger logger = Logger.getLogger("Main");
@@ -75,7 +74,7 @@ public class Main {
 	 */
 	private static void setUpLogging(String logFile, Level level, boolean file, boolean console) {
 		// Logger
-		Formatter format = new XAWTFormatter();
+		Formatter format = new SimpleFormatter();
 		
 		// Console
 		if (console) {
