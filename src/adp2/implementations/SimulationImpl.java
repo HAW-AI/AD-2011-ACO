@@ -15,10 +15,10 @@ public class SimulationImpl implements Simulation {
     int antQuantity;
     int antsLaunched = 0;
     int antsPerStep = 0;             //Number of ants added per step
-    double antAlpha = 0.3;
+    double antAlpha = 0.3; // was 0.3 in code from group 2
     int startPoint = 1;
-    double pheromoneDecrease = 1.0;
-    double pheromoneIntensity = 10.0;
+    double pheromoneDecrease = 1.0; // was 1.0 in code from group 2
+    double pheromoneIntensity = 10.0; // was 10.0 in code from group 2
     // The Simulation should not log the states of all Graphs by default
     final boolean logStates;
 	
