@@ -6,12 +6,7 @@ import java.util.*;
 import static adp2.implementations.Values.*;
 import adp2.interfaces.*;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class SimulationImpl implements Simulation {		
-	private static final Logger logger = Main.logger;
-	
     Graph currentGraph;
     List<Graph> graphStates;
     List<Ant> antList = new ArrayList<Ant>();
@@ -89,7 +84,7 @@ public class SimulationImpl implements Simulation {
     @Override
     public void run() {
         while (simulate(DELAYEDUPDATE)) {
-			logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
+			Main.logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
         }
     }
 
@@ -98,7 +93,7 @@ public class SimulationImpl implements Simulation {
         antsLaunched = 0;
         int loops = 0;
         while (simulate(STEPBYSTEPUPDATE) && loops < simulationSteps) {
-			logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
+			Main.logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
             loops++;
         }
     }
@@ -109,7 +104,7 @@ public class SimulationImpl implements Simulation {
         long timeStart = System.currentTimeMillis();
         long timeStop = runtimeInS * 1000;
         while (simulate(DELAYEDUPDATE) && System.currentTimeMillis() - timeStart < timeStop) {
-			logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
+			Main.logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
         }
     }
 
@@ -222,7 +217,7 @@ public class SimulationImpl implements Simulation {
     @Override
     public void stochasticNeighborSelection(Ant ant) {
         if (ant.hasFinished()) {
-            logger.warning("Tote Ameise, kann nicht laufen");
+            Main.logger.warning("Tote Ameise, kann nicht laufen");
         } else if (!ant.hasFinished()) {
             if (ant.getUnvisitedNodes().isEmpty()) {
             	ant.getUnvisitedNodes().add(ant.getPath().get(0));
@@ -233,7 +228,7 @@ public class SimulationImpl implements Simulation {
 
             if (probabilities.isEmpty()) {
                 ant.finish();
-                logger.info(this.toString() + " fertig");
+                Main.logger.info(this.toString() + " fertig");
             } else {
 
                 /*
@@ -289,7 +284,7 @@ public class SimulationImpl implements Simulation {
 
                 if (ant.getUnvisitedNodes().isEmpty() && ant.getPath().get(ant.getPath().size() - 1) == ant.getPath().get(0)) {
                     ant.finish();
-                    logger.log(Level.INFO, "{0} fertig", this.toString());
+                    Main.logger.info(ant.toString() + " finished");
                 }
             }
         }

@@ -21,8 +21,8 @@ public class Main {
     public static final int RUN_FOR_STEPS = 1000;
 
     public static void main(String[] args) {
-		setUpLogging("%h/aco.log", Level.ALL, true, true);
-
+		setUpLogging("%h/aco", Level.ALL, true, true, true);
+		
         TspFile t = null;
 		t = TspFile.open("samples/gr21.tsp");
 //		t = TspFile.open("samples/ant2.tsp");		
@@ -72,25 +72,33 @@ public class Main {
 	/*
 	 * Creates a new Logger to log to File and Console
 	 */
-	private static void setUpLogging(String logFile, Level level, boolean file, boolean console) {
+	private static void setUpLogging(String logFile, Level level, boolean file, boolean console, boolean html) {
 		// Logger
-		Formatter format = new SimpleFormatter();
-		
+		Formatter textfomrmat = new adp2.logger.SimpleTextFormatter();
+		Formatter htmlfomrmat = new adp2.logger.SimpleHtmlFormatter();
+
 		// Console
 		if (console) {
 			Handler ch = new ConsoleHandler();
-			ch.setFormatter(format);
-			logger.addHandler(new ConsoleHandler());
+			ch.setFormatter(textfomrmat);
+			logger.addHandler(ch);
 		}
 
 		// File
-		if (file) {
+		if (file || html) {
 			try {
-				Handler fh = new FileHandler(logFile);
-				fh.setFormatter(format);
-				logger.addHandler(fh);
+				if ((file)) {
+					Handler fh = new FileHandler(logFile + ".log");
+					fh.setFormatter(textfomrmat);
+					logger.addHandler(fh);
+				}
+				if (html) {
+					Handler hh = new FileHandler(logFile + ".html");
+					hh.setFormatter(htmlfomrmat);
+					logger.addHandler(hh);
+				}
 			} catch (IOException e) {
-				logger.log(Level.SEVERE, e.getMessage());
+				logger.severe(e.getMessage());
 			}
 		}
 		logger.setLevel(level);
