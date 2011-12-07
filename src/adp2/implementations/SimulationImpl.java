@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 public class SimulationImpl implements Simulation {		
 	private static final Logger logger = Main.logger;
+	
     Graph currentGraph;
     List<Graph> graphStates;
     List<Ant> antList = new ArrayList<Ant>();
