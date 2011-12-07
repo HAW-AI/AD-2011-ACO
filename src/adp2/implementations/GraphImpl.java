@@ -9,10 +9,13 @@ import java.util.Set;
 import com.mxgraph.view.mxGraph;
 
 import adp2.interfaces.*;
+import java.io.IOException;
 import static adp2.implementations.Values.*;
 
-public class GraphImpl extends mxGraph implements Graph {
+import java.util.logging.*;
 
+public class GraphImpl extends mxGraph implements Graph {
+	
     private final Matrix<Double> distance;
     private MutableMatrix<Double> pheromones;
     private final HashMap<Integer, Object> VertexObjectList = new HashMap<Integer, Object>();

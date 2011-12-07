@@ -1,22 +1,21 @@
 package adp2.implementations;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import adp2.app.Main;
 import java.util.*;
 
 import static adp2.implementations.Values.*;
-
 import adp2.interfaces.*;
 
-public class SimulationImpl implements Simulation {
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+public class SimulationImpl implements Simulation {		
+	private static final Logger logger = Main.logger;
     Graph currentGraph;
     List<Graph> graphStates;
     List<Ant> antList = new ArrayList<Ant>();
     List<PheromoneElement> pheromoneUpdateList = new ArrayList<PheromoneElement>();
-    File file = new File("..\\test.log");
+	
     int antQuantity;
     int antsLaunched = 0;
     int antsPerStep = 0;             //Number of ants added per step
@@ -26,6 +25,7 @@ public class SimulationImpl implements Simulation {
     double pheromoneIntensity = 10.0;
     // The Simulation should not log the states of all Graphs by default
     final boolean logStates;
+	
     double bestDistance = Double.MAX_VALUE;
     public List<Integer> bestPath = new ArrayList<Integer>();
     int DELAYEDUPDATE = 1;
@@ -37,22 +37,19 @@ public class SimulationImpl implements Simulation {
     }
 
     //Start ants in waves of specified size
-    protected static Simulation create(Graph graph, int antsQuantity,
-            int antsPerStep) {
+    protected static Simulation create(Graph graph, int antsQuantity, int antsPerStep) {
         return new SimulationImpl(graph, antsQuantity, antsPerStep);
     }
 
     //Start all ants at once
     // Log States
-    protected static Simulation create(Graph graph, int antsQuantity,
-            boolean logStates) {
+    protected static Simulation create(Graph graph, int antsQuantity, boolean logStates) {
         return new SimulationImpl(graph, antsQuantity, logStates);
     }
 
     //Start ants in waves of specified size
     // Log States
-    protected static Simulation create(Graph graph, int antsQuantity,
-            int antsPerStep, boolean logStates) {
+    protected static Simulation create(Graph graph, int antsQuantity, int antsPerStep, boolean logStates) {
         return new SimulationImpl(graph, antsQuantity, antsPerStep, logStates);
     }
 
@@ -80,8 +77,7 @@ public class SimulationImpl implements Simulation {
         this.logStates = logStates;
     }
 
-    private SimulationImpl(Graph graph, int antQuantity, int antsPerStep,
-            boolean logStates) {
+    private SimulationImpl(Graph graph, int antQuantity, int antsPerStep, boolean logStates) {
         setGraph(graph);
         setAntQuantity(antQuantity);
         setAntsPerStep(antsPerStep);
@@ -91,70 +87,28 @@ public class SimulationImpl implements Simulation {
 
     @Override
     public void run() {
-        file.delete();
-        boolean run = true;
-        while (run) {
-            run = simulate(DELAYEDUPDATE);
-            writeToFile();
-            writeWay();
+        while (simulate(DELAYEDUPDATE)) {
+			logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
         }
     }
 
     @Override
     public void runForSteps(int simulationSteps) {
-        file.delete();
-        boolean run = true;
         antsLaunched = 0;
         int loops = 0;
-        while (run && loops < simulationSteps) {
-            run = simulate(STEPBYSTEPUPDATE);
-            writeToFile();
-            writeWay();
+        while (simulate(STEPBYSTEPUPDATE) && loops < simulationSteps) {
+			logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
             loops++;
         }
     }
 
-    private void writeToFile() {
-        try {
-            if (!bestPath().isEmpty()) {
-
-                FileWriter fw = new FileWriter(file.getPath(), true);
-
-                PrintWriter pw = new PrintWriter(fw);
-                pw.println("\n");
-                pw.println("Best path: " + bestPath());
-                pw.println("Shortest way: " + bestDistance());
-                pw.println("-------------------------------------");
-
-                fw.flush();
-                fw.close();
-
-                pw.flush();
-                pw.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void writeWay() {
-        System.out.println("\n");
-        System.out.println("Best path: " + bestPath());
-        System.out.println("Shortest way: " + bestDistance());
-        System.out.println("-------------------------------------");
-    }
-
     @Override
     public void runForSeconds(int runtimeInS) {
-        file.delete();
-        boolean run = true;
         antsLaunched = 0;
         long timeStart = System.currentTimeMillis();
         long timeStop = runtimeInS * 1000;
-        while (run && System.currentTimeMillis() - timeStart < timeStop) {
-            run = simulate(DELAYEDUPDATE);
-            writeToFile();
-            writeWay();
+        while (simulate(DELAYEDUPDATE) && System.currentTimeMillis() - timeStart < timeStop) {
+			logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
         }
     }
 
@@ -267,7 +221,7 @@ public class SimulationImpl implements Simulation {
     @Override
     public void stochasticNeighborSelection(Ant ant) {
         if (ant.hasFinished()) {
-            System.out.println("Tote Ameise, kann nicht laufen");
+            logger.warning("Tote Ameise, kann nicht laufen");
         } else if (!ant.hasFinished()) {
             if (ant.getUnvisitedNodes().isEmpty()) {
             	ant.getUnvisitedNodes().add(ant.getPath().get(0));
@@ -277,8 +231,8 @@ public class SimulationImpl implements Simulation {
             Map<Integer, Double> probabilities = ant.balances();
 
             if (probabilities.isEmpty()) {
-                ant.setFinished(true);
-                System.out.println(this + " fertig");
+                ant.finish();
+                logger.info(this.toString() + " fertig");
             } else {
 
                 /*
@@ -333,8 +287,8 @@ public class SimulationImpl implements Simulation {
                 ant.getUnvisitedNodes().remove(minNode);
 
                 if (ant.getUnvisitedNodes().isEmpty() && ant.getPath().get(ant.getPath().size() - 1) == ant.getPath().get(0)) {
-                    ant.setFinished(true);
-                    System.out.println(this + " fertig");
+                    ant.finish();
+                    logger.log(Level.INFO, "{0} fertig", this.toString());
                 }
             }
         }
@@ -384,7 +338,9 @@ public class SimulationImpl implements Simulation {
     private double antAlpha() {
         return antAlpha;
     }
-
+	
+	// NotUsed
+	@Deprecated
     private int startPoint() {
         return startPoint;
     }
@@ -417,9 +373,6 @@ public class SimulationImpl implements Simulation {
 
     private void addPheromoneUpdate(int from, int to, double d) {
         PheromoneElement pheromoneElem = pheromoneElement(from, to, d);
-//	    	pheromoneElement.add(from);
-//	    	pheromoneElement.add(to);
-//	    	pheromoneElement.add(d);s
         if (from != to) {
             pheromoneUpdateList().add(pheromoneElem);
         }
@@ -437,7 +390,6 @@ public class SimulationImpl implements Simulation {
         currentGraph.decrementPheromones(pheromoneDecrease());
     }
 
-    @Override
     public Path minPath() {
         return Values.path(bestPath(), bestDistance());
     }
