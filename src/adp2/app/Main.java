@@ -24,7 +24,7 @@ public class Main {
 		setUpLogging("%h/aco", Level.ALL, true, true, true);
 		
         TspFile t = null;
-		t = TspFile.open("samples/gr21.tsp");
+//		t = TspFile.open("samples/gr21.tsp");
 //		t = TspFile.open("samples/ant2.tsp");		
 //		t = TspFile.open("samples/ant5.tsp");
 //		t = TspFile.open("samples/ant9.tsp");
