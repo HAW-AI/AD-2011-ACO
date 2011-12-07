@@ -23,21 +23,21 @@ public class GraphImpl extends mxGraph implements Graph {
         this.pheromones = pheromones;
     }
 
-    protected static Graph create(Matrix<Double> distance) {
+	protected static Graph create(Matrix<Double> distance) {
+		
+		if (distance == null) {
+			return Values.NaG();
+		}
+		return new GraphImpl(distance, calcPheromoneMatrix(distance.size()));
+	}	
 
-        if (distance == null) {
-            return Values.NaG();
-        }
-        return new GraphImpl(distance, calcPheromoneMatrix(distance.width(), distance.height()));
-    }
-
-    private static MutableMatrix<Double> calcPheromoneMatrix(int width, int height) {
-        List<Double> resultList = new ArrayList<Double>();
-        for (int i = 0; i < (width * height); i++) {
-            resultList.add(0.);
-        }
-        return mutableMatrix(width, height, resultList);
-    }
+	private static MutableMatrix<Double> calcPheromoneMatrix(int size){
+		List<Double> resultList=new ArrayList<Double>();
+		for(int i=0; i<(size*size); i++){
+			resultList.add(0.);
+		}
+		return mutableMatrix(size, resultList);
+	}
 
     public void highlightPath(Path p) {
     }
@@ -56,11 +56,11 @@ public class GraphImpl extends mxGraph implements Graph {
     @Override
     public Set<Integer> neighbors(int node) {
         Set<Integer> result = new HashSet<Integer>();
-        if (node <= 0 || node > distance.height()) {
+        if (node <= 0 || node > distance.size()) {
             return result;
         }
 
-        for (int i = 0; i < distance.width(); i++) {
+        for (int i = 0; i < distance.size(); i++) {
             if (!distance.get(node - 1, i).isInfinite() && i != node - 1) {
                 result.add(i + 1);
             }
@@ -71,7 +71,7 @@ public class GraphImpl extends mxGraph implements Graph {
     @Override
     public Set<Integer> allNodes() {
         Set<Integer> result = new HashSet<Integer>();
-        for (int i = 1; i <= distance.height(); i++) {
+        for (int i = 1; i <= distance.size(); i++) {
             result.add(i);
         }
         return result;
@@ -90,8 +90,8 @@ public class GraphImpl extends mxGraph implements Graph {
 
     @Override
     public void decrementPheromones(double value) {
-        for (int i = 0; i < pheromones.width(); i++) {
-            for (int j = 0; j < pheromones.height(); j++) {
+        for (int i = 0; i < pheromones.size(); i++) {
+            for (int j = 0; j < pheromones.size(); j++) {
                 if (pheromones.get(i, j) - value < 0) {
                     pheromones.set(i, j, 0.);
                 } else {

@@ -1,18 +1,20 @@
 package adp2.implementations;
 
+import adp2.interfaces.ImmutableMatrix;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class ImmutableMatrixImpl<E> extends AbstractMatrix<E> {
+import adp2.interfaces.Matrix;
 
-    protected static <E> ImmutableMatrixImpl<E> create(int width, int height, List<E> values) {
+public final class ImmutableMatrixImpl<E> extends AbstractMatrix<E> implements ImmutableMatrix<E> {
+
+    protected static <E> ImmutableMatrixImpl<E> create(int size, List<E> values) {
         // pre-condition check in factory!
-        return new ImmutableMatrixImpl<E>(width, height, values);
+        return new ImmutableMatrixImpl<E>(size, values);
     }
 
-    private ImmutableMatrixImpl(int width, int height, List<E> values) {
-        this.width = width;
-        this.height = height;
+    private ImmutableMatrixImpl(int size, List<E> values) {
+        this.size = size;
         this.values = new ArrayList<E>(values);
     }
 }

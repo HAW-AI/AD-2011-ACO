@@ -30,25 +30,23 @@ public final class Values {
         return BruteForceTSP.create();
     }
 
-    /**
-     * Create a Matrix with given dimensions and values.
-     * 
-     * @param width
-     *            the width
-     * @param height
-     *            the height
-     * @param values
-     *            the values (the first n elements are the first row, the
-     *            following the second one and so forth)
-     * @return a valid Matrix object or NaM if any argument is or contains null
-     *         or values.size() != width*height
-     */
-    public static <T> Matrix<T> matrix(int width, int height, List<T> values) {
-        if (values == null || values.size() != width * height || values.contains(null)) {
-            return NaM();
-        }
-        return immutableMatrix(width, height, values);
-    }
+	/**
+	 * Create a Matrix with given dimensions and values.
+	 * 
+	 * @param size
+         *          the size
+	 * @param values
+	 *            the values (the first n elements are the first row, the
+	 *            following the second one and so forth)
+	 * @return a valid Matrix object or NaM if any argument is or contains null
+	 *         or values.size() != width*height
+	 */
+	public static <T> Matrix<T> matrix(int size, List<T> values) {
+		if (values == null || values.size() != size*size
+				|| values.contains(null))
+			return NaM();
+		return immutableMatrix(size, values);
+	}
 
     /**
      * Create a Matrix with given dimensions and values.
@@ -63,12 +61,12 @@ public final class Values {
      * @return a valid Matrix object or NaM if any argument is or contains null
      *         or values.size() != width*height
      */
-    public static <T> MutableMatrix<T> mutableMatrix(int width, int height, List<T> values) {
-        if (values == null || values.size() != width * height || values.contains(null)) {
-            return NaMM();
-        }
-        return MutableMatrixImpl.create(width, height, values);
-    }
+	public static <T> MutableMatrix<T> mutableMatrix(int size, List<T> values) {
+		if (values == null || values.size() != size * size
+				|| values.contains(null))
+			return NaMM();
+		return MutableMatrixImpl.create(size, values);
+	}
 
     /**
      * Not a Matrix
@@ -244,19 +242,18 @@ public final class Values {
      *            the array from which the Graph will be created
      * @return a valid Graph Object
      */
-    public static Graph graphFromList(double... args) {
-        if (!graphPreCheck(args)) {
-            return NaG();
-        }
-        List<Double> l = new ArrayList<Double>();
-        for (Double elem : args) {
-            l.add(elem);
-        }
-        MutableMatrix<Double> m = mutableMatrix((int) Math.sqrt(args.length),
-                (int) Math.sqrt(args.length), l);
+	public static Graph graphFromList(double... args) {
+		if (!graphPreCheck(args)) {
+			return NaG();
+		}
+		List<Double> l = new ArrayList<Double>();
+		for (Double elem : args) {
+			l.add(elem);
+		}
+		MutableMatrix<Double> m = mutableMatrix((int) Math.sqrt(args.length), l);
 
-        return graph(m);
-    }
+		return graph(m);
+	}
 
     /**
      * PreConditionCheck for the Method "graphFromList"
@@ -308,10 +305,9 @@ public final class Values {
      * @param values
      * @return ImmutableMatrixImpl<E>
      */
-    public static <E> ImmutableMatrixImpl<E> immutableMatrix(int width,
-            int height, List<E> values) {
-        return ImmutableMatrixImpl.create(width, height, values);
-    }
+	public static <E> ImmutableMatrixImpl<E> immutableMatrix(int size, List<E> values) {
+		return ImmutableMatrixImpl.create(size, values);
+	}
 
     /**
      * Create a new display

@@ -19,29 +19,28 @@ public class Display extends JFrame {
     }
 
     /**
-     * @see Values.display
-    
-     */
-    protected static Display create(Graph g, Path p) {
+     * @see Values.darstellung
 
-        List<Double> values = new ArrayList<Double>();
-        int temp;
-        double dist;
-        for (int x = 1; x <= ((GraphImpl) g).distanceVar().height(); x++) {
-            for (int y = 1; y <= ((GraphImpl) g).distanceVar().height(); y++) {
-                temp = p.waypoints().indexOf(x);
-                // -1 if waypoints doesn't include x
-                if (temp != -1 && y == p.waypoints().get(temp + 1)) {
-                    dist = g.distance(x, y);
-                } else {
-                    dist = 0;
-                }
-                values.add(dist);
-            }
-        }
-        Matrix<Double> m = Values.matrix(g.allNodes().size(), g.allNodes().size(), values);
-        return new Display(Values.graph(m));
-    }
+     */
+    	protected static Display create(Graph g, Path p){
+	       List<Double> values = new ArrayList<Double>();
+	       int temp;
+	       double dist; 
+	       for(int x = 1; x <= ((GraphImpl) g).distanceVar().size(); x++) {
+	           for (int y = 1; y <= ((GraphImpl) g).distanceVar().size(); y++) {
+	               temp = p.waypoints().indexOf(x);
+	               // -1 wenn x nicht in waypoints
+	               if(temp != -1 && y == p.waypoints().get(temp+1)){
+	                   dist = g.distance(x, y);
+	               } else {
+	                   dist = 0;
+	               }
+	               values.add(dist);
+	           }
+	       }
+	       Matrix<Double> m = Values.matrix(g.allNodes().size(), values);
+	        return new Display(Values.graph(m));
+    	}
 
     private Display(Graph g) {
         super("ACO");

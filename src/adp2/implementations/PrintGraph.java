@@ -18,7 +18,7 @@ public class PrintGraph extends mxGraph {
 
     private PrintGraph(Graph graph) {
         this.graph = graph;
-        NoOfVertexs = ((GraphImpl) graph).distanceVar().height();
+        NoOfVertexs = ((GraphImpl) graph).distanceVar().size();
         double step = 360 / NoOfVertexs;
 
 

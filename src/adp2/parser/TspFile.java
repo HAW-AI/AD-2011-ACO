@@ -25,10 +25,10 @@ public class TspFile {
         lowerDiagonalRow(body(content(filename)));
     }
 
-    public Matrix<Double> matrix() {
-        return Values.immutableMatrix(dimension, dimension, Arrays.asList(values));
-
-    }
+	public Matrix<Double> matrix() {
+		return Values.immutableMatrix(dimension, Arrays.asList(values));
+		
+	}
 
     private Double[] lowerDiagonalRow(String[] body) {
         if (this.values == null) {

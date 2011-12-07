@@ -68,7 +68,7 @@ public class BruteForceTSPTest {
              16.0,  20.0,  25.0,  33.0,  50.0, 100.0,  -1.0, 100.0,
              14.0,  16.0,  20.0,  25.0,  33.0,  50.0, 100.0,  -1.0
          );
-        distances1 = matrix(8, 8, distList1);
+        distances1 = matrix(8, distList1);
         
         path2 = path(asList(1, 2, 3, 1), 250);
         List<Double> distList2 = asList(
@@ -76,16 +76,16 @@ public class BruteForceTSPTest {
                 100.0,  -1.0, 100.0,
                  50.0, 100.0,  -1.0
         );
-        distances2 = matrix(3, 3, distList2);
+        distances2 = matrix(3, distList2);
         
         path3 = NaP();
         distances3 = NaM();
         
         path4 = path(asList(1, 1), 0);
-        distances4 = matrix(1, 1, asList(-1.0));
+        distances4 = matrix(1, asList(-1.0));
         
         path5 = NaP();
-        distances5 = matrix(0, 0, new ArrayList<Double>());
+        distances5 = matrix(0, new ArrayList<Double>());
     }
     
     @Test

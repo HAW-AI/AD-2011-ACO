@@ -3,19 +3,11 @@ package adp2.interfaces;
 public interface Matrix<E> extends Iterable<E> {
 
     /**
-     * The width of the Matrix.
+     * The size of the Matrix.
      * 
-     * @return the width
+     * @return the size
      */
-    int width();
-
-    /**
-     * The height of the Matrix.
-     * 
-     * @return the height
-     */
-    int height();
-
+    int size();
     /**
      * The value at the position (x, y) in the Matrix.
      * 
@@ -24,4 +16,6 @@ public interface Matrix<E> extends Iterable<E> {
      * @return the value at (x, y)
      */
     E get(int x, int y);
+    
+    
 }

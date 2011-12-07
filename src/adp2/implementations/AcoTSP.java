@@ -59,7 +59,7 @@ public class AcoTSP implements TSP {
      */
     @Override
     public Path minPath(Matrix<Double> matrix) {
-        if (matrix.width() != matrix.height() || matrix.width() == 0) {
+        if (matrix.size() == 0) {
             return Values.NaP();
         }
         Graph graph = Values.graph(matrix);

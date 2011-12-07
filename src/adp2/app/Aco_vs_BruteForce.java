@@ -25,7 +25,7 @@ public class Aco_vs_BruteForce {
         TSP bf = Values.bruteForceTSP();
         TSP aco = Values.acoTSP();
         Path bfPath;
-        if (!(t.matrix().height() > 12)) {
+        if (!(t.matrix().size() > 12)) {
             bfPath = bf.minPath(t.matrix());
         } else {
             bfPath = Values.NaP();
