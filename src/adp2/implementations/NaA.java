@@ -74,14 +74,15 @@ public class NaA implements Ant {
     }
 
 	@Override
-    public void setFinished(boolean b) {}
-
-	@Override
     public double sumOfValues(Map<?, Double> probabilities) {
 	    return 0;
     }
 
 	@Override
     public void setPathLength(double pathLength) {
+    }
+
+	@Override
+    public void finish() {
     }
 }
