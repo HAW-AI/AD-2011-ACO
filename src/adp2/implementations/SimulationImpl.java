@@ -149,12 +149,14 @@ public class SimulationImpl implements Simulation {
                 //PC: create a new ant
                 //PC: set initial state
                 addAnts(antsPerStep());
+				Main.logger.fine(antsPerStep() + " ants created");
             } else if (antsLaunched < antQuantity()) {
                 // Increases the number of ants to the maximum if the current step would go beyond the limit
                 antsLaunched += antQuantity() - antList().size();
                 //PC: create a new ant
                 //PC: set initial state
                 addAnts(antQuantity() - antList().size());
+				Main.logger.fine(antQuantity() - antList().size() + " ants created, maximum reached");
             }
         }
         //PC: for all ants do
@@ -165,9 +167,11 @@ public class SimulationImpl implements Simulation {
             if (ant.hasFinished()) {
                 //PC: kill ant 
                 removeAnt(i);
+				Main.logger.fine("Ant removed");
                 //PC: evaluate solution
                 // algorithm gets here for every finished ant, no matter if delayed or step by step pheromone update!
                 if (ant.traveledPath().waypoints().size() == (currentGraph.allNodes().size() + 1) && ant.pathLength() < bestDistance()) {
+					Main.logger.info(ant.toString() + " update distance from " + this.bestDistance() + " to " + ant.pathLength() + " and path from " + this.bestPath() + " to " + ant.traveledPath().waypoints());
                     setBestDistance(ant.pathLength());
                     setBestPath(ant.traveledPath().waypoints());
 	                //PC: if we use delayed pheromone update then
@@ -368,6 +372,7 @@ public class SimulationImpl implements Simulation {
     }
 
     private void addPheromoneUpdate(int from, int to, double d) {
+		Main.logger.finer("Edge " + from + "_" + to + " " + d);
         PheromoneElement pheromoneElem = pheromoneElement(from, to, d);
         if (from != to) {
             pheromoneUpdateList().add(pheromoneElem);
