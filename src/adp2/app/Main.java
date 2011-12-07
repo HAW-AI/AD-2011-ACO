@@ -32,7 +32,6 @@ public class Main {
 //		t = TspFile.open("samples/ant5Incomplete.tsp");
 //        t = TspFile.open("samples/ant5NoWay.tsp");
         Graph g = Values.graph(t.matrix());
-
         Simulation sim = Values.simulation(g, ANT_QUANTITIY, ANTS_PER_STEP);
 //        sim.runForSeconds(RUN_FOR_SECONDS);
         sim.runForSteps(RUN_FOR_STEPS);

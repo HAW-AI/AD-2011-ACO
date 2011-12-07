@@ -221,7 +221,7 @@ public class SimulationImpl implements Simulation {
     @Override
     public void stochasticNeighborSelection(Ant ant) {
         if (ant.hasFinished()) {
-            Main.logger.warning("Tote Ameise, kann nicht laufen");
+            Main.logger.warning("Ant dead!");
         } else if (!ant.hasFinished()) {
             if (ant.getUnvisitedNodes().isEmpty()) {
             	ant.getUnvisitedNodes().add(ant.getPath().get(0));
