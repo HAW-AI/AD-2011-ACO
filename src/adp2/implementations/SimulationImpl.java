@@ -16,7 +16,6 @@ public class SimulationImpl implements Simulation {
     private int antsLaunched = 0;
     private int antsPerStep = 0;             //Number of ants added per step
 
-	private int startPoint = 1;
     private double pheromoneDecrease = 1.0; // was 1.0 in code from group 2
     private double pheromoneIntensity = 10.0; // was 10.0 in code from group 2
     // The Simulation should not log the states of all Graphs by default
@@ -239,6 +238,7 @@ public class SimulationImpl implements Simulation {
 
             // calculation of balances
             Map<Integer, Double> probabilities = ant.balances();
+            Main.logger.info(probabilities.toString());
 
             if (probabilities.isEmpty()) {
                 ant.finish();
@@ -262,16 +262,16 @@ public class SimulationImpl implements Simulation {
                  * 3					0.5						0.9
                  * 4					0.1						1.0
                  */
-                double predecessor = 0;
-
-                for (Map.Entry<Integer, Double> entry : probabilities.entrySet()) {
-                    double probability = entry.getValue() / sum + predecessor;
-                    if (probability > 1.0) {
-                        probability = 1;
-                    }
-                    probabilities.put(entry.getKey(), probability);
-                    predecessor = probability;
-                }
+//                double predecessor = 0;
+//
+//                for (Map.Entry<Integer, Double> entry : probabilities.entrySet()) {
+//                    double probability = entry.getValue() / sum + predecessor;
+//                    if (probability > 1.0) {
+//                        probability = 1;
+//                    }
+//                    probabilities.put(entry.getKey(), probability);
+//                    predecessor = probability;
+//                }
 
                 /*
                  * Determines the random choice of a path by the ant using a random value (0.0~1.0)
@@ -279,16 +279,30 @@ public class SimulationImpl implements Simulation {
                  * ==> Chooses the ant's next node
                  * 
                  * You may want to set minNode to -1 for debugging purposes
-                 */
-                double value = Math.random();
+                 */ 
                 int minNode = 1;
-                double minValue = 1;
-                for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
-                    if (e.getValue() >= value && e.getValue() <= minValue) {
-                        minNode = e.getKey();
-                        minValue = e.getValue();
+                double minValue = 0;
+                double ran = 0; // wird definitiv überschrieben
+//                while (minNode == 1) {
+                    ran = Math.random(); 
+                    for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
+                        if (e.getValue() >= minValue && e.getValue() <= ran) {
+                            minNode = e.getKey();
+                            minValue = e.getValue();
+                        }
                     }
-                }
+                    // if random choice failed, go best way
+                    if (minNode == 0) {
+                        for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
+                            if (e.getValue() >= minValue) {
+                                minNode = e.getKey();
+                                minValue = e.getValue();
+                            }
+                        }
+                    }
+//                }
+
+                Main.logger.info("Random: " + ran + "; minValue: " + minValue + "; minNode: " + minNode);
 
                 // pathlength += graph.distance(position(), minNode);
                 ant.updatePathLength(minNode);
@@ -350,12 +364,6 @@ public class SimulationImpl implements Simulation {
         return antAlpha;
     }
 	
-	// NotUsed
-	@Deprecated
-    private int startPoint() {
-        return startPoint;
-    }
-
     private Graph graph() {
         return currentGraph;
     }
@@ -405,7 +413,7 @@ public class SimulationImpl implements Simulation {
         return Values.path(bestPath(), bestDistance());
     }
 	
-    public double sumOfValues(Map<?, Double> m) {
+    private double sumOfValues(Map<?, Double> m) {
         double sum = 0;
         for (Double elem : m.values()) {
             sum += elem;
