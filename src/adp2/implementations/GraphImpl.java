@@ -109,6 +109,7 @@ public class GraphImpl extends mxGraph implements Graph {
         //start & end = positions in the matrix, pheromone -> pheromone update
         //start & end are decremented by 1 due to differences in internal & external representations
         pheromones.set(start - 1, end - 1, pheromones.get(start - 1, end - 1) + pheromone);
+        adp2.app.Main.logger.warning(pheromones.toString());//test
     }
 
 //	@Override

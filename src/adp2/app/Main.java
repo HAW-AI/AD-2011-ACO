@@ -26,15 +26,15 @@ public class Main {
         TspFile t = null;
 //		t = TspFile.open("samples/gr21.tsp");
 //		t = TspFile.open("samples/ant2.tsp");		
-//		t = TspFile.open("samples/ant5.tsp");
+		t = TspFile.open("samples/ant5.tsp");
 //		t = TspFile.open("samples/ant9.tsp");
-		t = TspFile.open("samples/ant15.tsp");
+//		t = TspFile.open("samples/ant15.tsp");
 //		t = TspFile.open("samples/ant5Incomplete.tsp");
 //        t = TspFile.open("samples/ant5NoWay.tsp");
         Graph g = Values.graph(t.matrix());
         Simulation sim = Values.simulation(g, ANT_QUANTITIY, ANTS_PER_STEP);
-        sim.runForSeconds(RUN_FOR_SECONDS);
-//        sim.runForSteps(RUN_FOR_STEPS);
+//        sim.runForSeconds(RUN_FOR_SECONDS);
+        sim.runForSteps(RUN_FOR_STEPS);
 
         //Anzeige des Ergebnisses
 		String log = "";
