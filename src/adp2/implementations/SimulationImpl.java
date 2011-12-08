@@ -1,4 +1,4 @@
-package adp2.implementations;
+﻿package adp2.implementations;
 
 import adp2.app.Main;
 import java.util.*;
@@ -414,7 +414,6 @@ public class SimulationImpl implements Simulation {
         if(antsRandomNodes == false && antsSpecifiedNodes == false){
             for (int i = 1; i <= quantity; i++) {
                     antList().add(AntImpl.create(antAlpha(), graph()));
-                    System.out.println(" - - - Ant -" + i + ": startet bei - " + antList().get(i-1).getPath());
             }
         }
         else if(antsSpecifiedNodes == true && this.antsSpecifiedNodesToAdd.size() >0){
@@ -434,7 +433,6 @@ public class SimulationImpl implements Simulation {
         int nodeSize = this.currentGraph.allNodes().size();
         for (int i = 1; i <= quantity; i++) {
         	antList().add(AntImpl.create((int)(Math.random()*nodeSize)+1, antAlpha, currentGraph));
-                System.out.println(" - - - Ant -" + i + ": startet bei - " + antList().get(i-1).getPath());
         }
     }
     private void addAntsSpecified(int quantity){
@@ -442,7 +440,6 @@ public class SimulationImpl implements Simulation {
         for (int i = 1; i <= quantity; i++) {
             startNode = this.antsSpecifiedNodesToAdd.get((i-1) % this.antsSpecifiedNodesToAdd.size());
             antList().add(AntImpl.create(startNode, antAlpha, currentGraph));
-            System.out.println(" - - - Ant -" + i + ": startet bei - " + antList().get(i-1).getPath());
         }
     }
 
