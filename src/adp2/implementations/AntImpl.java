@@ -83,9 +83,10 @@ public class AntImpl implements Ant {
      * Returns the balance-values of every node connected to the current one the ant hasn't passed yet
      * bildet zur aktuellen Position alle unbesuchten Nachbarn dieses Knotens auf einen Balance-Wert ab
      * 
-     * Balances are calculated as [alpha * (Pheromone/maxPheromone) + [(1- alpha) * (Distance/maxDistance)]
-     *                      wherein  Pheromone & Distance are the values for the current edge
-     *                      and the maxValues are the highest values of all checked edges connected to the current node
+     * Balances are calculated as:
+     * (alpha * (pheromone/maxPheromone) + ((1- alpha) * (1 - (distance/maxDistance)))) * 1000 + 1
+     * wherein  Pheromone & Distance are the values for the current edge
+     * and the maxValues are the highest values of all checked edges connected to the current node
      */
     public Map<Integer, Double> balances() {
         Map<Integer, Double> result = new HashMap<Integer, Double>();
