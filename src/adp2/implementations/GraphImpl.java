@@ -110,7 +110,6 @@ public class GraphImpl extends mxGraph implements Graph {
 
         pheromones.set(matrixstart, matrixend, pheromones.get(matrixstart, matrixend) + pheromone);
 		pheromones.set(matrixend, matrixstart, pheromones.get(matrixend, matrixstart) + pheromone);
-		//adp2.app.Main.logger.warning(this.pheromones.toString());
     }
 
 //	@Override

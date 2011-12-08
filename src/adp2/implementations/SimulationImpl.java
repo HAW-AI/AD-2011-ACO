@@ -257,10 +257,10 @@ public class SimulationImpl implements Simulation {
                  * Ex.:
                  * 
                  * Node                 Probability             Value
-                 * 1			0.3                     0.3
-                 * 2			0.1                     0.4
-                 * 3			0.5			0.9
-                 * 4			0.1			1.0
+                 * 1					0.3                     0.3
+                 * 2					0.1                     0.4
+                 * 3					0.5						0.9
+                 * 4					0.1						1.0
                  */
                 double predecessor = 0;
 
