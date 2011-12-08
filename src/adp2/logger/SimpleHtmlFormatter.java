@@ -26,6 +26,7 @@ public class SimpleHtmlFormatter extends Formatter {
 	
 		// This method is called just after the handler using this
 	// formatter is created
+	@Override
 	public String getHead(Handler h)
 	{
 		return "<html>\n"
@@ -53,6 +54,7 @@ public class SimpleHtmlFormatter extends Formatter {
 
 	// This method is called just after the handler using this
 	// formatter is closed
+	@Override
 	public String getTail(Handler h)
 	{
 		return " </table>\n </body>\n</html>\n";
