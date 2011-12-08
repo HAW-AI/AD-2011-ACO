@@ -103,7 +103,7 @@ public class AntImpl implements Ant {
                 maxPher = graph.intensity(position(), elem);
             }
         }
-        Main.logger.fine(maxDist + " " + maxPher);
+        Main.logger.finer("maxDist " + maxDist + " maxPher " + maxPher);
 
         // Calculate balace-values and put them into the map
         for (Integer elem : this.unvisitedNeighbors()) {
@@ -201,6 +201,6 @@ public class AntImpl implements Ant {
 	
 	public void updatePathLength(int minNode) {
 		this.pathlength = this.pathlength + this.graph.distance(this.position(), minNode);
-		adp2.app.Main.logger.info(this.toString() + ": " + pathlength + " " + path.toString());
+		adp2.app.Main.logger.fine(this.toString() + ": " + path.toString() + " (" + pathlength + ")");
 	}
 }

@@ -20,7 +20,7 @@ public class Main {
     public static final int RUN_FOR_SECONDS = 30; // was 30 in code from group 2
 
     public static void main(String[] args) {
-		setUpLogging("%h/aco", Level.INFO, false, true, true);
+		setUpLogging("%h/aco", Level.FINE, false, true, true);
 		
         TspFile t = null;
 		t = TspFile.open("samples/ant5.tsp");

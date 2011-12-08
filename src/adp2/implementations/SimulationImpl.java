@@ -100,7 +100,6 @@ public class SimulationImpl implements Simulation {
 
     @Override
     public void runForSteps(int simulationSteps) {
-        antsLaunched = 0;
         int loops = 0;
         while (simulate(STEPBYSTEPUPDATE) && loops < simulationSteps) {
 			Main.logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
@@ -110,7 +109,6 @@ public class SimulationImpl implements Simulation {
 
     @Override
     public void runForSeconds(int runtimeInS) {
-        antsLaunched = 0;
         long timeStart = System.currentTimeMillis();
         long timeStop = runtimeInS * 1000;
         while (simulate(DELAYEDUPDATE) && System.currentTimeMillis() - timeStart < timeStop) {
@@ -227,7 +225,6 @@ public class SimulationImpl implements Simulation {
         return !(antList().isEmpty() && (antsLaunched == antQuantity()));
     }
     
-    @Override
     public void stochasticNeighborSelection(Ant ant) {
         if (ant.hasFinished()) {
             Main.logger.warning("Ant dead!");
@@ -238,7 +235,6 @@ public class SimulationImpl implements Simulation {
 
             // calculation of balances
             Map<Integer, Double> probabilities = ant.balances();
-            Main.logger.info(probabilities.toString());
 
             if (probabilities.isEmpty()) {
                 ant.finish();
@@ -282,7 +278,7 @@ public class SimulationImpl implements Simulation {
                  */ 
                 int minNode = 1;
                 double minValue = 0;
-                double ran = 0; // wird definitiv überschrieben
+                double ran = 0; // wird definitiv ï¿½berschrieben
 //                while (minNode == 1) {
                     ran = Math.random(); 
                     for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
@@ -302,7 +298,7 @@ public class SimulationImpl implements Simulation {
                     }
 //                }
 
-                Main.logger.info("Random: " + ran + "; minValue: " + minValue + "; minNode: " + minNode);
+                Main.logger.fine("Random: " + ran + "; minValue: " + minValue + "; minNode: " + minNode);
 
                 // pathlength += graph.distance(position(), minNode);
                 ant.updatePathLength(minNode);

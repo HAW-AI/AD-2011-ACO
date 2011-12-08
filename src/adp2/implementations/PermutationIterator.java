@@ -27,7 +27,7 @@ public class PermutationIterator<E extends Comparable<? super E>> implements Ite
     }
 
     protected static <E extends Comparable<? super E>> PermutationIterator<E> create(List<E> l) {
-        return new PermutationIterator(l);
+        return new PermutationIterator<E>(l);
 
     }
 
