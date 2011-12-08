@@ -36,13 +36,6 @@ public interface Ant {
     double pathLength();
 
     /**
-     * Alpha value for balance computation between pheromones and distance
-     *  
-     * @return (0.0 - 1.0)
-     */
-    double alpha();
-
-    /**
      * The position before the current position. If the ant hasn't traveled so far. 
      * The return value is the number of the starting node 
      * 
@@ -62,7 +55,7 @@ public interface Ant {
 	 */
 	List<Integer> getPath();
 	
-	Map<Integer, Double> balances();
+	Map<Integer, Double> balances(double alpha);
 
 	/** 
 	 * set's ant in finished status

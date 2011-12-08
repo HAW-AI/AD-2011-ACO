@@ -25,7 +25,7 @@ public class MutableMatrixImpl<E> extends AbstractMatrix<E> implements MutableMa
 		//values.add(x, value)
         values.set(x + (y * size()), value);
 	}
-
+	
 	public MutableMatrix<E> deepClone() {
 		return create(size, new ArrayList<E>(values));
 	}

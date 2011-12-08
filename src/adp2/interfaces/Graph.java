@@ -6,9 +6,9 @@ public interface Graph {
 
     /**
      * Get distance between two nodes
-     * @param von - start node
-     * @param nach - end node
-     * @return Double - distance 
+     * @param von start node
+     * @param nach end node
+     * @return distance 
      */
     double distance(int von, int nach);
 
@@ -29,7 +29,7 @@ public interface Graph {
      * Pheromone intensity the edge between two nodes
      * @param von
      * @param nach
-     * @return double - intensity of pheromone on edge
+     * @return intensity of pheromone on edge
      */
     double intensity(int from, int to);
 
@@ -45,17 +45,16 @@ public interface Graph {
      * @param end - end node
      * @param pheromone - value to add on intensity of edge
      */
-    public void incrementPheromones(int start, int end, double pheromone);
-
-    /**
-     * display the path
-     * @param p
-     */
-    public void highlightPath(Path p);
+    void incrementPheromones(int start, int end, double pheromone);
 
     /**
      * deepClone()
      * @return a copy of the graph where all fields are also copies of their original values.
      */
-    public Graph deepClone();
+    Graph deepClone();
+	
+	/**
+	 * Used by PrintGraph to access distance matrix
+	 */
+	Matrix<Double> distanceVar();
 }

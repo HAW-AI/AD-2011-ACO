@@ -1,5 +1,6 @@
 package adp2.implementations;
 
+import adp2.implementations.Values;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,60 +25,41 @@ public class NaA implements Ant {
     private NaA() {
     }
 
-    @Override
     public Path traveledPath() {
         return Values.NaP();
     }
 
-    @Override
     public int position() {
         return -1;
     }
 
-//    @Override
-//    public void step() {
-//    }
-
-    @Override
     public boolean hasFinished() {
         return false;
     }
 
-    @Override
     public double pathLength() {
         return Double.NaN;
     }
 
-    @Override
-    public double alpha() {
-        return 0;
-    }
-
-    @Override
     public int prevPosition() {
         return -1;
     }
 
-	@Override
     public Set<Integer> getUnvisitedNodes() {
 	    return new HashSet<Integer>();
     }
 
-	@Override
     public List<Integer> getPath() {
 	    return new ArrayList<Integer>();
     }
 
-	@Override
-    public Map<Integer, Double> balances() {
+    public Map<Integer, Double> balances(double alpha) {
 	    return new HashMap<Integer, Double>();
     }
 
-	@Override
     public void updatePathLength(int minNode) {
     }
 
-	@Override
     public void finish() {
     }
 }

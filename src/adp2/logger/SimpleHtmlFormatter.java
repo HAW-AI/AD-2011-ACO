@@ -5,7 +5,6 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
 /**
- * (level) methodName: message\n
  * @author Benjamin Kahlau
  */
 public class SimpleHtmlFormatter extends Formatter {
@@ -24,8 +23,9 @@ public class SimpleHtmlFormatter extends Formatter {
 				+ "   </tr>\n";
 	}
 	
-		// This method is called just after the handler using this
-	// formatter is created
+	/*
+	 * This method is called just after the handler using this formatter is created
+	 */
 	@Override
 	public String getHead(Handler h)
 	{
@@ -52,8 +52,10 @@ public class SimpleHtmlFormatter extends Formatter {
 				+ "   </tr>\n";
 	}
 
-	// This method is called just after the handler using this
-	// formatter is closed
+	/*
+	 * This method is called just after the handler using this formatter is closed
+	 * @param
+	 */
 	@Override
 	public String getTail(Handler h)
 	{

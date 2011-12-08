@@ -50,5 +50,4 @@ public abstract class AbstractMatrix<E> implements Matrix<E> {
         }
         return result.toString();
     }
-
 }

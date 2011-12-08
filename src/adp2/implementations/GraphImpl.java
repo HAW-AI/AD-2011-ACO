@@ -1,7 +1,6 @@
 package adp2.implementations;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,12 +10,9 @@ import com.mxgraph.view.mxGraph;
 import adp2.interfaces.*;
 import static adp2.implementations.Values.*;
 
-public class GraphImpl extends mxGraph implements Graph {
-	
+public class GraphImpl extends mxGraph implements Graph {	
     private final Matrix<Double> distance;
     private MutableMatrix<Double> pheromones;
-    private final HashMap<Integer, Object> VertexObjectList = new HashMap<Integer, Object>();
-    private final HashMap<Integer, Object> EdgeObjectList = new HashMap<Integer, Object>();
 
     private GraphImpl(Matrix<Double> distance, MutableMatrix<Double> pheromones) {
         this.distance = distance;
@@ -24,7 +20,6 @@ public class GraphImpl extends mxGraph implements Graph {
     }
 
 	protected static Graph create(Matrix<Double> distance) {
-		
 		if (distance == null) {
 			return Values.NaG();
 		}
@@ -38,9 +33,6 @@ public class GraphImpl extends mxGraph implements Graph {
 		}
 		return mutableMatrix(size, resultList);
 	}
-
-    public void highlightPath(Path p) {
-    }
 
     public double distance(int from, int to) {
         double d;
@@ -92,10 +84,9 @@ public class GraphImpl extends mxGraph implements Graph {
                 } else {
                     pheromones.set(i, j, pheromones.get(i, j) - value);
                 }
-				adp2.app.Main.logger.finer("Edge " + (i+1) + "_" + (j+1) + " " + pheromones.get(i, j));
+				adp2.app.Main.LOGGER.finer("Edge " + (i+1) + "_" + (j+1) + " " + pheromones.get(i, j));
             }
         }
-		//adp2.app.Main.logger.warning(this.pheromones.toString());
     }
 
     public void incrementPheromones(int start, int end, double pheromone) {
@@ -105,14 +96,7 @@ public class GraphImpl extends mxGraph implements Graph {
         pheromones.set(matrixstart, matrixend, pheromones.get(matrixstart, matrixend) + pheromone);
 		pheromones.set(matrixend, matrixstart, pheromones.get(matrixend, matrixstart) + pheromone);
     }
-
-//	@Override
-//	public void incrementPheromone(List<List<Integer>> pheromoneUpdateList){
-//		for(List<Integer> update : pheromoneUpdateList){
-//			pheromones.set(update.get(0)-1, update.get(1)-1,pheromones.get(update.get(0)-1, update.get(1)-1)+update.get(2));
-//			pheromones.set(update.get(1)-1, update.get(0)-1,pheromones.get(update.get(1)-1, update.get(0)-1)+update.get(2));
-//		}
-//	}
+	
     public String toString() {
         StringBuffer result = new StringBuffer();
         result.append("Distance:\n");

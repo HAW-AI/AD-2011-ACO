@@ -11,13 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import adp2.implementations.Values;
 import adp2.interfaces.Matrix;
-import java.util.logging.*;
 
 public class TspFile {
-	private static final Logger logger = Main.logger;
-	
     public static TspFile open(String filename) {
-		logger.info("Lade TspFile " + filename);
+		Main.LOGGER.info("Lade TspFile " + filename);
         return new TspFile(filename);
     }
     private String[] content;
@@ -111,7 +108,7 @@ public class TspFile {
                 reader = new BufferedReader(new FileReader(new File(filename)));
             } catch (FileNotFoundException e) {
                 // XXX: maybe we should leave the exception as it is
-				logger.severe(e.getMessage());
+				Main.LOGGER.severe(e.getMessage());
                 throw new IllegalArgumentException(filename + " not found");
             }
             List<String> buffer = new ArrayList<String>();
@@ -121,7 +118,7 @@ public class TspFile {
                     buffer.add(line);
                 }
             } catch (IOException e) {
-                logger.warning(e.getMessage());
+                Main.LOGGER.warning(e.getMessage());
             }
             this.content = buffer.toArray(new String[0]);
         }

@@ -18,45 +18,40 @@ public class AntImpl implements Ant {
     private List<Integer> path;             // current path
     private double pathlength;              // length of current path
     private Set<Integer> unvisitedNodes;	// nodes of the graph the ant hasn't passed yet
-    private double alpha;
     private Graph graph;
-    boolean finished;
+    boolean finished = false;
 
-    private AntImpl(int startNode, double alpha, Graph g) {
+    private AntImpl(int startNode, Graph g) {
         mynumber = number++;
         path = new ArrayList<Integer>();
-        pathlength = 0;
         path.add(startNode);
-        this.graph = g;
+		pathlength = 0;
+        graph = g;
         unvisitedNodes = g.neighbors(startNode);
-        this.alpha = alpha;
-        finished = false;
     }
 
-    private AntImpl(double alpha, Graph g) {
+    private AntImpl(Graph g) {
         mynumber = number++;
         path = new ArrayList<Integer>();
         pathlength = 0;
         int startNode = (mynumber % g.allNodes().size()) + 1;
         path.add(startNode);
-        this.graph = g;
+        graph = g;
         unvisitedNodes = g.neighbors(startNode);
-        this.alpha = alpha;
-        finished = false;
     }
 
-    protected static Ant create(int startNode, double alpha, Graph g) {
-        if (g == null || g instanceof NaG || alpha < 0 || alpha > 1 || !g.allNodes().contains(startNode)) {
+    protected static Ant create(int startNode, Graph g) {
+        if (g == null || g instanceof NaG || !g.allNodes().contains(startNode)) {
             return Values.NaA();
         }
-        return new AntImpl(startNode, alpha, g);
+        return new AntImpl(startNode, g);
     }
 
-    protected static Ant create(double alpha, Graph g) {
-        if (g == null || g instanceof NaG || alpha < 0 || alpha > 1) {
+    protected static Ant create(Graph g) {
+        if (g == null || g instanceof NaG) {
             return Values.NaA();
         }
-        return new AntImpl(alpha, g);
+        return new AntImpl(g);
     }
 
     public Path traveledPath() {
@@ -86,7 +81,7 @@ public class AntImpl implements Ant {
      * wherein  Pheromone & Distance are the values for the current edge
      * and the maxValues are the highest values of all checked edges connected to the current node
      */
-    public Map<Integer, Double> balances() {
+    public Map<Integer, Double> balances(double alpha) {
         Map<Integer, Double> result = new HashMap<Integer, Double>();
         //find highest distance to all neighbors  + 
         //find highest pheromone saturation for each outgoing edge
@@ -100,19 +95,19 @@ public class AntImpl implements Ant {
                 maxPher = graph.intensity(position(), elem);
             }
         }
-        Main.logger.finer("maxDist " + maxDist + " maxPher " + maxPher);
+        Main.LOGGER.finest("maxDist " + maxDist + " maxPher " + maxPher);
 
         // Calculate balace-values and put them into the map
         for (Integer elem : this.unvisitedNeighbors()) {
-            result.put(elem, balance1(maxDist, maxPher, graph.intensity(position(), elem), graph.distance(position(), elem)));
+            result.put(elem, balance1(maxDist, maxPher, graph.intensity(position(), elem), graph.distance(position(), elem), alpha));
         }
-        Main.logger.fine(result.toString());
+        Main.LOGGER.finer(result.toString());
         return result;
     }
 
     // (alpha * (pheromone/maxPheromone) + ((1- alpha) * (1 - (distance/maxDistance)))) * 1000 + 1
     // Returns a balance-value between 1 and 1001
-    private double balance1(double maxDist, double maxPher, double pher, double dist) {
+    private double balance1(double maxDist, double maxPher, double pher, double dist, double alpha) {
         double distance;
         if (!(maxDist == 0)) {
             distance = 1 - (dist / maxDist);
@@ -133,7 +128,7 @@ public class AntImpl implements Ant {
     }
 
     // Creates a balance-value as alpha * pheromones + (1-alpha) * (maxDist -distance)
-    private double balance2(double maxDist, double maxPher, double pher, double dist) {
+    private double balance2(double maxDist, double maxPher, double pher, double dist, double alpha) {
         double distance;
         if (!(maxDist == 0)) {
             distance = maxDist - dist;
@@ -167,10 +162,6 @@ public class AntImpl implements Ant {
         return this.pathlength;
     }
 
-    public double alpha() {
-        return this.alpha;
-    }
-
     public int prevPosition() {
         if (path.size() > 1) {
             return path.get(path.size() - 2);
@@ -198,6 +189,6 @@ public class AntImpl implements Ant {
 	
 	public void updatePathLength(int minNode) {
 		this.pathlength = this.pathlength + this.graph.distance(this.position(), minNode);
-		adp2.app.Main.logger.fine(this.toString() + ": " + path.toString() + " (" + pathlength + ")");
+		adp2.app.Main.LOGGER.fine(this.toString() + ": " + path.toString() + " (" + pathlength + ")");
 	}
 }

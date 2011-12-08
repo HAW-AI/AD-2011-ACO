@@ -1,10 +1,11 @@
 package adp2.implementations;
 
+import adp2.implementations.Values;
 import java.util.HashSet;
 import java.util.Set;
 
 import adp2.interfaces.Graph;
-import adp2.interfaces.Path;
+import adp2.interfaces.Matrix;
 
 public class NaG implements Graph {
 
@@ -20,40 +21,33 @@ public class NaG implements Graph {
     private NaG() {
     }
 
-    @Override
     public double distance(int from, int to) {
         return Double.POSITIVE_INFINITY;
     }
-
-    @Override
+	
     public Set<Integer> neighbors(int node) {
         return new HashSet<Integer>();
     }
-
-    @Override
     public Set<Integer> allNodes() {
         return new HashSet<Integer>();
     }
 
-    @Override
     public double intensity(int from, int to) {
         return -1;
     }
 
-    @Override
     public void decrementPheromones(double value) {
     }
 
-    @Override
-    public void highlightPath(Path p) {
-    }
 
-    @Override
     public void incrementPheromones(int start, int end, double pheromone) {
     }
 
-    @Override
     public Graph deepClone() {
         return create();
     }
+	
+	public Matrix<Double> distanceVar() {
+		return Values.NaM();
+	}
 }

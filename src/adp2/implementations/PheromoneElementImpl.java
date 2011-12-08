@@ -37,6 +37,6 @@ public class PheromoneElementImpl implements PheromoneElement {
 	
     @Override
 	public String toString() {
-		return from + " " + to + " " + pheromone;
+		return "Pheromone: " + from + " to " + to + ": " + pheromone;
 	}
 }

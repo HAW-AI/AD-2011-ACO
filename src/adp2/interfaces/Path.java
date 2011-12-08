@@ -17,4 +17,11 @@ public interface Path {
      * @return total distance of the path
      */
     double distance();
+	
+	/**
+	 * Count of waypoints
+	 * 
+	 * @return size of waypoint list
+	 */
+	int size();
 }

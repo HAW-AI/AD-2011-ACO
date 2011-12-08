@@ -1,5 +1,8 @@
 package adp2.implementations;
 
+import adp2.algorithms.AntColonisationOptimation;
+import adp2.algorithms.BruteForceTSP;
+import adp2.algorithms.interfaces.TravelingSalesMan;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +12,6 @@ import adp2.interfaces.Matrix;
 import adp2.interfaces.MutableMatrix;
 import adp2.interfaces.Path;
 import adp2.interfaces.PheromoneElement;
-import adp2.interfaces.Simulation;
-import adp2.interfaces.TSP;
 
 /**
  * Factory class
@@ -21,14 +22,14 @@ public final class Values {
     private Values() {
     }
 
-    /**
-     * Create a brute force TSP
-     * 
-     * @return brute force TSP
-     */
-    public static TSP bruteForceTSP() {
-        return BruteForceTSP.create();
-    }
+//    /**
+//     * Create a brute force TSP
+//     * 
+//     * @return brute force TSP
+//     */
+//    public static TSP bruteForceTSP() {
+//        return BruteForceTSP.create();
+//    }
 
 	/**
 	 * Create a Matrix with given dimensions and values.
@@ -113,22 +114,22 @@ public final class Values {
         return NaP.create();
     }
 
-    /**
-     * Not a Simulation
-     * 
-     * @return Not a Simulation
-     */
-    public static Simulation NaS() {
-        return NaS.create();
-    }
-
-    /**
-     * Not a Traveling Salesman Problem
-     * @return Not a Traveling Salesman Problem
-     */
-    public static TSP NaTSP() {
-        return NaTSP.create();
-    }
+//    /**
+//     * Not a Simulation
+//     * 
+//     * @return Not a Simulation
+//     */
+//    public static Simulation NaS() {
+//        return NaS.create();
+//    }
+//
+//    /**
+//     * Not a Traveling Salesman Problem
+//     * @return Not a Traveling Salesman Problem
+//     */
+//    public static TSP NaTSP() {
+//        return NaTSP.create();
+//    }
 
     /**
      * Not a PheromoneElement
@@ -136,44 +137,6 @@ public final class Values {
      */
     public static PheromoneElement NaPE() {
         return NaPE.create();
-    }
-
-    /**
-     * Create a simulation with a defined number of ants starting at once
-     * 
-     * @param graph
-     * @param antsQuantity
-     *            total number of ants in the graph, pushed at once
-     * 
-     * @return Simulation
-     * 
-     */
-    public static Simulation simulation(Graph graph, int antsQuantity) {
-        if (antsQuantity < 0) {
-            return Values.NaS();
-        }
-        return SimulationImpl.create(graph, antsQuantity);
-    }
-
-    /**
-     * Create a simulation with a defined number of ants starting at once and
-     * logs states of all graphs
-     * 
-     * @param graph
-     * @param antsQuantity
-     *            total number of ants in the graph, pushed at once
-     * @param logStates
-     *            simulation log states or not
-     * 
-     * @return Simulation
-     * 
-     */
-    public static Simulation simulation(Graph graph, int antsQuantity,
-            boolean logStates) {
-        if (antsQuantity < 0) {
-            return Values.NaS();
-        }
-        return SimulationImpl.create(graph, antsQuantity, logStates);
     }
 
     /**
@@ -189,33 +152,15 @@ public final class Values {
      * @return Simulation
      * 
      */
-    public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep) {
-        if (antsQuantity < 0 || antsByStep < 0) {
-            return Values.NaS();
-        }
-        return SimulationImpl.create(graph, antsQuantity, antsByStep);
+    public static TravelingSalesMan tsmACO(Graph graph, int antsQuantity, int antsByStep, double alpha, int pheromoneDecrease, int pheromoneIntensity) {
+//        if (antsQuantity < 0 || antsByStep < 0 || alpha < 0 || alpha > 1) {
+//            return Values.NaS();
+//        }
+        return AntColonisationOptimation.create(graph, antsQuantity, antsByStep, alpha, pheromoneDecrease, pheromoneIntensity);
     }
 	
-    /**
-     * Create a simulation with a defined number of ants in total starting step
-     * by step and logs states of all graphs
-     * 
-     * @param graph
-     * @param antsQuantity
-     *            total number of ants in the graph
-     * @param antsByStep
-     *            number of ants, pushed at every step
-     * @param logStates
-     *            simulation log states or not
-     * 
-     * @return Simulation
-     * 
-     */
-    public static Simulation simulation(Graph graph, int antsQuantity, int antsByStep, boolean logStates) {
-        if (antsQuantity < 0 || antsByStep < 0) {
-            return Values.NaS();
-        }
-        return SimulationImpl.create(graph, antsQuantity, antsByStep, logStates);
+	public static TravelingSalesMan tsmBF(Matrix<Double> matrix) {
+        return BruteForceTSP.create(matrix);
     }
 
     /**
@@ -279,12 +224,12 @@ public final class Values {
      * @param g
      * @return Ant
      */
-    public static Ant ant(int startNode, double alpha, Graph g) {
-        return AntImpl.create(startNode, alpha, g);
+    public static Ant ant(int startNode, Graph g) {
+        return AntImpl.create(startNode, g);
     }
 
-    public static Ant ant(double alpha, Graph g) {
-        return AntImpl.create(alpha, g);
+    public static Ant ant(Graph g) {
+        return AntImpl.create(g);
     }
 
     /**
@@ -353,34 +298,34 @@ public final class Values {
         }
         return PheromoneElementImpl.valueOf(from, to, pheromone);
     }
-
-    /**
-     * Solving the TSP with the ant-algorithm
-     * @return AcoTsp
-     */
-    public static TSP acoTSP() {
-        return AcoTSP.create();
-    }
-
-    public static TSP acoTSP(int antsQuantity, int antsByStep) {
-        if (antsQuantity < 0 || antsByStep < 0) {
-            return NaTSP();
-        }
-        return AcoTSP.create(antsQuantity, antsByStep);
-    }
-
-    /**
-     * TSP ant algorithm
-     * @param antsQuantity
-     * @param antsByStep
-     * @param number
-     * @param runForSeconds    determines whether number is the maximum of seconds (true) or steps (false)
-     * @return AcoTSP
-     */
-    public static TSP acoTSP(int antsQuantity, int antsByStep, int number, boolean runForSeconds) {
-        if (antsQuantity < 0 || antsByStep < 0 || number < 0) {
-            return NaTSP();
-        }
-        return AcoTSP.create(antsQuantity, antsByStep, number, runForSeconds);
-    }
+//
+//    /**
+//     * Solving the TSP with the ant-algorithm
+//     * @return AcoTsp
+//     */
+//    public static TSP acoTSP() {
+//        return AcoTSP.create();
+//    }
+//
+//    public static TSP acoTSP(int antsQuantity, int antsByStep) {
+//        if (antsQuantity < 0 || antsByStep < 0) {
+//            return NaTSP();
+//        }
+//        return AcoTSP.create(antsQuantity, antsByStep);
+//    }
+//
+//    /**
+//     * TSP ant algorithm
+//     * @param antsQuantity
+//     * @param antsByStep
+//     * @param number
+//     * @param runForSeconds    determines whether number is the maximum of seconds (true) or steps (false)
+//     * @return AcoTSP
+//     */
+//    public static TSP acoTSP(int antsQuantity, int antsByStep, int number, boolean runForSeconds) {
+//        if (antsQuantity < 0 || antsByStep < 0 || number < 0) {
+//            return NaTSP();
+//        }
+//        return AcoTSP.create(antsQuantity, antsByStep, number, runForSeconds);
+//    }
 }

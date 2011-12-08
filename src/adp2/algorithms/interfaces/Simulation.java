@@ -1,6 +1,6 @@
-package adp2.interfaces;
+package adp2.algorithms.interfaces;
 
-public interface Simulation {
+public abstract interface Simulation {
 
     /**
      * Starts the simulation process
@@ -20,13 +20,4 @@ public interface Simulation {
      * 
      */
     void runForSteps(int simulationSteps);
-
-    /**
-     * Returns the shortest path found for the simulation
-     * 
-     * @return shortest path
-     */
-    Path minPath();
-
-//	void stochasticNeighborSelection(Ant ant);
 }

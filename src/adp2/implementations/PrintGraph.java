@@ -14,11 +14,9 @@ public class PrintGraph extends mxGraph {
     private final int NoOfVertexs;
     private static final HashMap<Integer, Object> VertexObjectList = new HashMap<Integer, Object>();
     private static final HashMap<Integer, Object> EdgeObjectList = new HashMap<Integer, Object>();
-    private final Graph graph;
 
     private PrintGraph(Graph graph) {
-        this.graph = graph;
-        NoOfVertexs = ((GraphImpl) graph).distanceVar().size();
+        NoOfVertexs = graph.distanceVar().size();
         double step = 360 / NoOfVertexs;
 
 
@@ -26,15 +24,15 @@ public class PrintGraph extends mxGraph {
 
         for (Double temp = 1.0; temp <= NoOfVertexs; temp++) {
 
-            double hyp = (((Main.height / 2) - 50) * Math.cos(((90 - ((step * temp) / 2)) / 180 * Math.PI)) * 2);
+            double hyp = (((Main.HEIGHT / 2) - 50) * Math.cos(((90 - ((step * temp) / 2)) / 180 * Math.PI)) * 2);
             double gk = (Math.cos((90 - ((step * temp) / 2)) / 180 * Math.PI) * hyp);
             double x, y;
             if (temp > (NoOfVertexs / 2)) {
-                x = ((Main.width / 2) - 50) + Math.sqrt((hyp * hyp) - (gk * gk));
+                x = ((Main.WIDTH / 2) - 50) + Math.sqrt((hyp * hyp) - (gk * gk));
             } else {
-                x = (Main.width / 2) - 50 - Math.sqrt((hyp * hyp) - (gk * gk));
+                x = (Main.WIDTH / 2) - 50 - Math.sqrt((hyp * hyp) - (gk * gk));
             }
-            y = (Main.height) - 100 - gk;
+            y = (Main.HEIGHT) - 100 - gk;
 
             VertexObjectList.put(temp.intValue(), insertVertex(getDefaultParent(), null, ((Integer) (temp).intValue()).toString(), x, y, 40, 20));
         }

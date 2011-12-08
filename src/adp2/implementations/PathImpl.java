@@ -1,6 +1,7 @@
 package adp2.implementations;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import adp2.interfaces.Path;
@@ -11,7 +12,6 @@ public final class PathImpl implements Path {
     private final double distance;
 
     protected static Path create(List<Integer> waypoints, double distance) {
-        // pre-condition checks in factory
         return new PathImpl(waypoints, distance);
     }
 
@@ -20,15 +20,17 @@ public final class PathImpl implements Path {
         this.distance = distance;
     }
 
-    @Override
     public List<Integer> waypoints() {
         return new ArrayList<Integer>(waypoints);
     }
 
-    @Override
     public double distance() {
         return distance;
     }
+	
+	public int size() {
+		return waypoints.size();
+	}
 
     @Override
     public boolean equals(Object o) {

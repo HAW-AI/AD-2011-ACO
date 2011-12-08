@@ -1,6 +1,7 @@
 package adp2.implementations;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import adp2.interfaces.Path;
@@ -19,12 +20,10 @@ public final class NaP implements Path {
     private NaP() {
     }
 
-    @Override
     public List<Integer> waypoints() {
         return new ArrayList<Integer>();
     }
 
-    @Override
     public double distance() {
         return Double.NaN;
     }
@@ -33,4 +32,8 @@ public final class NaP implements Path {
     public String toString() {
         return "NaP";
     }
+	
+	public int size() {
+		return 0;
+	}
 }

@@ -7,9 +7,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     PermutationIteratorTest.class,
     MatrixImplTest.class,
-    BruteForceTSPTest.class,
     PathImplTest.class,
     NaGTest.class,
-    AntImplTest.class
+//    AntImplTest.class
 })
 public final class TestSuite {}
