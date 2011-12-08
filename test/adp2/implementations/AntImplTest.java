@@ -13,7 +13,7 @@ import adp2.interfaces.Ant;
 import adp2.interfaces.Graph;
 import adp2.interfaces.Simulation;
 
-public class AntImplTest {
+public class AntImplTest  {
 	Graph graph2x2;
 	Simulation simulation;
 
