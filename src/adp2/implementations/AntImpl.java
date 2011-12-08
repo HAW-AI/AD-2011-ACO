@@ -1,5 +1,6 @@
 package adp2.implementations;
 
+import adp2.app.Main;
 import adp2.interfaces.Ant;
 import adp2.interfaces.Graph;
 import adp2.interfaces.Path;
@@ -102,11 +103,13 @@ public class AntImpl implements Ant {
                 maxPher = graph.intensity(position(), elem);
             }
         }
+        Main.logger.fine(maxDist + " " + maxPher);
 
         // Calculate balace-values and put them into the map
         for (Integer elem : this.unvisitedNeighbors()) {
             result.put(elem, balance1(maxDist, maxPher, graph.intensity(position(), elem), graph.distance(position(), elem)));
         }
+        Main.logger.fine(result.toString());
         return result;
     }
 
@@ -129,7 +132,7 @@ public class AntImpl implements Ant {
 
         //double balance = alpha * (pheromones/10) + (1-alpha) * distance;
         double balance = alpha * pheromones + (1 - alpha) * distance;
-        return balance * 1000 + 1; // balance * 1000, so the +1 doesn't change the balance too much
+        return ((balance * 1000 + 1) / 1000); // balance * 1000, so the +1 doesn't change the balance too much
     }
 
     // Creates a balance-value as alpha * pheromones + (1-alpha) * (maxDist -distance)
@@ -144,6 +147,24 @@ public class AntImpl implements Ant {
         double balance = alpha * pheromones + (1 - alpha) * distance;
         return balance;
     }
+    
+//    private double balance3(double maxDist, double maxPher, double pher, double dist) {
+//        double distance;
+//        if (!(maxDist == 0)) {
+//            distance = 1 - (dist / maxDist);
+//        } else {
+//            distance = 1;
+//        }
+//
+//        double pheromones;
+//        if (!(maxPher == 0)) {
+//            pheromones = pher / maxPher;
+//        } else {
+//            pheromones = 0;
+//        }
+//        
+//        double soludtion;
+//    }
 
     public double pathLength() {
         return this.pathlength;

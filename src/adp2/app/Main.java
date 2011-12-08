@@ -15,17 +15,15 @@ public class Main {
     public static int width = 1280;
     public static int height = 720;
 	
-    public static final int ANT_QUANTITIY = 500; // was 1000 in code from group 2
+    public static final int ANT_QUANTITIY = 1000; // was 1000 in code from group 2
     public static final int ANTS_PER_STEP = 10; // was 5 in code from group 2
     public static final int RUN_FOR_SECONDS = 30; // was 30 in code from group 2
 
     public static void main(String[] args) {
-		setUpLogging("%h/aco", Level.WARNING, false, false, true);
+		setUpLogging("%h/aco", Level.INFO, false, true, true);
 		
         TspFile t = null;
-		t = TspFile.open("samples/gr21.tsp");
-//		t = TspFile.open("samples/ant2.tsp");
-//		t = TspFile.open("samples/ant5.tsp");
+		t = TspFile.open("samples/ant5.tsp");
 //		t = TspFile.open("samples/gr21.tsp");
 //		t = TspFile.open("samples/ant2.tsp");		
 //		t = TspFile.open("samples/ant9.tsp");
