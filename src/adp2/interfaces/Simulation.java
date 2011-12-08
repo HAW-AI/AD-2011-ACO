@@ -28,5 +28,5 @@ public interface Simulation {
      */
     Path minPath();
 
-	void stochasticNeighborSelection(Ant ant);
+//	void stochasticNeighborSelection(Ant ant);
 }
