@@ -9,10 +9,7 @@ import java.util.Set;
 import com.mxgraph.view.mxGraph;
 
 import adp2.interfaces.*;
-import java.io.IOException;
 import static adp2.implementations.Values.*;
-
-import java.util.logging.*;
 
 public class GraphImpl extends mxGraph implements Graph {
 	
@@ -95,20 +92,25 @@ public class GraphImpl extends mxGraph implements Graph {
     public void decrementPheromones(double value) {
         for (int i = 0; i < pheromones.size(); i++) {
             for (int j = 0; j < pheromones.size(); j++) {
-                if (pheromones.get(i, j) - value < 0) {
+                if (pheromones.get(i, j) - value < 0 && pheromones.get(j, i) - value < 0) {
                     pheromones.set(i, j, 0.);
                 } else {
                     pheromones.set(i, j, pheromones.get(i, j) - value);
                 }
+				adp2.app.Main.logger.finer("Edge " + (i+1) + "_" + (j+1) + " " + pheromones.get(i, j));
             }
         }
+		//adp2.app.Main.logger.warning(this.pheromones.toString());
     }
 
     @Override
     public void incrementPheromones(int start, int end, double pheromone) {
-        //start & end = positions in the matrix, pheromone -> pheromone update
-        //start & end are decremented by 1 due to differences in internal & external representations
-        pheromones.set(start - 1, end - 1, pheromones.get(start - 1, end - 1) + pheromone);
+		int matrixstart = start - 1;
+		int matrixend = end - 1;
+
+        pheromones.set(matrixstart, matrixend, pheromones.get(matrixstart, matrixend) + pheromone);
+		pheromones.set(matrixend, matrixstart, pheromones.get(matrixend, matrixstart) + pheromone);
+		//adp2.app.Main.logger.warning(this.pheromones.toString());
     }
 
 //	@Override

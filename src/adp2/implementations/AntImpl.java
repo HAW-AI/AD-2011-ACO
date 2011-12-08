@@ -144,15 +144,6 @@ public class AntImpl implements Ant {
         return balance;
     }
 
-    @Override
-    public double sumOfValues(Map<?, Double> m) {
-        double sum = 0;
-        for (Double elem : m.values()) {
-            sum += elem;
-        }
-        return sum;
-    }
-
     public double pathLength() {
         return this.pathlength;
     }
@@ -186,7 +177,8 @@ public class AntImpl implements Ant {
 		finished = true;
 	}
 	
-	public void setPathLength(double pathLength) {
-		this.pathlength = pathLength;
+	public void updatePathLength(int minNode) {
+		this.pathlength = this.pathlength + this.graph.distance(this.position(), minNode);
+		adp2.app.Main.logger.info(this.toString() + ": " + pathlength + " " + path.toString());
 	}
 }

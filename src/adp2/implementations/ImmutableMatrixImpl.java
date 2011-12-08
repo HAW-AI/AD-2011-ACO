@@ -4,8 +4,6 @@ import adp2.interfaces.ImmutableMatrix;
 import java.util.ArrayList;
 import java.util.List;
 
-import adp2.interfaces.Matrix;
-
 public final class ImmutableMatrixImpl<E> extends AbstractMatrix<E> implements ImmutableMatrix<E> {
 
     protected static <E> ImmutableMatrixImpl<E> create(int size, List<E> values) {

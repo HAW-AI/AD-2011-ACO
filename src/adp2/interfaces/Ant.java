@@ -52,7 +52,7 @@ public interface Ant {
     
 	
 	/**
-	 * Gets all unsivited nodes the ant has revealed befor
+	 * Gets all unsivited nodes the ant has revealed so far
 	 * @return unvisited Nodes
 	 */
 	Set<Integer> getUnvisitedNodes();
@@ -69,7 +69,7 @@ public interface Ant {
 	 */
 	void finish();
 
-	double sumOfValues(Map<?, Double> probabilities);
+	//double sumOfValues(Map<?, Double> probabilities);
 	
-	void setPathLength(double pathLength);
+	void updatePathLength(int minNode);
 }

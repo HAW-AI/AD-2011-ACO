@@ -36,4 +36,8 @@ public class PheromoneElementImpl implements PheromoneElement {
     public double pheromone() {
         return pheromone;
     }
+	
+	public String toString() {
+		return from + " " + to + " " + pheromone;
+	}
 }
