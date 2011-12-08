@@ -3,7 +3,6 @@ package adp2.implementations;
 import static adp2.implementations.Values.NaG;
 import static adp2.implementations.Values.ant;
 import static adp2.implementations.Values.graphFromList;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -45,53 +44,53 @@ public class AntImplTest  {
 		assertTrue((ant(1.1, graph2x2) instanceof NaA));
 	}
 
-	@Test
-	public void testTraveledPath() {
-		Ant ant = ant(1, 0.2, graph2x2);
-		simulation = Values.simulation(graph2x2, 1);
-		assertEquals(1, ant.traveledPath().waypoints().size());
-		simulation.stochasticNeighborSelection(ant);
-		simulation.stochasticNeighborSelection(ant);
-		simulation.stochasticNeighborSelection(ant);
-		assertEquals(3, ant.traveledPath().waypoints().size());
-		simulation.stochasticNeighborSelection(ant);
-		simulation.stochasticNeighborSelection(ant);
-		simulation.stochasticNeighborSelection(ant);
-		assertEquals(3, ant.traveledPath().waypoints().size());
-	}
-
-	@Test
-	public void testPrePosition() {
-		Ant ant = ant(1, 0.2, graph2x2);
-		simulation = Values.simulation(graph2x2, 1);
-		assertEquals(1, ant.prevPosition());
-		simulation.stochasticNeighborSelection(ant);
-		assertEquals(1, ant.prevPosition());
-		simulation.stochasticNeighborSelection(ant);
-		simulation.stochasticNeighborSelection(ant);
-		simulation.stochasticNeighborSelection(ant);
-		simulation.stochasticNeighborSelection(ant);
-		simulation.stochasticNeighborSelection(ant);
-		assertEquals(2, ant.prevPosition());
-	}
-
-	@Test
-	public void testAxiome() {
-		System.out.println("Axiome Start");
-		Ant ant = ant(1, 0.2, graph2x2);
-		simulation = Values.simulation(graph2x2, 1);
-		while (!ant.hasFinished()) {
-			System.out.println((ant.traveledPath().waypoints().size() - 1) + "\t" + graph2x2.allNodes().size());
-			assertTrue((ant.traveledPath().waypoints().size() - 1 == graph2x2.allNodes().size()) == ant.hasFinished());
-			simulation.stochasticNeighborSelection(ant);
-		}
-		assertTrue((ant.traveledPath().waypoints().size() - 1 == graph2x2.allNodes().size()) == ant.hasFinished());
-		System.out.println((ant.traveledPath().waypoints().size() - 1) + "\t" + graph2x2.allNodes().size());
-
-		assertTrue(ant.position() == ant.traveledPath().waypoints().get(ant.traveledPath().waypoints().size() - 1));
-		System.out.println("Axiome Ende");
-
-	}
+//	@Test
+//	public void testTraveledPath() {
+//		Ant ant = ant(1, 0.2, graph2x2);
+//		simulation = Values.simulation(graph2x2, 1);
+//		assertEquals(1, ant.traveledPath().waypoints().size());
+//		simulation.stochasticNeighborSelection(ant);
+//		simulation.stochasticNeighborSelection(ant);
+//		simulation.stochasticNeighborSelection(ant);
+//		assertEquals(3, ant.traveledPath().waypoints().size());
+//		simulation.stochasticNeighborSelection(ant);
+//		simulation.stochasticNeighborSelection(ant);
+//		simulation.stochasticNeighborSelection(ant);
+//		assertEquals(3, ant.traveledPath().waypoints().size());
+//	}
+//
+//	@Test
+//	public void testPrePosition() {
+//		Ant ant = ant(1, 0.2, graph2x2);
+//		simulation = Values.simulation(graph2x2, 1);
+//		assertEquals(1, ant.prevPosition());
+//		simulation.stochasticNeighborSelection(ant);
+//		assertEquals(1, ant.prevPosition());
+//		simulation.stochasticNeighborSelection(ant);
+//		simulation.stochasticNeighborSelection(ant);
+//		simulation.stochasticNeighborSelection(ant);
+//		simulation.stochasticNeighborSelection(ant);
+//		simulation.stochasticNeighborSelection(ant);
+//		assertEquals(2, ant.prevPosition());
+//	}
+//
+//	@Test
+//	public void testAxiome() {
+//		System.out.println("Axiome Start");
+//		Ant ant = ant(1, 0.2, graph2x2);
+//		simulation = Values.simulation(graph2x2, 1);
+//		while (!ant.hasFinished()) {
+//			System.out.println((ant.traveledPath().waypoints().size() - 1) + "\t" + graph2x2.allNodes().size());
+//			assertTrue((ant.traveledPath().waypoints().size() - 1 == graph2x2.allNodes().size()) == ant.hasFinished());
+//			simulation.stochasticNeighborSelection(ant);
+//		}
+//		assertTrue((ant.traveledPath().waypoints().size() - 1 == graph2x2.allNodes().size()) == ant.hasFinished());
+//		System.out.println((ant.traveledPath().waypoints().size() - 1) + "\t" + graph2x2.allNodes().size());
+//
+//		assertTrue(ant.position() == ant.traveledPath().waypoints().get(ant.traveledPath().waypoints().size() - 1));
+//		System.out.println("Axiome Ende");
+//
+//	}
 
 	@Test
 	public void testBalances() {

@@ -19,17 +19,14 @@ public final class NaM<T> implements Matrix<T> {
     
     private NaM() {}
 
-    @Override
     public Iterator<T> iterator() {
         return new ArrayList<T>().iterator();
     }
 
-    @Override
     public int size() {
         return 0;
     }
 
-    @Override
     public T get(int x, int y) {
         throw new IndexOutOfBoundsException();
     }

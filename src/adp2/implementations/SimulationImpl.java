@@ -91,14 +91,12 @@ public class SimulationImpl implements Simulation {
         this.logStates = false;
     }
 
-    @Override
     public void run() {
         while (simulate(DELAYEDUPDATE)) {
 			Main.logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
         }
     }
 
-    @Override
     public void runForSteps(int simulationSteps) {
         int loops = 0;
         while (simulate(STEPBYSTEPUPDATE) && loops < simulationSteps) {
@@ -107,7 +105,6 @@ public class SimulationImpl implements Simulation {
         }
     }
 
-    @Override
     public void runForSeconds(int runtimeInS) {
         long timeStart = System.currentTimeMillis();
         long timeStop = runtimeInS * 1000;
@@ -224,8 +221,8 @@ public class SimulationImpl implements Simulation {
         // Ends if all ants have traversed the graph
         return !(antList().isEmpty() && (antsLaunched == antQuantity()));
     }
-    
-    public void stochasticNeighborSelection(Ant ant) {
+
+    private void stochasticNeighborSelection(Ant ant) {
         if (ant.hasFinished()) {
             Main.logger.warning("Ant dead!");
         } else if (!ant.hasFinished()) {
@@ -245,7 +242,7 @@ public class SimulationImpl implements Simulation {
                  * Adds up the balance-values; the sum and single values
                  * are needed to calculate the probabilities in the next step
                  */
-                double sum = sumOfValues(probabilities);
+//                double sum = sumOfValues(probabilities);
 
                 /*
                  * maps the neighbors to a value between 0 and 1
@@ -258,6 +255,7 @@ public class SimulationImpl implements Simulation {
                  * 3					0.5						0.9
                  * 4					0.1						1.0
                  */
+//                 comment from group 3: why not use the probability? why does the highest node get the highest value?
 //                double predecessor = 0;
 //
 //                for (Map.Entry<Integer, Double> entry : probabilities.entrySet()) {
@@ -278,25 +276,24 @@ public class SimulationImpl implements Simulation {
                  */ 
                 int minNode = 1;
                 double minValue = 0;
+
                 double ran = 0; // wird definitiv �berschrieben
-//                while (minNode == 1) {
-                    ran = Math.random(); 
+                ran = Math.random(); 
+                for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
+                    if (e.getValue() >= minValue && e.getValue() <= ran) {
+                        minNode = e.getKey();
+                        minValue = e.getValue();
+                    }
+                }
+                // if random choice failed, go best way
+                if (minNode == 0) {
                     for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
-                        if (e.getValue() >= minValue && e.getValue() <= ran) {
+                        if (e.getValue() >= minValue) {
                             minNode = e.getKey();
                             minValue = e.getValue();
                         }
                     }
-                    // if random choice failed, go best way
-                    if (minNode == 0) {
-                        for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
-                            if (e.getValue() >= minValue) {
-                                minNode = e.getKey();
-                                minValue = e.getValue();
-                            }
-                        }
-                    }
-//                }
+                }
 
                 Main.logger.fine("Random: " + ran + "; minValue: " + minValue + "; minNode: " + minNode);
 

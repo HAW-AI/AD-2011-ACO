@@ -57,7 +57,6 @@ public class AcoTSP implements TSP {
     /* (non-Javadoc)
      * @see adp2.interfaces.TSP#minPath(adp2.interfaces.Matrix)
      */
-    @Override
     public Path minPath(Matrix<Double> matrix) {
         if (matrix.size() == 0) {
             return Values.NaP();

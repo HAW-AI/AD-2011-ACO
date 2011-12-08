@@ -22,21 +22,20 @@ public class PheromoneElementImpl implements PheromoneElement {
         return new PheromoneElementImpl(from, to, pheromone);
     }
 
-    @Override
     public int from() {
         return from;
     }
 
-    @Override
+    
     public int to() {
         return to;
     }
 
-    @Override
     public double pheromone() {
         return pheromone;
     }
 	
+    @Override
 	public String toString() {
 		return from + " " + to + " " + pheromone;
 	}
