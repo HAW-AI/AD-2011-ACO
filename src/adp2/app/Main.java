@@ -20,7 +20,7 @@ public class Main {
     public static final int RUN_FOR_SECONDS = 30; // was 30 in code from group 2
 
     public static void main(String[] args) {
-		setUpLogging("%h/aco", Level.WARNING, false, false, true);
+		setUpLogging("%h/aco", Level.INFO, false, false, true);
 		
         TspFile t = null;
 		t = TspFile.open("samples/gr21.tsp");
@@ -71,6 +71,7 @@ public class Main {
 	
 	/*
 	 * Creates a new Logger to log to File and Console
+	 * @param
 	 */
 	private static void setUpLogging(String logFile, Level level, boolean file, boolean console, boolean html) {
 		// Logger
