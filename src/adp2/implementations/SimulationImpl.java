@@ -6,7 +6,12 @@ import java.util.*;
 import static adp2.implementations.Values.*;
 import adp2.interfaces.*;
 
-public class SimulationImpl implements Simulation {		
+public class SimulationImpl implements Simulation {
+    
+    boolean antsSpecifiedNodes = false;
+    boolean antsRandomNodes = false;
+    List<Integer> antsSpecifiedNodesToAdd = new ArrayList<Integer>();
+    
     private Graph currentGraph;
     private List<Graph> graphStates;
     private List<Ant> antList = new ArrayList<Ant>();
@@ -49,7 +54,20 @@ public class SimulationImpl implements Simulation {
     protected static Simulation create(Graph graph, int antsQuantity, int antsPerStep, boolean logStates) {
         return new SimulationImpl(graph, antsQuantity, antsPerStep, logStates);
     }
+    
+    //Start ants in waves of specified size, ants with random startNodes
+    //Log States
+    protected static Simulation create(Graph graph, int antQuantity, int antsPerStep, boolean addAntsRandom, boolean logStates) {
+        return new SimulationImpl(graph, antQuantity, antsPerStep, addAntsRandom, logStates);
+    }
+    
+    //Start ants in waves of specified size, ants with specified startNodes
+    //Log States
+    protected static Simulation create(Graph graph, int antQuantity, int antsPerStep, boolean addAntsSpecifiedNodes, List<Integer> specifiedNodesToAdd, boolean logStates) {
+        return new SimulationImpl(graph, antQuantity, antsPerStep, addAntsSpecifiedNodes, specifiedNodesToAdd, logStates);
+    }
 	
+        
     private SimulationImpl(Graph graph, int antsQuantity) {
         setGraph(graph);
         setAntQuantity(antsQuantity);
@@ -57,6 +75,25 @@ public class SimulationImpl implements Simulation {
         graphStates = new ArrayList<Graph>();
         logStates = false;
     }
+    
+    private SimulationImpl(Graph graph, int antQuantity, int antsPerStep, boolean addAntsSpecifiedNodes, List<Integer> specifiedNodesToAdd, boolean logStates) {
+        antsSpecifiedNodes = addAntsSpecifiedNodes;
+        antsSpecifiedNodesToAdd = specifiedNodesToAdd;
+        setGraph(graph);
+        setAntQuantity(antQuantity);
+        setAntsPerStep(antsPerStep);
+        graphStates = new ArrayList<Graph>();
+        this.logStates = logStates;
+    }
+    private SimulationImpl(Graph graph, int antQuantity, int antsPerStep, boolean addAntsRandom, boolean logStates) {
+        antsRandomNodes = addAntsRandom;
+        setGraph(graph);
+        setAntQuantity(antQuantity);
+        setAntsPerStep(antsPerStep);
+        graphStates = new ArrayList<Graph>();
+        this.logStates = logStates;
+    }
+
 
     private SimulationImpl(Graph graph, int antQuantity, int antsPerStep) {
         setGraph(graph);
@@ -374,8 +411,38 @@ public class SimulationImpl implements Simulation {
     }
 
     private void addAnts(int quantity) {
+        if(antsRandomNodes == false && antsSpecifiedNodes == false){
+            for (int i = 1; i <= quantity; i++) {
+                    antList().add(AntImpl.create(antAlpha(), graph()));
+                    System.out.println(" - - - Ant -" + i + ": startet bei - " + antList().get(i-1).getPath());
+            }
+        }
+        else if(antsSpecifiedNodes == true && this.antsSpecifiedNodesToAdd.size() >0){
+            addAntsSpecified(quantity);
+            
+        }
+        else if(antsRandomNodes==true){
+            addAntsRandom(quantity);
+        }
+        else{
+            antsSpecifiedNodes = false;
+            addAnts(quantity);
+        }
+        
+    }
+    private void addAntsRandom(int quantity) {
+        int nodeSize = this.currentGraph.allNodes().size();
         for (int i = 1; i <= quantity; i++) {
-        	antList().add(AntImpl.create(antAlpha(), graph()));
+        	antList().add(AntImpl.create((int)(Math.random()*nodeSize)+1, antAlpha, currentGraph));
+                System.out.println(" - - - Ant -" + i + ": startet bei - " + antList().get(i-1).getPath());
+        }
+    }
+    private void addAntsSpecified(int quantity){
+        int startNode = 1;
+        for (int i = 1; i <= quantity; i++) {
+            startNode = this.antsSpecifiedNodesToAdd.get((i-1) % this.antsSpecifiedNodesToAdd.size());
+            antList().add(AntImpl.create(startNode, antAlpha, currentGraph));
+            System.out.println(" - - - Ant -" + i + ": startet bei - " + antList().get(i-1).getPath());
         }
     }
 
