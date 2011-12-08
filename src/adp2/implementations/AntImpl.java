@@ -58,17 +58,14 @@ public class AntImpl implements Ant {
         return new AntImpl(alpha, g);
     }
 
-    @Override
     public Path traveledPath() {
         return Values.path(this.path, this.pathlength);
     }
 
-    @Override
     public boolean hasFinished() {
         return finished;
     }
 
-    @Override
     public int position() {
         return this.path.get(path.size() - 1);
     }

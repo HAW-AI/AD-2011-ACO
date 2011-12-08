@@ -42,7 +42,6 @@ public class GraphImpl extends mxGraph implements Graph {
     public void highlightPath(Path p) {
     }
 
-    @Override
     public double distance(int from, int to) {
         double d;
         try {
@@ -53,7 +52,6 @@ public class GraphImpl extends mxGraph implements Graph {
         return d;
     }
 
-    @Override
     public Set<Integer> neighbors(int node) {
         Set<Integer> result = new HashSet<Integer>();
         if (node <= 0 || node > distance.size()) {
@@ -68,7 +66,6 @@ public class GraphImpl extends mxGraph implements Graph {
         return result;
     }
 
-    @Override
     public Set<Integer> allNodes() {
         Set<Integer> result = new HashSet<Integer>();
         for (int i = 1; i <= distance.size(); i++) {
@@ -77,7 +74,6 @@ public class GraphImpl extends mxGraph implements Graph {
         return result;
     }
 
-    @Override
     public double intensity(int from, int to) {
         double p;
         try {
@@ -88,7 +84,6 @@ public class GraphImpl extends mxGraph implements Graph {
         return p;
     }
 
-    @Override
     public void decrementPheromones(double value) {
         for (int i = 0; i < pheromones.size(); i++) {
             for (int j = 0; j < pheromones.size(); j++) {
@@ -103,7 +98,6 @@ public class GraphImpl extends mxGraph implements Graph {
 		//adp2.app.Main.logger.warning(this.pheromones.toString());
     }
 
-    @Override
     public void incrementPheromones(int start, int end, double pheromone) {
 		int matrixstart = start - 1;
 		int matrixend = end - 1;
@@ -131,7 +125,6 @@ public class GraphImpl extends mxGraph implements Graph {
         return result.toString();
     }
 
-    @Override
     public Graph deepClone() {
         return new GraphImpl(distance, pheromones.deepClone());
     }

@@ -17,7 +17,6 @@ public class MutableMatrixImpl<E> extends AbstractMatrix<E> implements MutableMa
         this.values = new ArrayList<E>(values);
     }
 	
-	@Override
 	public void set(int x, int y, E value) {
         if (x < 0 || x >= this.size() || y < 0 || y >= this.size()) {
             throw new ArrayIndexOutOfBoundsException();
@@ -27,7 +26,6 @@ public class MutableMatrixImpl<E> extends AbstractMatrix<E> implements MutableMa
         values.set(x + (y * size()), value);
 	}
 
-	@Override
 	public MutableMatrix<E> deepClone() {
 		return create(size, new ArrayList<E>(values));
 	}
