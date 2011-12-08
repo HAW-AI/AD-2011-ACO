@@ -7,25 +7,27 @@ import static adp2.implementations.Values.*;
 import adp2.interfaces.*;
 
 public class SimulationImpl implements Simulation {		
-    Graph currentGraph;
-    List<Graph> graphStates;
-    List<Ant> antList = new ArrayList<Ant>();
-    List<PheromoneElement> pheromoneUpdateList = new ArrayList<PheromoneElement>();
+    private Graph currentGraph;
+    private List<Graph> graphStates;
+    private List<Ant> antList = new ArrayList<Ant>();
+    private List<PheromoneElement> pheromoneUpdateList = new ArrayList<PheromoneElement>();
 	
-    int antQuantity;
-    int antsLaunched = 0;
-    int antsPerStep = 0;             //Number of ants added per step
-    double antAlpha = 0.3; // was 0.3 in code from group 2
-    int startPoint = 1;
-    double pheromoneDecrease = 1.0; // was 1.0 in code from group 2
-    double pheromoneIntensity = 10.0; // was 10.0 in code from group 2
+    private int antQuantity;
+    private int antsLaunched = 0;
+    private int antsPerStep = 0;             //Number of ants added per step
+
+	private int startPoint = 1;
+    private double pheromoneDecrease = 1.0; // was 1.0 in code from group 2
+    private double pheromoneIntensity = 10.0; // was 10.0 in code from group 2
     // The Simulation should not log the states of all Graphs by default
     final boolean logStates;
 	
-    double bestDistance = Double.MAX_VALUE;
+    private double bestDistance = Double.MAX_VALUE;
     public List<Integer> bestPath = new ArrayList<Integer>();
-    int DELAYEDUPDATE = 1;
-    int STEPBYSTEPUPDATE = 2;
+	
+    private int DELAYEDUPDATE = 1;
+    private int STEPBYSTEPUPDATE = 2;
+	private double antAlpha = 0.6;
 
     //Start all ants at once
     protected static Simulation create(Graph graph, int antsQuantity) {
@@ -48,7 +50,7 @@ public class SimulationImpl implements Simulation {
     protected static Simulation create(Graph graph, int antsQuantity, int antsPerStep, boolean logStates) {
         return new SimulationImpl(graph, antsQuantity, antsPerStep, logStates);
     }
-
+	
     private SimulationImpl(Graph graph, int antsQuantity) {
         setGraph(graph);
         setAntQuantity(antsQuantity);
@@ -80,6 +82,15 @@ public class SimulationImpl implements Simulation {
         graphStates = new ArrayList<Graph>();
         this.logStates = logStates;
     }
+	
+	private SimulationImpl(Graph graph, int antQuantity, int antsPerStep, double antAlpha) {
+        setGraph(graph);
+        setAntQuantity(antQuantity);
+        setAntsPerStep(antsPerStep);
+        graphStates = new ArrayList<Graph>();
+		this.antAlpha = antAlpha;
+        this.logStates = false;
+    }
 
     @Override
     public void run() {
@@ -109,6 +120,7 @@ public class SimulationImpl implements Simulation {
     }
 
     private boolean simulate(int method) {
+		Main.logger.info("Ant count " + antList.size());
         /*
          * antList = List of ants currently traversing the graph
          * antsPerStep = Number of ants starting each step (if given)
@@ -166,8 +178,8 @@ public class SimulationImpl implements Simulation {
             //PC: if solution found or no feasible neighbor state then
             if (ant.hasFinished()) {
                 //PC: kill ant 
+				Main.logger.fine(antList.get(i).toString() +" removed");
                 removeAnt(i);
-				Main.logger.fine("Ant removed");
                 //PC: evaluate solution
                 // algorithm gets here for every finished ant, no matter if delayed or step by step pheromone update!
                 if (ant.traveledPath().waypoints().size() == (currentGraph.allNodes().size() + 1) && ant.pathLength() < bestDistance()) {
@@ -200,9 +212,7 @@ public class SimulationImpl implements Simulation {
                 i++;
             }
         }
-//        if (method == DELAYEDUPDATE) {
-//        	pheromoneIncrement();
-//        }
+
         //PC: evaporate pheromone 
         pheromoneDecrement();
         if (logStates) {
@@ -239,7 +249,7 @@ public class SimulationImpl implements Simulation {
                  * Adds up the balance-values; the sum and single values
                  * are needed to calculate the probabilities in the next step
                  */
-                double sum = ant.sumOfValues(probabilities);
+                double sum = sumOfValues(probabilities);
 
                 /*
                  * maps the neighbors to a value between 0 and 1
@@ -281,8 +291,9 @@ public class SimulationImpl implements Simulation {
                 }
 
                 // pathlength += graph.distance(position(), minNode);
-                ant.setPathLength(ant.pathLength() + graph().distance(ant.position(), minNode));
+                ant.updatePathLength(minNode);
 
+				Main.logger.fine(ant.toString() + " moves from " + ant.getPath().get(ant.getPath().size()-1) + " to " + minNode);
                 ant.getPath().add(minNode);
                 ant.getUnvisitedNodes().remove(minNode);
 
@@ -372,7 +383,6 @@ public class SimulationImpl implements Simulation {
     }
 
     private void addPheromoneUpdate(int from, int to, double d) {
-		Main.logger.finer("Edge " + from + "_" + to + " " + d);
         PheromoneElement pheromoneElem = pheromoneElement(from, to, d);
         if (from != to) {
             pheromoneUpdateList().add(pheromoneElem);
@@ -381,8 +391,8 @@ public class SimulationImpl implements Simulation {
 
     private void pheromoneIncrement() {
         for (PheromoneElement elem : pheromoneUpdateList()) {
+			Main.logger.finer("Edge " + elem.from() + "_" + elem.to() + " " + elem.pheromone());
             currentGraph.incrementPheromones(elem.from(), elem.to(), elem.pheromone());
-            currentGraph.incrementPheromones(elem.to(), elem.from(), elem.pheromone());
         }
         pheromoneUpdateList().clear();
     }
@@ -393,5 +403,13 @@ public class SimulationImpl implements Simulation {
 
     public Path minPath() {
         return Values.path(bestPath(), bestDistance());
+    }
+	
+    public double sumOfValues(Map<?, Double> m) {
+        double sum = 0;
+        for (Double elem : m.values()) {
+            sum += elem;
+        }
+        return sum;
     }
 }

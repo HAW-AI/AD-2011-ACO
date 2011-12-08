@@ -23,4 +23,6 @@ public interface PheromoneElement {
      * @return
      */
     double pheromone();
+	
+	String toString();
 }

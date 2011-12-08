@@ -22,7 +22,9 @@ public class MutableMatrixImpl<E> extends AbstractMatrix<E> implements MutableMa
         if (x < 0 || x >= this.size() || y < 0 || y >= this.size()) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        values.add(x + (y * size()), value);
+		// OMG!!!!
+		//values.add(x, value)
+        values.set(x + (y * size()), value);
 	}
 
 	@Override

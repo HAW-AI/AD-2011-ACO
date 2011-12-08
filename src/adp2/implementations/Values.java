@@ -195,7 +195,7 @@ public final class Values {
         }
         return SimulationImpl.create(graph, antsQuantity, antsByStep);
     }
-
+	
     /**
      * Create a simulation with a defined number of ants in total starting step
      * by step and logs states of all graphs
