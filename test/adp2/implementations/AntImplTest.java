@@ -99,14 +99,14 @@ public class AntImplTest  {
 		 * starts at 1, graph has sqrt(4)=2 elements, so next node is 2
 		 * distance is 4.
 		 * alpha is 0.2
-		 * balances (calling balance1) calculates: (alpha * (pheromone/maxPheromone) + ((1- alpha) * (1 - (distance/maxDistance)))) * 1000 + 1
+		 * balances (calling balance1) calculates: ((alpha * (pheromone/maxPheromone) + ((1 - alpha) * (1 - (distance/maxDistance)))) * 1000 + 1) / 1000
 		 * in this particular case 0/0 gets catched and set to 0
-		 * (0.2*(0)+((1-0.2)*(1-(4/4))))*1000+1
-		 * = (0+(0.8*0))*1000+1
-		 * = 0+1
-		 * = 1
+		 * ((0.2*(0)+((1-0.2)*(1-(4/4))))*1000+1)/1000
+		 * = ((0+(0.8*0))*1000+1)/1000
+		 * = (0+1)/1000
+		 * = 0.001
 		 */
-		assertTrue(ant.balances().get(2) == 1.0);
+		assertTrue(ant.balances().get(2) == 0.001);
 	}
 
 }

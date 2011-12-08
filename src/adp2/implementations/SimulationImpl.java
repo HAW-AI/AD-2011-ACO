@@ -314,7 +314,7 @@ public class SimulationImpl implements Simulation {
                 int minNode = 1;
                 double minValue = 0;
 
-                double ran = 0; // wird definitiv �berschrieben
+                double ran = 0;
                 ran = Math.random(); 
                 for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
                     if (e.getValue() >= minValue && e.getValue() <= ran) {
