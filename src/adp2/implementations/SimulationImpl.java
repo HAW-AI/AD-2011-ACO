@@ -91,14 +91,12 @@ public class SimulationImpl implements Simulation {
         this.logStates = false;
     }
 
-    @Override
     public void run() {
         while (simulate(DELAYEDUPDATE)) {
 			Main.logger.info("Best path: " + this.bestPath() + " Shortest way: " + this.bestDistance());
         }
     }
 
-    @Override
     public void runForSteps(int simulationSteps) {
         antsLaunched = 0;
         int loops = 0;
@@ -108,7 +106,6 @@ public class SimulationImpl implements Simulation {
         }
     }
 
-    @Override
     public void runForSeconds(int runtimeInS) {
         antsLaunched = 0;
         long timeStart = System.currentTimeMillis();

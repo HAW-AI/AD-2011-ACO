@@ -11,7 +11,6 @@ public abstract class AbstractMatrix<E> implements Matrix<E> {
     protected int size;
     protected List<E> values;
 	
-    @Override
     public int size() {
         return size;
     }
@@ -21,7 +20,6 @@ public abstract class AbstractMatrix<E> implements Matrix<E> {
         return new ArrayList<E>(values).iterator();
     }
 
-    @Override
     public E get(int x, int y) {
         if (x < 0 || x >= this.size() || y < 0 || y >= this.size()) {
             throw new ArrayIndexOutOfBoundsException();

@@ -5,16 +5,16 @@ import java.util.Iterator;
 
 import adp2.interfaces.*;
 
-public class NaMM<T> implements MutableMatrix<T> {
+public class NaIM<T> implements ImmutableMatrix<T> {
 
-    private static MutableMatrix<Object> instance;
+    private static ImmutableMatrix<Object> instance;
     
     @SuppressWarnings("unchecked")
-    protected static <T> MutableMatrix<T> create() {
+    protected static <T> ImmutableMatrix<T> create() {
         if (instance == null) {
-            instance = (NaMM<Object>)new NaMM<T>();
+            instance = (NaIM<Object>)new NaIM<T>();
         }
-        return (NaMM<T>)instance;
+        return (NaIM<T>)instance;
     }
 	
 	public int size() {
@@ -33,7 +33,7 @@ public class NaMM<T> implements MutableMatrix<T> {
 		
 	}
 
-	public MutableMatrix<T> deepClone() {
+	public ImmutableMatrix<T> deepClone() {
 		return create();
 	}
 
