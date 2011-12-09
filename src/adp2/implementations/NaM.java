@@ -9,7 +9,6 @@ public final class NaM<T> implements Matrix<T> {
     
     private static Matrix<Object> instance;
     
-    @SuppressWarnings("unchecked")
     protected static <T> Matrix<T> create() {
         if (instance == null) {
             instance = (NaM<Object>)new NaM<T>();
@@ -35,8 +34,4 @@ public final class NaM<T> implements Matrix<T> {
     public String toString() {
         return "NaM";
     }
-
-    
-    
-
 }

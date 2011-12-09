@@ -71,7 +71,7 @@ public class AntColonisationOptimation implements TravelingSalesMan {
 	}
 
 	private boolean simulate(int method) {
-		Main.LOGGER.info("Ant count " + antList.size());
+		Main.LOGGER.fine("Ant count " + antList.size());
 		/*
 		 * antList = List of ants currently traversing the graph
 		 * antsPerStep = Number of ants starting each step (if given)
@@ -191,7 +191,7 @@ public class AntColonisationOptimation implements TravelingSalesMan {
 
 			if (probabilities.isEmpty()) {
 				ant.finish();
-				Main.LOGGER.info(this.toString() + " fertig");
+				Main.LOGGER.fine(this.toString() + " fertig");
 			} else {
 
 				/*
@@ -233,10 +233,9 @@ public class AntColonisationOptimation implements TravelingSalesMan {
 				int minNode = 1;
 				double minValue = 0;
 
-				double ran = 0; // wird definitiv �berschrieben
-				ran = Math.random();
+				double upperBound = mathFoo();
 				for (Map.Entry<Integer, Double> e : probabilities.entrySet()) {
-					if (e.getValue() >= minValue && e.getValue() <= ran) {
+					if (e.getValue() >= minValue && e.getValue() <= upperBound) {
 						minNode = e.getKey();
 						minValue = e.getValue();
 					}
@@ -251,21 +250,35 @@ public class AntColonisationOptimation implements TravelingSalesMan {
 					}
 				}
 
-				Main.LOGGER.finer("Random: " + ran + "; minValue: " + minValue + "; minNode: " + minNode);
+				Main.LOGGER.finest("Random: " + upperBound + "; minValue: " + minValue + "; minNode: " + minNode);
 
 				// pathlength += graph.distance(position(), minNode);
 				ant.updatePathLength(minNode);
 
-				Main.LOGGER.fine(ant.toString() + " moves from " + ant.getPath().get(ant.getPath().size() - 1) + " to " + minNode);
+				Main.LOGGER.finer(ant.toString() + " moves from " + ant.getPath().get(ant.getPath().size() - 1) + " to " + minNode);
 				ant.getPath().add(minNode);
 				ant.getUnvisitedNodes().remove(minNode);
 
 				if (ant.getUnvisitedNodes().isEmpty() && ant.getPath().get(ant.getPath().size() - 1) == ant.getPath().get(0)) {
 					ant.finish();
-					Main.LOGGER.info(ant.toString() + " finished");
+					Main.LOGGER.fine(ant.toString() + " finished");
 				}
 			}
 		}
+	}
+	
+	/**
+	 *
+	 * @return value from 0.0 to less than 1.0 with higher values occuring more often (exponentially)
+	 */
+	private double mathFoo() {
+		double result;
+		double ran1, ran2;
+		ran1 = Math.random();
+		ran2 = Math.random();
+		result = ran1 * ran2; // many 0.000xx to few 0.999xx
+		result = 1 - result; // few 0.000xx to many 0.999xx
+		return result;
 	}
 
 	private double bestDistance() {

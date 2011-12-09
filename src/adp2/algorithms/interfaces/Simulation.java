@@ -1,5 +1,10 @@
 package adp2.algorithms.interfaces;
 
+/*
+ * Template for a simulation algorithem
+ * 
+ * @author Benjamin Kahlau
+ */
 public abstract interface Simulation {
 
     /**

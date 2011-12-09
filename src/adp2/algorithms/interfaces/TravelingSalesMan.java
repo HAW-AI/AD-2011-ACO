@@ -3,6 +3,8 @@ package adp2.algorithms.interfaces;
 import adp2.interfaces.Path;
 
 /**
+ * Traveling salesman problem. After run() shortes way should be avaible in minPath()
+ * 
  * @author Benjamin Kahlau
  */
 public interface TravelingSalesMan extends Simulation {

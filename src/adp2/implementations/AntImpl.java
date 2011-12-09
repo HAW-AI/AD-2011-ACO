@@ -189,6 +189,6 @@ public class AntImpl implements Ant {
 	
 	public void updatePathLength(int minNode) {
 		this.pathlength = this.pathlength + this.graph.distance(this.position(), minNode);
-		adp2.app.Main.LOGGER.fine(this.toString() + ": " + path.toString() + " (" + pathlength + ")");
+		adp2.app.Main.LOGGER.finer(this.toString() + ": " + path.toString() + " (" + pathlength + ")");
 	}
 }

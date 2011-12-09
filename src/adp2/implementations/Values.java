@@ -43,8 +43,7 @@ public final class Values {
 	 *         or values.size() != width*height
 	 */
 	public static <T> Matrix<T> matrix(int size, List<T> values) {
-		if (values == null || values.size() != size*size
-				|| values.contains(null))
+		if (values == null || values.size() != size*size || values.contains(null))
 			return NaM();
 		return immutableMatrix(size, values);
 	}
