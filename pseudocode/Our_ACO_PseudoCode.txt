@@ -32,11 +32,13 @@ while not all ants have traversed the graph do
 	optionally save the graph situation 
 end while
 
-stochastic() {
-	create Map with feasible neighbor states that contains the nodes and according calculated probabilities
-	// calculation is: ((alpha * (pheromone/maxPheromone) + ((1- alpha) * (1 - (distance/maxDistance)))) * 1000 + 1) / 1000
-	calculate a random value (0-1) and take the path with highest probability that's below the random value
-	// that way the ant doesn't always take the path with highest probability
-	if there's no path with probability below the random value, just take the path with the highest probability
-	// that way, the path with the highest value gets selected more often
+stochastic() { 
+     create Map with feasible neighbor states that contains the nodes and according calculated probabilities 
+     // calculation is: 
+     // ((alpha*(pheromone/maxPheromone)+((1-alpha)*(1-(distance/maxDistance))))*1000+1)/1000 
+     calculate an upperBound (0 to 0.99.. with higher values occuring more often (exponential)) 
+     take the path with highest probability that's below the upperBound 
+     // that way the ant doesn't always take the path with highest probability 
+     if there's no path with probability below the random value, just take the path with the highest probability 
+     // that way, the path with the highest value gets selected more often 
 }
