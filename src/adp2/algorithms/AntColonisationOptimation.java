@@ -31,10 +31,32 @@ public class AntColonisationOptimation implements TravelingSalesMan {
 	private int STEPBYSTEPUPDATE = 2;
 	private final boolean LOGSTATES = false;
 
+	boolean antsSpecifiedNodes = false;
+	boolean antsRandomNodes = false;
+	List<Integer> antsSpecifiedNodesToAdd = new ArrayList<Integer>(); 
+
 	//Start all ants at once
+	public static AntColonisationOptimation create(Graph graph, int antQuantity, int antsPerStep, double alpha, int pheromoneDecrease, int pheromoneIntensity, boolean addAntsSpecifiedNodes, List<Integer> specifiedNodesToAdd) {
+		Main.LOGGER.info("AntColonisationOptimation created! Params: antQuantity: " + antQuantity + ", antsPerStep: " + antsPerStep + ", alpha: " + alpha + ", pheromoneDecrease: " + pheromoneDecrease + ", pheromoneIntensity: " + pheromoneIntensity + ", specifiedeNodesToAdd: " + specifiedNodesToAdd.toString());
+		return new AntColonisationOptimation(graph, antQuantity, antsPerStep, alpha, pheromoneDecrease, pheromoneIntensity, addAntsSpecifiedNodes, specifiedNodesToAdd);
+	}
+
 	public static AntColonisationOptimation create(Graph graph, int antQuantity, int antsPerStep, double alpha, int pheromoneDecrease, int pheromoneIntensity) {
 		Main.LOGGER.info("AntColonisationOptimation created! Params: antQuantity: " + antQuantity + ", antsPerStep: " + antsPerStep + ", alpha: " + alpha + ", pheromoneDecrease: " + pheromoneDecrease + ", pheromoneIntensity: " + pheromoneIntensity);
 		return new AntColonisationOptimation(graph, antQuantity, antsPerStep, alpha, pheromoneDecrease, pheromoneIntensity);
+	}
+
+	private AntColonisationOptimation(Graph graph, int antQuantity, int antsPerStep, double alpha, int pheromoneDecrease, int pheromoneIntensity, boolean addAntsSpecifiedNodes, List<Integer> specifiedNodesToAdd) {
+		currentGraph = graph;
+		graphStates = new ArrayList<Graph>();
+		this.antQuantity = antQuantity;
+		this.antsPerStep = antsPerStep;
+		this.alpha = alpha;
+		this.pheromoneDecrease = pheromoneDecrease;
+		this.pheromoneIntensity = pheromoneIntensity;
+		this.antsSpecifiedNodes = addAntsSpecifiedNodes;
+        this.antsSpecifiedNodesToAdd = specifiedNodesToAdd;
+		antsLaunched = 0;
 	}
 
 	private AntColonisationOptimation(Graph graph, int antQuantity, int antsPerStep, double alpha, int pheromoneDecrease, int pheromoneIntensity) {
@@ -317,15 +339,41 @@ public class AntColonisationOptimation implements TravelingSalesMan {
 		return pheromoneUpdateList;
 	}
 
-	private void addAnt() {
-		antList().add(Values.ant(graph()));
-	}
-	
 	private void addAnts(int quantity) {
-		for (int i = 1; i <= quantity; i++) {
-			addAnt();
-		}
-	}
+        if(antsRandomNodes == false && antsSpecifiedNodes == false){
+            for (int i = 1; i <= quantity; i++) {
+                    antList().add(Values.ant(graph()));
+                    Main.LOGGER.fine("Ant " + i + ": startet bei - " + antList().get(i-1).getPath());
+            }
+        }
+        else if(antsSpecifiedNodes == true && this.antsSpecifiedNodesToAdd.size() >0){
+            addAntsSpecified(quantity);
+            
+        }
+        else if(antsRandomNodes==true){
+            addAntsRandom(quantity);
+        }
+        else{
+            antsSpecifiedNodes = false;
+            addAnts(quantity);
+        }
+        
+    }
+    private void addAntsRandom(int quantity) {
+        int nodeSize = this.currentGraph.allNodes().size();
+        for (int i = 1; i <= quantity; i++) {
+         antList().add(Values.ant((int)(Math.random()*nodeSize)+1, currentGraph));
+                Main.LOGGER.fine("Ant " + i + ": startet bei - " + antList().get(i-1).getPath());
+        }
+    }
+    private void addAntsSpecified(int quantity){
+        int startNode = 1;
+        for (int i = 1; i <= quantity; i++) {
+            startNode = this.antsSpecifiedNodesToAdd.get((i-1) % this.antsSpecifiedNodesToAdd.size());
+            antList().add(Values.ant(startNode, currentGraph));
+            Main.LOGGER.fine("Ant " + i + ": startet bei - " + antList().get(i-1).getPath());
+        }
+    }
 
 	private void removeAnt(int antIndex) {
 		antList().remove(antIndex);
@@ -352,13 +400,5 @@ public class AntColonisationOptimation implements TravelingSalesMan {
 
 	public Path minPath() {
 		return Values.path(bestPath(), bestDistance());
-	}
-
-	private double sumOfValues(Map<?, Double> m) {
-		double sum = 0;
-		for (Double elem : m.values()) {
-			sum += elem;
-		}
-		return sum;
 	}
 }
