@@ -77,7 +77,7 @@ public class AntImpl implements Ant {
      * bildet zur aktuellen Position alle unbesuchten Nachbarn dieses Knotens auf einen Balance-Wert ab
      * 
      * Balances are calculated as:
-     * (alpha * (pheromone/maxPheromone) + ((1- alpha) * (1 - (distance/maxDistance)))) * 1000 + 1
+     * (alpha * (pheromone/maxPheromone) + ((1 - alpha) * (1 - (distance/maxDistance)))) * 1000 + 1
      * wherein  Pheromone & Distance are the values for the current edge
      * and the maxValues are the highest values of all checked edges connected to the current node
      */
@@ -105,7 +105,7 @@ public class AntImpl implements Ant {
         return result;
     }
 
-    // (alpha * (pheromone/maxPheromone) + ((1- alpha) * (1 - (distance/maxDistance)))) * 1000 + 1
+    // (alpha * (pheromone/maxPheromone) + ((1 - alpha) * (1 - (distance/maxDistance)))) * 1000 + 1
     // Returns a balance-value between 1 and 1001
     private double balance1(double maxDist, double maxPher, double pher, double dist, double alpha) {
         double distance;

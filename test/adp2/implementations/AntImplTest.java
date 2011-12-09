@@ -1,4 +1,4 @@
-//package adp2.implementations;
+package adp2.implementations;
 //
 //import static adp2.implementations.Values.NaG;
 //import static adp2.implementations.Values.ant;
@@ -108,5 +108,3 @@
 //		 */
 //		assertTrue(ant.balances().get(2) == 1.0);
 //	}
-//
-//}
